@@ -4,6 +4,11 @@
   "author": "axmand@qq.com",
   "type": "module",
   "main": "index.ts",
+  "keywords": [
+    "webgpu",
+    "frame graph",
+    "shader graph"
+  ],
   "files": [
     "build/**/*"
   ],
