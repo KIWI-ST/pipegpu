@@ -88,6 +88,22 @@ class IndexedStorageBuffer extends StorageBuffer {
      * @returns 
      */
     override getGpuBuffer(_encoder?: GPUCommandEncoder | null, frameStage?: FrameStageFormat): GPUBuffer {
+        if (this.latestTotalByteLength !== this.totalByteLength) {
+            this.totalByteLength = this.latestTotalByteLength;
+            if (!this.buffer) {
+                this.createGpuBuffer();
+            } else {
+                const desc: GPUBufferDescriptor = {
+                    label: `[${this.label}]`,
+                    size: this.totalByteLength,
+                    usage: this.bufferUsageFlags as GPUBufferUsageFlags
+                };
+                const latestBuffer = this.context!.getGpuDevice().createBuffer(desc);
+                _encoder?.copyBufferToBuffer(this.buffer, latestBuffer);
+                this.buffer.destroy();
+                this.buffer = latestBuffer;
+            }
+        }
         if (!this.buffer) {
             this.createGpuBuffer();
         } else {

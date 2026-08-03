@@ -52,7 +52,7 @@ abstract class BaseBuffer {
         this.id = opts.id;
         this.context = opts.context;
         this.label = opts.label;
-        this.bufferUsageFlags = opts.bufferUsageFlags;
+        this.bufferUsageFlags = opts.bufferUsageFlags | GPUBufferUsage.COPY_SRC;
         this.totalByteLength = this.latestTotalByteLength = opts.totalByteLength;
         if (!this.totalByteLength) {
             throw new Error(`[E][BaseBuffer][constructor] create buffer error, opts.totalByteLength value invalid.`);
