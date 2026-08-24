@@ -1,14 +1,14 @@
-import type { ColorAttachment } from "../res/attachment/ColorAttachment"
-import type { DepthStencilAttachment } from "../res/attachment/DepthStencilAttachment"
-import type { Context } from "../res/Context"
-import type { RenderHandle, UniformHandle } from "../res/Handle"
-import type { RenderPipeline } from "../res/pipeline/RenderPipeline"
-import type { BufferState } from "../state/BufferState"
-import type { TextureState } from "../state/TextureState"
-import { BaseHolder } from "./BaseHolder"
+import type { ColorAttachment } from "../res/attachment/ColorAttachment";
+import type { DepthStencilAttachment } from "../res/attachment/DepthStencilAttachment";
+import type { Context } from "../res/Context";
+import type { RenderHandle, UniformHandle } from "../res/Handle";
+import type { RenderPipeline } from "../res/pipeline/RenderPipeline";
+import type { BufferState } from "../state/BufferState";
+import type { TextureState } from "../state/TextureState";
+import { BaseHolder } from "./BaseHolder";
 
 /**
- * 
+ * @description
  */
 class RenderHolder extends BaseHolder {
     /**
