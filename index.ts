@@ -70,6 +70,5 @@ export * from './src/res/shader/VertexShader.ts';
 export * from './src/res/texture/SurfaceTexture2D.ts';
 export * from './src/res/texture/Texture2D.ts';
 export * from './src/res/texture/Texture2DArray.ts';
-export * from './src/res/texture/TextureStorage2D.ts';
 export * from './src/res/texture/TextureCube.ts';
 export * from './src/res/texture/Texture3D.ts';

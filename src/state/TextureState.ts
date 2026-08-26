@@ -7,7 +7,6 @@ import { Texture2D } from "../res/texture/Texture2D";
 import { Texture2DArray } from "../res/texture/Texture2DArray";
 import { Texture3D } from "../res/texture/Texture3D";
 import { TextureCube } from "../res/texture/TextureCube";
-import { TextureStorage2D } from "../res/texture/TextureStorage2D";
 import { uniqueID } from "../util/uniqueID";
 
 /**
@@ -105,37 +104,6 @@ class TextureState {
         });
         TextureState.TEXTURE_SET.set(textureID, texture);
         return TextureState.TEXTURE_SET.get(textureID) as Texture3D;
-    }
-
-    /**
-     * 
-     * @param opts 
-     * @returns 
-     * 
-     */
-    createTextureStorage2D = (
-        opts: {
-            width: number,
-            height: number,
-            textureData?: TypedArray1DFormat,
-            textureFormat?: GPUTextureFormat,
-            mipmapCount?: number,
-            appendixTextureUsages?: number,
-        }
-    ): TextureStorage2D => {
-        const textureID: number = uniqueID();
-        const texture: TextureStorage2D = new TextureStorage2D({
-            id: textureID,
-            context: this.context,
-            width: opts.width,
-            height: opts.height,
-            textureData: opts.textureData,
-            mipmapCount: opts.mipmapCount,
-            appendixTextureUsages: opts.appendixTextureUsages,
-            textureFormat: opts.textureFormat,
-        });
-        TextureState.TEXTURE_SET.set(textureID, texture);
-        return TextureState.TEXTURE_SET.get(textureID) as TextureStorage2D;
     }
 
     /**
