@@ -809,30 +809,6 @@ class Compiler {
     }
 
     /**
-     * @function createTextureStorage2D
-     */
-    createTextureStorage2D = (
-        opts: {
-            debugLabel?: number,
-            width: number,
-            height: number,
-            textureData?: TypedArray1DFormat,
-            textureFormat?: GPUTextureFormat,
-            mipmapCount?: number,
-            appendixTextureUsages?: number,
-        }
-    ) => {
-        return this.textureState.createTextureStorage2D({
-            width: opts.width,
-            height: opts.height,
-            textureData: opts.textureData,
-            textureFormat: opts.textureFormat,
-            mipmapCount: opts.mipmapCount,
-            appendixTextureUsages: opts.appendixTextureUsages,
-        });
-    }
-
-    /**
      * @param opts 
      * @returns 
      * 

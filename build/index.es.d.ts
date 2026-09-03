@@ -1285,18 +1285,6 @@ export declare class Compiler {
         appendixTextureUsages?: number;
     }) => Texture2D;
     /**
-     * @function createTextureStorage2D
-     */
-    createTextureStorage2D: (opts: {
-        debugLabel?: number;
-        width: number;
-        height: number;
-        textureData?: TypedArray1DFormat;
-        textureFormat?: GPUTextureFormat;
-        mipmapCount?: number;
-        appendixTextureUsages?: number;
-    }) => TextureStorage2D;
-    /**
      * @param opts
      * @returns
      *
@@ -2284,7 +2272,7 @@ export declare type PropertyFormat = 'none' | 'computeDispatch' | 'drawCount' | 
 export declare type RenderHandle = (encoder: GPURenderPassEncoder) => void;
 
 /**
- *
+ * @description
  */
 export declare class RenderHolder extends BaseHolder {
     /**
@@ -2983,20 +2971,6 @@ declare class TextureState {
     /**
      *
      * @param opts
-     * @returns
-     *
-     */
-    createTextureStorage2D: (opts: {
-        width: number;
-        height: number;
-        textureData?: TypedArray1DFormat;
-        textureFormat?: GPUTextureFormat;
-        mipmapCount?: number;
-        appendixTextureUsages?: number;
-    }) => TextureStorage2D;
-    /**
-     *
-     * @param opts
      * @param id
      * @returns
      */
@@ -3034,26 +3008,6 @@ declare class TextureState {
         textureFormat?: GPUTextureFormat;
         mipmapCount?: number;
     }) => TextureCube;
-}
-
-/**
- * @class TextureStorage2D
- * @function webgpu use texture storage to write/store result.
- */
-export declare class TextureStorage2D extends Texture2D {
-    /**
-     * @param opts
-     */
-    constructor(opts: {
-        id: number;
-        context: Context;
-        width: number;
-        height: number;
-        textureData?: TypedArray1DFormat;
-        mipmapCount?: number;
-        appendixTextureUsages?: number;
-        textureFormat?: GPUTextureFormat;
-    });
 }
 
 /**
@@ -3100,7 +3054,6 @@ export declare class Uniforms extends Properties {
     assign(propertyName: string, texture2d: Texture2D): void;
     assign(propertyName: string, texture3d: Texture3D): void;
     assign(propertyName: string, texture2dArray: Texture2DArray): void;
-    assign(propertyName: string, textureStorage2d: TextureStorage2D): void;
 }
 
 export declare const uniqueID: () => number;

@@ -93,14 +93,14 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 }, u = {
 	rewrite: !1,
 	details: []
-}, ee = {
+}, d = {
 	rewrite: !1,
 	detail: {
 		offset: 0,
 		byteLength: 0,
-		rawData: new Uint8Array()
+		rawData: /* @__PURE__ */ new Uint8Array()
 	}
-}, d = class {
+}, f = class {
 	id;
 	context;
 	poropertyFormat;
@@ -118,7 +118,7 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 	getID = () => this.id;
 	getDebugLabel = () => this.debugLabel;
 	getPropertyFormat = () => this.poropertyFormat;
-}, te = class extends d {
+}, p = class extends f {
 	computePipeline;
 	bufferState;
 	textureState;
@@ -141,7 +141,7 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 			t.setBindGroup(n, e);
 		}), this.computeHandler(t), t.end(), this.uniformHandler("frameFinish", e, this.bufferState, this.textureState), this.hookHandler && this.hookHandler(e);
 	}
-}, ne = class extends d {
+}, m = class extends f {
 	renderPipeline;
 	bufferState;
 	texturteState;
@@ -177,7 +177,7 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 			r.setBindGroup(t, e);
 		}), this.renderHandler(r), r.end(), this.uniformHandler("frameFinish", e, this.bufferState, this.texturteState);
 	};
-}, re = class {
+}, h = class {
 	id;
 	context;
 	bufferUsageFlags;
@@ -193,7 +193,7 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 	expand(e) {
 		e < this.totalByteLength || e !== this.latestTotalByteLength && (this.latestTotalByteLength = e);
 	}
-}, ie = class extends re {
+}, g = class extends h {
 	handler;
 	typedArrayData1D;
 	constructor(e) {
@@ -229,14 +229,16 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 		} else throw Error("[E][Buffer1D][createGpuBuffer] create gpu buffer. unsupport source data array.");
 	};
 	getGpuBuffer(e, t) {
-		if (this.latestTotalByteLength !== this.totalByteLength) if (this.totalByteLength = this.latestTotalByteLength, !this.buffer) this.createGpuBuffer();
-		else {
-			let t = {
-				label: `[${this.label}]`,
-				size: this.totalByteLength,
-				usage: this.bufferUsageFlags
-			}, n = this.context.getGpuDevice().createBuffer(t);
-			e?.copyBufferToBuffer(this.buffer, n), this.buffer.destroy(), this.buffer = n;
+		if (this.latestTotalByteLength !== this.totalByteLength) {
+			if (this.totalByteLength = this.latestTotalByteLength, !this.buffer) this.createGpuBuffer();
+			else {
+				let t = {
+					label: `[${this.label}]`,
+					size: this.totalByteLength,
+					usage: this.bufferUsageFlags
+				}, n = this.context.getGpuDevice().createBuffer(t);
+				e?.copyBufferToBuffer(this.buffer, n), this.buffer.destroy(), this.buffer = n;
+			}
 		}
 		if (!this.buffer) this.createGpuBuffer();
 		else if (t === "frameBegin" && this.handler) {
@@ -245,7 +247,7 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 		}
 		return this.buffer;
 	}
-}, ae = class extends ie {
+}, _ = class extends g {
 	indexFormat;
 	drawCount;
 	constructor(e) {
@@ -263,7 +265,7 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 	getMaxDrawCount = () => this.drawCount;
 	getIndexFormat = () => this.indexFormat;
 	getGpuBuffer = (e = null, t = "frameBegin") => (this.buffer || this.createGpuBuffer(), this.buffer);
-}, oe = class extends re {
+}, ee = class extends h {
 	handler;
 	rawDataArray;
 	constructor(e) {
@@ -305,14 +307,16 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 		}
 	};
 	getGpuBuffer(e, t) {
-		if (this.latestTotalByteLength !== this.totalByteLength) if (this.totalByteLength = this.latestTotalByteLength, !this.buffer) this.createGpuBuffer();
-		else {
-			let t = {
-				label: `[${this.label}]`,
-				size: this.totalByteLength,
-				usage: this.bufferUsageFlags
-			}, n = this.context.getGpuDevice().createBuffer(t);
-			e?.copyBufferToBuffer(this.buffer, n), this.buffer.destroy(), this.buffer = n;
+		if (this.latestTotalByteLength !== this.totalByteLength) {
+			if (this.totalByteLength = this.latestTotalByteLength, !this.buffer) this.createGpuBuffer();
+			else {
+				let t = {
+					label: `[${this.label}]`,
+					size: this.totalByteLength,
+					usage: this.bufferUsageFlags
+				}, n = this.context.getGpuDevice().createBuffer(t);
+				e?.copyBufferToBuffer(this.buffer, n), this.buffer.destroy(), this.buffer = n;
+			}
 		}
 		if (!this.buffer) this.createGpuBuffer();
 		else if (t === "frameBegin" && this.handler) {
@@ -323,7 +327,7 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 		}
 		return this.buffer;
 	}
-}, f = class extends oe {
+}, v = class extends ee {
 	constructor(e) {
 		super({
 			id: e.id,
@@ -335,7 +339,7 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 			handler: e.handler
 		});
 	}
-}, p = class extends f {
+}, y = class extends v {
 	constructor(e) {
 		if (super({
 			id: e.id,
@@ -350,7 +354,7 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 	getStride = () => 20;
 	getOffset = () => 0;
 	getIndexIndirectCount = () => this.rawDataArray?.length || 0;
-}, m = class extends f {
+}, b = class extends v {
 	indexedFormat = "uint32";
 	drawCount = 0;
 	constructor(e) {
@@ -377,14 +381,16 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 		return this.totalByteLength / e;
 	};
 	getGpuBuffer(e, t) {
-		if (this.latestTotalByteLength !== this.totalByteLength) if (this.totalByteLength = this.latestTotalByteLength, !this.buffer) this.createGpuBuffer();
-		else {
-			let t = {
-				label: `[${this.label}]`,
-				size: this.totalByteLength,
-				usage: this.bufferUsageFlags
-			}, n = this.context.getGpuDevice().createBuffer(t);
-			e?.copyBufferToBuffer(this.buffer, n), this.buffer.destroy(), this.buffer = n;
+		if (this.latestTotalByteLength !== this.totalByteLength) {
+			if (this.totalByteLength = this.latestTotalByteLength, !this.buffer) this.createGpuBuffer();
+			else {
+				let t = {
+					label: `[${this.label}]`,
+					size: this.totalByteLength,
+					usage: this.bufferUsageFlags
+				}, n = this.context.getGpuDevice().createBuffer(t);
+				e?.copyBufferToBuffer(this.buffer, n), this.buffer.destroy(), this.buffer = n;
+			}
 		}
 		if (!this.buffer) this.createGpuBuffer();
 		else if (t === "frameBegin" && this.handler) {
@@ -399,7 +405,7 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 		}
 		return this.buffer;
 	}
-}, h = class extends f {
+}, x = class extends v {
 	constructor(e) {
 		if (super({
 			id: e.id,
@@ -414,7 +420,7 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 	getStride = () => 16;
 	getOffset = () => 0;
 	getIndexIndirectCount = () => this.rawDataArray?.length || 0;
-}, se = class extends f {
+}, te = class extends v {
 	mapReadBuffer;
 	mapWriteBuffer;
 	constructor(e) {
@@ -468,7 +474,7 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 		}
 		return this.buffer;
 	};
-}, ce = class extends ie {
+}, ne = class extends g {
 	constructor(e) {
 		super({
 			id: e.id,
@@ -480,7 +486,7 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 			handler: e.handler
 		});
 	}
-}, le = class extends ie {
+}, re = class extends g {
 	constructor(e) {
 		super({
 			id: e.id,
@@ -492,7 +498,7 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 			handler: e.handler
 		});
 	}
-}, ue = class e {
+}, ie = class e {
 	static BUFFER_SET = /* @__PURE__ */ new Map();
 	context;
 	constructor(e) {
@@ -503,7 +509,7 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 		throw Error("[E][BufferState][getBuffer] find buffer failed.");
 	};
 	createIndexBuffer(n) {
-		let r = t(), i = new ae({
+		let r = t(), i = new _({
 			id: r,
 			label: n.label,
 			context: this.context,
@@ -513,7 +519,7 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 		return e.BUFFER_SET.set(r, i), e.BUFFER_SET.get(r);
 	}
 	createUniformBuffer = (n) => {
-		let r = t(), i = new ce({
+		let r = t(), i = new ne({
 			id: r,
 			label: n.label,
 			context: this.context,
@@ -524,7 +530,7 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 		return e.BUFFER_SET.set(r, i), e.BUFFER_SET.get(r);
 	};
 	createMapBuffer = (n) => {
-		let r = t(), i = new se({
+		let r = t(), i = new te({
 			id: r,
 			label: n.label,
 			context: this.context,
@@ -536,7 +542,7 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 		return e.BUFFER_SET.set(r, i), e.BUFFER_SET.get(r);
 	};
 	createStorageBuffer = (n) => {
-		let r = t(), i = new f({
+		let r = t(), i = new v({
 			id: r,
 			label: n.label,
 			context: this.context,
@@ -548,7 +554,7 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 		return e.BUFFER_SET.set(r, i), e.BUFFER_SET.get(r);
 	};
 	createIndexedStorageBuffer = (n) => {
-		let r = t(), i = new m({
+		let r = t(), i = new b({
 			id: r,
 			label: n.label,
 			context: this.context,
@@ -559,7 +565,7 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 		return e.BUFFER_SET.set(r, i), e.BUFFER_SET.get(r);
 	};
 	createVertexBuffer = (n) => {
-		let r = t(), i = new le({
+		let r = t(), i = new re({
 			id: r,
 			label: n.label,
 			context: this.context,
@@ -570,7 +576,7 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 		return e.BUFFER_SET.set(r, i), e.BUFFER_SET.get(r);
 	};
 	createIndirectBuffer = (n) => {
-		let r = t(), i = new h({
+		let r = t(), i = new x({
 			id: r,
 			label: n.label,
 			context: this.context,
@@ -581,7 +587,7 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 		return e.BUFFER_SET.set(r, i), e.BUFFER_SET.get(r);
 	};
 	createIndexedIndirectBuffer = (n) => {
-		let r = t(), i = new p({
+		let r = t(), i = new y({
 			id: r,
 			label: n.label,
 			context: this.context,
@@ -591,7 +597,7 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 		});
 		return e.BUFFER_SET.set(r, i), e.BUFFER_SET.get(r);
 	};
-}, g = class e {
+}, ae = class e {
 	id;
 	context;
 	shaderStage;
@@ -621,7 +627,7 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 	};
 	getBindGroupWithGroupLayoutEntriesMap = () => this.reflectedUniforms?.groupIDwithBindGroupLayoutEntriesMap;
 	getBindGroupWithResourceBindingsMap = () => this.reflectedUniforms?.groupIDwithResourceBindingsMap;
-}, _ = class {
+}, S = class {
 	constructor(e, t) {
 		this.name = e, this.attributes = t, this.size = 0;
 	}
@@ -640,7 +646,7 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 	getTypeName() {
 		return this.name;
 	}
-}, de = class {
+}, oe = class {
 	constructor(e, t, n) {
 		this.name = e, this.type = t, this.attributes = n, this.offset = 0, this.size = 0;
 	}
@@ -668,14 +674,14 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 	get stride() {
 		return this.type.isArray ? this.type.stride : this.size;
 	}
-}, v = class extends _ {
+}, se = class extends S {
 	constructor(e, t) {
 		super(e, t), this.members = [], this.align = 0, this.startLine = -1, this.endLine = -1, this.inUse = !1;
 	}
 	get isStruct() {
 		return !0;
 	}
-}, y = class extends _ {
+}, ce = class extends S {
 	constructor(e, t) {
 		super(e, t), this.count = 0, this.stride = 0;
 	}
@@ -685,7 +691,7 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 	getTypeName() {
 		return `array<${this.format.getTypeName()}, ${this.count}>`;
 	}
-}, fe = class extends _ {
+}, le = class extends S {
 	constructor(e, t, n) {
 		super(e, n), this.format = t;
 	}
@@ -695,7 +701,7 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 	getTypeName() {
 		return `&${this.format.getTypeName()}`;
 	}
-}, b = class extends _ {
+}, C = class extends S {
 	constructor(e, t, n, r) {
 		super(e, n), this.format = t, this.access = r;
 	}
@@ -716,13 +722,13 @@ var e = 1, t = () => e++, n = (...e) => e.reduce((e, t) => e > t ? e : t), r = (
 		} else if (e === "vec2" || e === "vec3" || e === "vec4") return e;
 		return e;
 	}
-}, x;
+}, w;
 ((e) => {
-	e[e.Uniform = 0] = "Uniform", e[e.Storage = 1] = "Storage", e[e.Texture = 2] = "Texture", e[e.Sampler = 3] = "Sampler", e[e.StorageTexture = 4] = "StorageTexture";
-})(x ||= {});
-var pe = class {
+	e[e.Uniform = 0] = "Uniform", e[e.Storage = 1] = "Storage", e[e.Immediate = 2] = "Immediate", e[e.Texture = 3] = "Texture", e[e.Sampler = 4] = "Sampler", e[e.StorageTexture = 5] = "StorageTexture";
+})(w ||= {});
+var ue = class {
 	constructor(e, t, n, r, i, a, o) {
-		this.name = e, this.type = t, this.group = n, this.binding = r, this.attributes = i, this.resourceType = a, this.access = o;
+		this.relations = null, this.name = e, this.type = t, this.group = n, this.binding = r, this.attributes = i, this.resourceType = a, this.access = o;
 	}
 	get isArray() {
 		return this.type.isArray;
@@ -751,83 +757,83 @@ var pe = class {
 	get stride() {
 		return this.type.isArray ? this.type.stride : this.size;
 	}
-}, me = class {
+}, de = class {
 	constructor(e, t) {
 		this.name = e, this.type = t;
 	}
-}, he = class {
+}, fe = class {
 	constructor(e, t, n, r) {
 		this.name = e, this.type = t, this.locationType = n, this.location = r, this.interpolation = null;
 	}
-}, ge = class {
+}, pe = class {
 	constructor(e, t, n, r) {
 		this.name = e, this.type = t, this.locationType = n, this.location = r;
 	}
-}, _e = class {
+}, me = class {
 	constructor(e, t, n, r) {
 		this.name = e, this.type = t, this.attributes = n, this.id = r;
 	}
-}, ve = class {
+}, he = class {
 	constructor(e, t, n) {
 		this.name = e, this.type = t, this.attributes = n;
 	}
-}, ye = class {
+}, ge = class {
 	constructor(e, t = null, n) {
 		this.stage = null, this.inputs = [], this.outputs = [], this.arguments = [], this.returnType = null, this.resources = [], this.overrides = [], this.startLine = -1, this.endLine = -1, this.inUse = !1, this.calls = /* @__PURE__ */ new Set(), this.name = e, this.stage = t, this.attributes = n;
 	}
-}, be = class {
+}, _e = class {
 	constructor() {
 		this.vertex = [], this.fragment = [], this.compute = [];
 	}
 };
-function xe(e) {
+function ve(e) {
 	var t = (32768 & e) >> 15, n = (31744 & e) >> 10, r = 1023 & e;
-	return n == 0 ? (t ? -1 : 1) * 2 ** -14 * (r / 2 ** 10) : n == 31 ? r ? NaN : Infinity * (t ? -1 : 1) : (t ? -1 : 1) * 2 ** (n - 15) * (1 + r / 2 ** 10);
+	return n == 0 ? (t ? -1 : 1) * 2 ** -14 * (r / 1024) : n == 31 ? r ? NaN : 1 / 0 * (t ? -1 : 1) : (t ? -1 : 1) * 2 ** (n - 15) * (1 + r / 1024);
 }
-var Se = new Float32Array(1), Ce = new Int32Array(Se.buffer), S = new Uint16Array(1);
-function we(e) {
-	Se[0] = e;
-	let t = Ce[0], n = t >> 31 & 1, r = t >> 23 & 255, i = 8388607 & t;
-	if (r === 255) return S[0] = n << 15 | 31744 | (i === 0 ? 0 : 512), S[0];
+var ye = /* @__PURE__ */ new Float32Array(1), be = new Int32Array(ye.buffer), T = /* @__PURE__ */ new Uint16Array(1);
+function xe(e) {
+	ye[0] = e;
+	let t = be[0], n = t >> 31 & 1, r = t >> 23 & 255, i = 8388607 & t;
+	if (r === 255) return T[0] = n << 15 | 31744 | (i === 0 ? 0 : 512), T[0];
 	if (r === 0) {
-		if (i === 0) return S[0] = n << 15, S[0];
+		if (i === 0) return T[0] = n << 15, T[0];
 		i |= 8388608;
 		let e = 113;
 		for (; !(8388608 & i);) i <<= 1, e--;
-		return r = 127 - e, i &= 8388607, r > 0 ? (i = (i >> 126 - r) + (i >> 127 - r & 1), S[0] = n << 15 | r << 10 | i >> 13, S[0]) : (S[0] = n << 15, S[0]);
+		return r = 127 - e, i &= 8388607, r > 0 ? (i = (i >> 126 - r) + (i >> 127 - r & 1), T[0] = n << 15 | r << 10 | i >> 13, T[0]) : (T[0] = n << 15, T[0]);
 	}
-	return r = r - 127 + 15, r >= 31 ? (S[0] = n << 15 | 31744, S[0]) : r <= 0 ? r < -10 ? (S[0] = n << 15, S[0]) : (i = (8388608 | i) >> 1 - r, S[0] = n << 15 | i >> 13, S[0]) : (i >>= 13, S[0] = n << 15 | r << 10 | i, S[0]);
+	return r = r - 127 + 15, r >= 31 ? (T[0] = n << 15 | 31744, T[0]) : r <= 0 ? r < -10 ? (T[0] = n << 15, T[0]) : (i = (8388608 | i) >> 1 - r, T[0] = n << 15 | i >> 13, T[0]) : (i >>= 13, T[0] = n << 15 | r << 10 | i, T[0]);
 }
-var Te = new Uint32Array(1), Ee = new Float32Array(Te.buffer, 0, 1);
-function De(e) {
-	return Te[0] = 112 + (e >> 6 & 31) << 23 | (63 & e) << 17, Ee[0];
+var Se = /* @__PURE__ */ new Uint32Array(1), Ce = new Float32Array(Se.buffer, 0, 1);
+function we(e) {
+	return Se[0] = 112 + (e >> 6 & 31) << 23 | (63 & e) << 17, Ce[0];
 }
-function Oe(e, t, n, r, i, a, o, s, c) {
+function Te(e, t, n, r, i, a, o, s, c) {
 	let l = r * (o >>= i) * (a >>= i) + n * o + t * s;
 	switch (c) {
-		case "r8unorm": return [C(e, l, "8unorm", 1)[0]];
-		case "r8snorm": return [C(e, l, "8snorm", 1)[0]];
-		case "r8uint": return [C(e, l, "8uint", 1)[0]];
-		case "r8sint": return [C(e, l, "8sint", 1)[0]];
+		case "r8unorm": return [E(e, l, "8unorm", 1)[0]];
+		case "r8snorm": return [E(e, l, "8snorm", 1)[0]];
+		case "r8uint": return [E(e, l, "8uint", 1)[0]];
+		case "r8sint": return [E(e, l, "8sint", 1)[0]];
 		case "rg8unorm": {
-			let t = C(e, l, "8unorm", 2);
+			let t = E(e, l, "8unorm", 2);
 			return [t[0], t[1]];
 		}
 		case "rg8snorm": {
-			let t = C(e, l, "8snorm", 2);
+			let t = E(e, l, "8snorm", 2);
 			return [t[0], t[1]];
 		}
 		case "rg8uint": {
-			let t = C(e, l, "8uint", 2);
+			let t = E(e, l, "8uint", 2);
 			return [t[0], t[1]];
 		}
 		case "rg8sint": {
-			let t = C(e, l, "8sint", 2);
+			let t = E(e, l, "8sint", 2);
 			return [t[0], t[1]];
 		}
 		case "rgba8unorm-srgb":
 		case "rgba8unorm": {
-			let t = C(e, l, "8unorm", 4);
+			let t = E(e, l, "8unorm", 4);
 			return [
 				t[0],
 				t[1],
@@ -836,7 +842,7 @@ function Oe(e, t, n, r, i, a, o, s, c) {
 			];
 		}
 		case "rgba8snorm": {
-			let t = C(e, l, "8snorm", 4);
+			let t = E(e, l, "8snorm", 4);
 			return [
 				t[0],
 				t[1],
@@ -845,7 +851,7 @@ function Oe(e, t, n, r, i, a, o, s, c) {
 			];
 		}
 		case "rgba8uint": {
-			let t = C(e, l, "8uint", 4);
+			let t = E(e, l, "8uint", 4);
 			return [
 				t[0],
 				t[1],
@@ -854,7 +860,7 @@ function Oe(e, t, n, r, i, a, o, s, c) {
 			];
 		}
 		case "rgba8sint": {
-			let t = C(e, l, "8sint", 4);
+			let t = E(e, l, "8sint", 4);
 			return [
 				t[0],
 				t[1],
@@ -864,7 +870,7 @@ function Oe(e, t, n, r, i, a, o, s, c) {
 		}
 		case "bgra8unorm-srgb":
 		case "bgra8unorm": {
-			let t = C(e, l, "8unorm", 4);
+			let t = E(e, l, "8unorm", 4);
 			return [
 				t[2],
 				t[1],
@@ -872,23 +878,23 @@ function Oe(e, t, n, r, i, a, o, s, c) {
 				t[3]
 			];
 		}
-		case "r16uint": return [C(e, l, "16uint", 1)[0]];
-		case "r16sint": return [C(e, l, "16sint", 1)[0]];
-		case "r16float": return [C(e, l, "16float", 1)[0]];
+		case "r16uint": return [E(e, l, "16uint", 1)[0]];
+		case "r16sint": return [E(e, l, "16sint", 1)[0]];
+		case "r16float": return [E(e, l, "16float", 1)[0]];
 		case "rg16uint": {
-			let t = C(e, l, "16uint", 2);
+			let t = E(e, l, "16uint", 2);
 			return [t[0], t[1]];
 		}
 		case "rg16sint": {
-			let t = C(e, l, "16sint", 2);
+			let t = E(e, l, "16sint", 2);
 			return [t[0], t[1]];
 		}
 		case "rg16float": {
-			let t = C(e, l, "16float", 2);
+			let t = E(e, l, "16float", 2);
 			return [t[0], t[1]];
 		}
 		case "rgba16uint": {
-			let t = C(e, l, "16uint", 4);
+			let t = E(e, l, "16uint", 4);
 			return [
 				t[0],
 				t[1],
@@ -897,7 +903,7 @@ function Oe(e, t, n, r, i, a, o, s, c) {
 			];
 		}
 		case "rgba16sint": {
-			let t = C(e, l, "16sint", 4);
+			let t = E(e, l, "16sint", 4);
 			return [
 				t[0],
 				t[1],
@@ -906,7 +912,7 @@ function Oe(e, t, n, r, i, a, o, s, c) {
 			];
 		}
 		case "rgba16float": {
-			let t = C(e, l, "16float", 4);
+			let t = E(e, l, "16float", 4);
 			return [
 				t[0],
 				t[1],
@@ -914,28 +920,28 @@ function Oe(e, t, n, r, i, a, o, s, c) {
 				t[3]
 			];
 		}
-		case "r32uint": return [C(e, l, "32uint", 1)[0]];
-		case "r32sint": return [C(e, l, "32sint", 1)[0]];
+		case "r32uint": return [E(e, l, "32uint", 1)[0]];
+		case "r32sint": return [E(e, l, "32sint", 1)[0]];
 		case "depth16unorm":
 		case "depth24plus":
 		case "depth24plus-stencil8":
 		case "depth32float":
 		case "depth32float-stencil8":
-		case "r32float": return [C(e, l, "32float", 1)[0]];
+		case "r32float": return [E(e, l, "32float", 1)[0]];
 		case "rg32uint": {
-			let t = C(e, l, "32uint", 2);
+			let t = E(e, l, "32uint", 2);
 			return [t[0], t[1]];
 		}
 		case "rg32sint": {
-			let t = C(e, l, "32sint", 2);
+			let t = E(e, l, "32sint", 2);
 			return [t[0], t[1]];
 		}
 		case "rg32float": {
-			let t = C(e, l, "32float", 2);
+			let t = E(e, l, "32float", 2);
 			return [t[0], t[1]];
 		}
 		case "rgba32uint": {
-			let t = C(e, l, "32uint", 4);
+			let t = E(e, l, "32uint", 4);
 			return [
 				t[0],
 				t[1],
@@ -944,7 +950,7 @@ function Oe(e, t, n, r, i, a, o, s, c) {
 			];
 		}
 		case "rgba32sint": {
-			let t = C(e, l, "32sint", 4);
+			let t = E(e, l, "32sint", 4);
 			return [
 				t[0],
 				t[1],
@@ -953,7 +959,7 @@ function Oe(e, t, n, r, i, a, o, s, c) {
 			];
 		}
 		case "rgba32float": {
-			let t = C(e, l, "32float", 4);
+			let t = E(e, l, "32float", 4);
 			return [
 				t[0],
 				t[1],
@@ -964,10 +970,10 @@ function Oe(e, t, n, r, i, a, o, s, c) {
 		case "rg11b10ufloat": {
 			let t = new Uint32Array(e.buffer, l, 1)[0], n = (4192256 & t) >> 11, r = (4290772992 & t) >> 22;
 			return [
-				De(2047 & t),
-				De(n),
+				we(2047 & t),
+				we(n),
 				function(e) {
-					return Te[0] = 112 + (e >> 5 & 31) << 23 | (31 & e) << 18, Ee[0];
+					return Se[0] = 112 + (e >> 5 & 31) << 23 | (31 & e) << 18, Ce[0];
 				}(r),
 				1
 			];
@@ -975,7 +981,7 @@ function Oe(e, t, n, r, i, a, o, s, c) {
 	}
 	return null;
 }
-function C(e, t, n, r) {
+function E(e, t, n, r) {
 	let i = [
 		0,
 		0,
@@ -1002,7 +1008,7 @@ function C(e, t, n, r) {
 			i[a] = (e[t] | e[t + 1] << 8) - 32768, t += 2;
 			break;
 		case "16float":
-			i[a] = xe(e[t] | e[t + 1] << 8), t += 2;
+			i[a] = ve(e[t] | e[t + 1] << 8), t += 2;
 			break;
 		case "32uint":
 		case "32sint":
@@ -1012,7 +1018,7 @@ function C(e, t, n, r) {
 	}
 	return i;
 }
-function w(e, t, n, r, i) {
+function D(e, t, n, r, i) {
 	for (let a = 0; a < r; ++a) switch (n) {
 		case "8unorm":
 			e[t] = 255 * i[a], t++;
@@ -1033,7 +1039,7 @@ function w(e, t, n, r, i) {
 			new Int16Array(e.buffer, t, 1)[0] = i[a], t += 2;
 			break;
 		case "16float": {
-			let n = we(i[a]);
+			let n = xe(i[a]);
 			new Uint16Array(e.buffer, t, 1)[0] = n, t += 2;
 			break;
 		}
@@ -1047,7 +1053,7 @@ function w(e, t, n, r, i) {
 	}
 	return i;
 }
-var ke = {
+var Ee = {
 	r8unorm: {
 		bytesPerBlock: 1,
 		blockWidth: 1,
@@ -1734,7 +1740,7 @@ var ke = {
 		isCompressed: !0,
 		channels: 4
 	}
-}, T = class e {
+}, O = class e {
 	constructor() {
 		this.id = e._id++, this.line = 0;
 	}
@@ -1749,28 +1755,24 @@ var ke = {
 	}
 	searchBlock(e, t) {
 		if (e) {
-			t(Ae.instance);
+			t(De.instance);
 			for (let n of e) n instanceof Array ? this.searchBlock(n, t) : n.search(t);
-			t(je.instance);
+			t(Oe.instance);
 		}
 	}
 	constEvaluate(e, t) {
 		throw Error("Cannot evaluate node");
 	}
 	constEvaluateString(e) {
-		return this.constEvaluate(e).toString();
+		return this.constEvaluate(e)?.toString() ?? "";
 	}
 };
-T._id = 0;
-var Ae = class extends T {};
-Ae.instance = new Ae();
-var je = class extends T {};
-je.instance = new je();
-var Me = new Set(/* @__PURE__ */ "all.all.any.select.arrayLength.abs.acos.acosh.asin.asinh.atan.atanh.atan2.ceil.clamp.cos.cosh.countLeadingZeros.countOneBits.countTrailingZeros.cross.degrees.determinant.distance.dot.dot4U8Packed.dot4I8Packed.exp.exp2.extractBits.faceForward.firstLeadingBit.firstTrailingBit.floor.fma.fract.frexp.insertBits.inverseSqrt.ldexp.length.log.log2.max.min.mix.modf.normalize.pow.quantizeToF16.radians.reflect.refract.reverseBits.round.saturate.sign.sin.sinh.smoothStep.sqrt.step.tan.tanh.transpose.trunc.dpdx.dpdxCoarse.dpdxFine.dpdy.dpdyCoarse.dpdyFine.fwidth.fwidthCoarse.fwidthFine.textureDimensions.textureGather.textureGatherCompare.textureLoad.textureNumLayers.textureNumLevels.textureNumSamples.textureSample.textureSampleBias.textureSampleCompare.textureSampleCompareLevel.textureSampleGrad.textureSampleLevel.textureSampleBaseClampToEdge.textureStore.atomicLoad.atomicStore.atomicAdd.atomicSub.atomicMax.atomicMin.atomicAnd.atomicOr.atomicXor.atomicExchange.atomicCompareExchangeWeak.pack4x8snorm.pack4x8unorm.pack4xI8.pack4xU8.pack4x8Clamp.pack4xU8Clamp.pack2x16snorm.pack2x16unorm.pack2x16float.unpack4x8snorm.unpack4x8unorm.unpack4xI8.unpack4xU8.unpack2x16snorm.unpack2x16unorm.unpack2x16float.storageBarrier.textureBarrier.workgroupBarrier.workgroupUniformLoad.subgroupAdd.subgroupExclusiveAdd.subgroupInclusiveAdd.subgroupAll.subgroupAnd.subgroupAny.subgroupBallot.subgroupBroadcast.subgroupBroadcastFirst.subgroupElect.subgroupMax.subgroupMin.subgroupMul.subgroupExclusiveMul.subgroupInclusiveMul.subgroupOr.subgroupShuffle.subgroupShuffleDown.subgroupShuffleUp.subgroupShuffleXor.subgroupXor.quadBroadcast.quadSwapDiagonal.quadSwapX.quadSwapY".split(".")), E = class extends T {
-	constructor() {
-		super();
-	}
-}, Ne = class extends E {
+O._id = 0;
+var De = class extends O {};
+De.instance = new De();
+var Oe = class extends O {};
+Oe.instance = new Oe();
+var ke = /* @__PURE__ */ new Set(/* @__PURE__ */ "all.any.select.arrayLength.abs.acos.acosh.asin.asinh.atan.atanh.atan2.ceil.clamp.cos.cosh.countLeadingZeros.countOneBits.countTrailingZeros.cross.degrees.determinant.distance.dot.dot4U8Packed.dot4I8Packed.exp.exp2.extractBits.faceForward.firstLeadingBit.firstTrailingBit.floor.fma.fract.frexp.insertBits.inverseSqrt.ldexp.length.log.log2.max.min.mix.modf.normalize.pow.quantizeToF16.radians.reflect.refract.reverseBits.round.saturate.sign.sin.sinh.smoothstep.sqrt.step.tan.tanh.transpose.trunc.dpdx.dpdxCoarse.dpdxFine.dpdy.dpdyCoarse.dpdyFine.fwidth.fwidthCoarse.fwidthFine.textureDimensions.textureGather.textureGatherCompare.textureLoad.textureNumLayers.textureNumLevels.textureNumSamples.textureSample.textureSampleBias.textureSampleCompare.textureSampleCompareLevel.textureSampleGrad.textureSampleLevel.textureSampleBaseClampToEdge.textureStore.atomicLoad.atomicStore.atomicAdd.atomicSub.atomicMax.atomicMin.atomicAnd.atomicOr.atomicXor.atomicExchange.atomicCompareExchangeWeak.pack4x8snorm.pack4x8unorm.pack4xI8.pack4xU8.pack4x8Clamp.pack4xU8Clamp.pack2x16snorm.pack2x16unorm.pack2x16float.unpack4x8snorm.unpack4x8unorm.unpack4xI8.unpack4xU8.unpack2x16snorm.unpack2x16unorm.unpack2x16float.storageBarrier.textureBarrier.workgroupBarrier.workgroupUniformLoad.subgroupAdd.subgroupExclusiveAdd.subgroupInclusiveAdd.subgroupAll.subgroupAnd.subgroupAny.subgroupBallot.subgroupBroadcast.subgroupBroadcastFirst.subgroupElect.subgroupMax.subgroupMin.subgroupMul.subgroupExclusiveMul.subgroupInclusiveMul.subgroupOr.subgroupShuffle.subgroupShuffleDown.subgroupShuffleUp.subgroupShuffleXor.subgroupXor.quadBroadcast.quadSwapDiagonal.quadSwapX.quadSwapY".split(".")), k = class extends O {}, Ae = class extends k {
 	constructor(e, t, n, r, i, a) {
 		super(), this.calls = /* @__PURE__ */ new Set(), this.name = e, this.args = t, this.returnType = n, this.body = r, this.startLine = i, this.endLine = a;
 	}
@@ -1783,7 +1785,7 @@ var Me = new Set(/* @__PURE__ */ "all.all.any.select.arrayLength.abs.acos.acosh.
 		for (let t of this.args) e(t);
 		this.searchBlock(this.body, e);
 	}
-}, Pe = class extends E {
+}, je = class extends k {
 	constructor(e) {
 		super(), this.expression = e;
 	}
@@ -1793,7 +1795,7 @@ var Me = new Set(/* @__PURE__ */ "all.all.any.select.arrayLength.abs.acos.acosh.
 	search(e) {
 		this.expression.search(e);
 	}
-}, Fe = class extends E {
+}, Me = class extends k {
 	constructor(e, t) {
 		super(), this.condition = e, this.body = t;
 	}
@@ -1803,7 +1805,7 @@ var Me = new Set(/* @__PURE__ */ "all.all.any.select.arrayLength.abs.acos.acosh.
 	search(e) {
 		this.condition.search(e), this.searchBlock(this.body, e);
 	}
-}, Ie = class extends E {
+}, Ne = class extends k {
 	constructor(e, t) {
 		super(), this.body = e, this.loopId = t;
 	}
@@ -1813,7 +1815,7 @@ var Me = new Set(/* @__PURE__ */ "all.all.any.select.arrayLength.abs.acos.acosh.
 	search(e) {
 		this.searchBlock(this.body, e);
 	}
-}, Le = class extends E {
+}, Pe = class extends k {
 	constructor(e, t, n, r) {
 		super(), this.init = e, this.condition = t, this.increment = n, this.body = r;
 	}
@@ -1824,7 +1826,7 @@ var Me = new Set(/* @__PURE__ */ "all.all.any.select.arrayLength.abs.acos.acosh.
 		var t, n, r;
 		(t = this.init) == null || t.search(e), (n = this.condition) == null || n.search(e), (r = this.increment) == null || r.search(e), this.searchBlock(this.body, e);
 	}
-}, D = class extends E {
+}, A = class extends k {
 	constructor(e, t, n, r, i) {
 		super(), this.attributes = null, this.name = e, this.type = t, this.storage = n, this.access = r, this.value = i;
 	}
@@ -1835,7 +1837,7 @@ var Me = new Set(/* @__PURE__ */ "all.all.any.select.arrayLength.abs.acos.acosh.
 		var t;
 		e(this), (t = this.value) == null || t.search(e);
 	}
-}, Re = class extends E {
+}, Fe = class extends k {
 	constructor(e, t, n) {
 		super(), this.attributes = null, this.name = e, this.type = t, this.value = n;
 	}
@@ -1846,7 +1848,7 @@ var Me = new Set(/* @__PURE__ */ "all.all.any.select.arrayLength.abs.acos.acosh.
 		var t;
 		(t = this.value) == null || t.search(e);
 	}
-}, ze = class extends E {
+}, Ie = class extends k {
 	constructor(e, t, n, r, i) {
 		super(), this.attributes = null, this.name = e, this.type = t, this.storage = n, this.access = r, this.value = i;
 	}
@@ -1857,7 +1859,7 @@ var Me = new Set(/* @__PURE__ */ "all.all.any.select.arrayLength.abs.acos.acosh.
 		var t;
 		e(this), (t = this.value) == null || t.search(e);
 	}
-}, Be = class extends E {
+}, Le = class extends k {
 	constructor(e, t, n, r, i) {
 		super(), this.attributes = null, this.name = e, this.type = t, this.storage = n, this.access = r, this.value = i;
 	}
@@ -1871,17 +1873,17 @@ var Me = new Set(/* @__PURE__ */ "all.all.any.select.arrayLength.abs.acos.acosh.
 		var t;
 		e(this), (t = this.value) == null || t.search(e);
 	}
-}, Ve, He, O, k;
+}, Re, ze, j, M;
 ((e) => {
 	e.increment = "++", e.decrement = "--";
-})(Ve ||= {}), ((e) => {
+})(Re ||= {}), ((e) => {
 	e.parse = function(t) {
 		let n = t;
-		if (n == "parse") throw Error("Invalid value for IncrementOperator");
+		if (n === "parse") throw Error("Invalid value for IncrementOperator");
 		return e[n];
 	};
-})(Ve ||= {});
-var Ue = class extends E {
+})(Re ||= {});
+var Be = class extends k {
 	constructor(e, t) {
 		super(), this.operator = e, this.variable = t;
 	}
@@ -1893,15 +1895,15 @@ var Ue = class extends E {
 	}
 };
 ((e) => {
-	e.assign = "=", e.addAssign = "+=", e.subtractAssin = "-=", e.multiplyAssign = "*=", e.divideAssign = "/=", e.moduloAssign = "%=", e.andAssign = "&=", e.orAssign = "|=", e.xorAssign = "^=", e.shiftLeftAssign = "<<=", e.shiftRightAssign = ">>=";
-})(He ||= {}), ((e) => {
+	e.assign = "=", e.addAssign = "+=", e.subtractAssign = "-=", e.multiplyAssign = "*=", e.divideAssign = "/=", e.moduloAssign = "%=", e.andAssign = "&=", e.orAssign = "|=", e.xorAssign = "^=", e.shiftLeftAssign = "<<=", e.shiftRightAssign = ">>=";
+})(ze ||= {}), ((e) => {
 	e.parse = function(e) {
 		let t = e;
-		if (t == "parse") throw Error("Invalid value for AssignOperator");
+		if (t === "parse") throw Error("Invalid value for AssignOperator");
 		return t;
 	};
-})(He ||= {});
-var We = class extends E {
+})(ze ||= {});
+var Ve = class extends k {
 	constructor(e, t, n) {
 		super(), this.operator = e, this.variable = t, this.value = n;
 	}
@@ -1911,7 +1913,7 @@ var We = class extends E {
 	search(e) {
 		this.variable.search(e), this.value.search(e);
 	}
-}, Ge = class extends E {
+}, He = class extends k {
 	constructor(e, t) {
 		super(), this.name = e, this.args = t;
 	}
@@ -1919,13 +1921,13 @@ var We = class extends E {
 		return "call";
 	}
 	isBuiltin() {
-		return Me.has(this.name);
+		return ke.has(this.name);
 	}
 	search(e) {
 		for (let t of this.args) t.search(e);
 		e(this);
 	}
-}, Ke = class extends E {
+}, Ue = class extends k {
 	constructor(e, t) {
 		super(), this.body = e, this.continuing = t;
 	}
@@ -1936,7 +1938,7 @@ var We = class extends E {
 		var t;
 		this.searchBlock(this.body, e), (t = this.continuing) == null || t.search(e);
 	}
-}, qe = class extends E {
+}, We = class extends k {
 	constructor(e, t) {
 		super(), this.condition = e, this.cases = t;
 	}
@@ -1947,7 +1949,7 @@ var We = class extends E {
 		e(this);
 		for (let t of this.cases) t.search(e);
 	}
-}, Je = class extends E {
+}, Ge = class extends k {
 	constructor(e, t, n, r) {
 		super(), this.condition = e, this.body = t, this.elseif = n, this.else = r;
 	}
@@ -1957,7 +1959,7 @@ var We = class extends E {
 	search(e) {
 		this.condition.search(e), this.searchBlock(this.body, e), this.searchBlock(this.elseif, e), this.searchBlock(this.else, e);
 	}
-}, Ye = class extends E {
+}, Ke = class extends k {
 	constructor(e) {
 		super(), this.value = e;
 	}
@@ -1968,56 +1970,53 @@ var We = class extends E {
 		var t;
 		(t = this.value) == null || t.search(e);
 	}
-}, Xe = class extends E {
+}, qe = class extends k {
 	constructor(e) {
 		super(), this.name = e;
 	}
 	get astNodeType() {
 		return "enable";
 	}
-}, Ze = class extends E {
+}, Je = class extends k {
 	constructor(e) {
 		super(), this.extensions = e;
 	}
 	get astNodeType() {
 		return "requires";
 	}
-}, Qe = class extends E {
+}, Ye = class extends k {
 	constructor(e, t) {
 		super(), this.severity = e, this.rule = t;
 	}
 	get astNodeType() {
 		return "diagnostic";
 	}
-}, $e = class extends E {
+}, Xe = class extends k {
 	constructor(e, t) {
 		super(), this.name = e, this.type = t;
 	}
 	get astNodeType() {
 		return "alias";
 	}
-}, et = class extends E {
-	constructor() {
-		super();
-	}
+}, Ze = class extends k {
 	get astNodeType() {
 		return "discard";
 	}
-}, tt = class extends E {
+}, Qe = class extends k {
 	constructor() {
-		super(), this.condition = null, this.loopId = -1;
+		super(...arguments), this.condition = null, this.loopId = -1;
 	}
 	get astNodeType() {
 		return "break";
 	}
-}, nt = class extends E {
+}, $e = class extends k {
 	constructor() {
-		super(), this.loopId = -1;
+		super(...arguments), this.loopId = -1;
 	}
 	get astNodeType() {
 		return "continue";
 	}
-}, A = class e extends E {
+}, N = class e extends k {
 	constructor(e) {
 		super(), this.attributes = null, this.name = e;
 	}
@@ -2043,18 +2042,18 @@ var We = class extends E {
 		return this.name;
 	}
 };
-A.x32 = new A("x32"), A.f32 = new A("f32"), A.i32 = new A("i32"), A.u32 = new A("u32"), A.f16 = new A("f16"), A.bool = new A("bool"), A.void = new A("void"), A._priority = new Map([
+N.x32 = new N("x32"), N.f32 = new N("f32"), N.i32 = new N("i32"), N.u32 = new N("u32"), N.f16 = new N("f16"), N.bool = new N("bool"), N.void = new N("void"), N._priority = /* @__PURE__ */ new Map([
 	["f32", 0],
 	["f16", 1],
 	["u32", 2],
 	["i32", 3],
 	["x32", 3]
 ]);
-var rt = class extends A {
+var et = class extends N {
 	constructor(e) {
 		super(e);
 	}
-}, j = class extends A {
+}, P = class extends N {
 	constructor(e, t, n, r) {
 		super(e), this.members = t, this.startLine = n, this.endLine = r;
 	}
@@ -2065,13 +2064,13 @@ var rt = class extends A {
 		return !0;
 	}
 	getMemberIndex(e) {
-		for (let t = 0; t < this.members.length; t++) if (this.members[t].name == e) return t;
+		for (let t = 0; t < this.members.length; t++) if (this.members[t].name === e) return t;
 		return -1;
 	}
 	search(e) {
 		for (let t of this.members) e(t);
 	}
-}, M = class extends A {
+}, F = class extends N {
 	constructor(e, t, n) {
 		super(e), this.format = t, this.access = n;
 	}
@@ -2093,15 +2092,15 @@ var rt = class extends A {
 		return e;
 	}
 };
-M.vec2f = new M("vec2", A.f32, null), M.vec3f = new M("vec3", A.f32, null), M.vec4f = new M("vec4", A.f32, null), M.vec2i = new M("vec2", A.i32, null), M.vec3i = new M("vec3", A.i32, null), M.vec4i = new M("vec4", A.i32, null), M.vec2u = new M("vec2", A.u32, null), M.vec3u = new M("vec3", A.u32, null), M.vec4u = new M("vec4", A.u32, null), M.vec2h = new M("vec2", A.f16, null), M.vec3h = new M("vec3", A.f16, null), M.vec4h = new M("vec4", A.f16, null), M.vec2b = new M("vec2", A.bool, null), M.vec3b = new M("vec3", A.bool, null), M.vec4b = new M("vec4", A.bool, null), M.mat2x2f = new M("mat2x2", A.f32, null), M.mat2x3f = new M("mat2x3", A.f32, null), M.mat2x4f = new M("mat2x4", A.f32, null), M.mat3x2f = new M("mat3x2", A.f32, null), M.mat3x3f = new M("mat3x3", A.f32, null), M.mat3x4f = new M("mat3x4", A.f32, null), M.mat4x2f = new M("mat4x2", A.f32, null), M.mat4x3f = new M("mat4x3", A.f32, null), M.mat4x4f = new M("mat4x4", A.f32, null), M.mat2x2h = new M("mat2x2", A.f16, null), M.mat2x3h = new M("mat2x3", A.f16, null), M.mat2x4h = new M("mat2x4", A.f16, null), M.mat3x2h = new M("mat3x2", A.f16, null), M.mat3x3h = new M("mat3x3", A.f16, null), M.mat3x4h = new M("mat3x4", A.f16, null), M.mat4x2h = new M("mat4x2", A.f16, null), M.mat4x3h = new M("mat4x3", A.f16, null), M.mat4x4h = new M("mat4x4", A.f16, null), M.mat2x2i = new M("mat2x2", A.i32, null), M.mat2x3i = new M("mat2x3", A.i32, null), M.mat2x4i = new M("mat2x4", A.i32, null), M.mat3x2i = new M("mat3x2", A.i32, null), M.mat3x3i = new M("mat3x3", A.i32, null), M.mat3x4i = new M("mat3x4", A.i32, null), M.mat4x2i = new M("mat4x2", A.i32, null), M.mat4x3i = new M("mat4x3", A.i32, null), M.mat4x4i = new M("mat4x4", A.i32, null), M.mat2x2u = new M("mat2x2", A.u32, null), M.mat2x3u = new M("mat2x3", A.u32, null), M.mat2x4u = new M("mat2x4", A.u32, null), M.mat3x2u = new M("mat3x2", A.u32, null), M.mat3x3u = new M("mat3x3", A.u32, null), M.mat3x4u = new M("mat3x4", A.u32, null), M.mat4x2u = new M("mat4x2", A.u32, null), M.mat4x3u = new M("mat4x3", A.u32, null), M.mat4x4u = new M("mat4x4", A.u32, null);
-var it = class extends A {
+F.vec2f = new F("vec2", N.f32, null), F.vec3f = new F("vec3", N.f32, null), F.vec4f = new F("vec4", N.f32, null), F.vec2i = new F("vec2", N.i32, null), F.vec3i = new F("vec3", N.i32, null), F.vec4i = new F("vec4", N.i32, null), F.vec2u = new F("vec2", N.u32, null), F.vec3u = new F("vec3", N.u32, null), F.vec4u = new F("vec4", N.u32, null), F.vec2h = new F("vec2", N.f16, null), F.vec3h = new F("vec3", N.f16, null), F.vec4h = new F("vec4", N.f16, null), F.vec2b = new F("vec2", N.bool, null), F.vec3b = new F("vec3", N.bool, null), F.vec4b = new F("vec4", N.bool, null), F.mat2x2f = new F("mat2x2", N.f32, null), F.mat2x3f = new F("mat2x3", N.f32, null), F.mat2x4f = new F("mat2x4", N.f32, null), F.mat3x2f = new F("mat3x2", N.f32, null), F.mat3x3f = new F("mat3x3", N.f32, null), F.mat3x4f = new F("mat3x4", N.f32, null), F.mat4x2f = new F("mat4x2", N.f32, null), F.mat4x3f = new F("mat4x3", N.f32, null), F.mat4x4f = new F("mat4x4", N.f32, null), F.mat2x2h = new F("mat2x2", N.f16, null), F.mat2x3h = new F("mat2x3", N.f16, null), F.mat2x4h = new F("mat2x4", N.f16, null), F.mat3x2h = new F("mat3x2", N.f16, null), F.mat3x3h = new F("mat3x3", N.f16, null), F.mat3x4h = new F("mat3x4", N.f16, null), F.mat4x2h = new F("mat4x2", N.f16, null), F.mat4x3h = new F("mat4x3", N.f16, null), F.mat4x4h = new F("mat4x4", N.f16, null), F.mat2x2i = new F("mat2x2", N.i32, null), F.mat2x3i = new F("mat2x3", N.i32, null), F.mat2x4i = new F("mat2x4", N.i32, null), F.mat3x2i = new F("mat3x2", N.i32, null), F.mat3x3i = new F("mat3x3", N.i32, null), F.mat3x4i = new F("mat3x4", N.i32, null), F.mat4x2i = new F("mat4x2", N.i32, null), F.mat4x3i = new F("mat4x3", N.i32, null), F.mat4x4i = new F("mat4x4", N.i32, null), F.mat2x2u = new F("mat2x2", N.u32, null), F.mat2x3u = new F("mat2x3", N.u32, null), F.mat2x4u = new F("mat2x4", N.u32, null), F.mat3x2u = new F("mat3x2", N.u32, null), F.mat3x3u = new F("mat3x3", N.u32, null), F.mat3x4u = new F("mat3x4", N.u32, null), F.mat4x2u = new F("mat4x2", N.u32, null), F.mat4x3u = new F("mat4x3", N.u32, null), F.mat4x4u = new F("mat4x4", N.u32, null);
+var tt = class extends N {
 	constructor(e, t, n, r) {
 		super(e), this.storage = t, this.type = n, this.access = r;
 	}
 	get astNodeType() {
 		return "pointer";
 	}
-}, N = class extends A {
+}, nt = class extends N {
 	constructor(e, t, n, r) {
 		super(e), this.attributes = t, this.format = n, this.count = r;
 	}
@@ -2111,18 +2110,18 @@ var it = class extends A {
 	get isArray() {
 		return !0;
 	}
-}, at = class extends A {
+}, rt = class extends N {
 	constructor(e, t, n) {
 		super(e), this.format = t, this.access = n;
 	}
 	get astNodeType() {
 		return "sampler";
 	}
-}, P = class extends T {
+}, I = class extends O {
 	constructor() {
-		super(), this.postfix = null;
+		super(), this.postfix = null, this.hasParen = !1;
 	}
-}, F = class extends P {
+}, it = class extends I {
 	constructor(e) {
 		super(), this.value = e;
 	}
@@ -2135,7 +2134,7 @@ var it = class extends A {
 	constEvaluateString() {
 		return this.value;
 	}
-}, I = class extends P {
+}, L = class extends I {
 	constructor(e, t) {
 		super(), this.type = e, this.args = t;
 	}
@@ -2148,7 +2147,7 @@ var it = class extends A {
 	constEvaluate(e, t) {
 		return t && (t[0] = this.type), e.evalExpression(this, e.context);
 	}
-}, ot = class extends P {
+}, at = class e extends I {
 	constructor(e, t) {
 		super(), this.cachedReturnValue = null, this.name = e, this.args = t;
 	}
@@ -2159,16 +2158,158 @@ var it = class extends A {
 		this.cachedReturnValue = e;
 	}
 	get isBuiltin() {
-		return Me.has(this.name);
+		return ke.has(this.name);
 	}
 	constEvaluate(e, t) {
-		return e.evalExpression(this, e.context);
+		let n = e.evalExpression(this, e.context);
+		return t !== void 0 && this._resolveReturnType(e, t), n;
+	}
+	_resolveReturnType(t, n) {
+		let r = t.context.getFunction(this.name);
+		if (r !== null) return void (r.node.returnType !== null && (n[0] = r.node.returnType));
+		let i = e._builtinFixedReturnType.get(this.name);
+		if (i !== void 0) return void (n[0] = i);
+		let a = e._builtinSameAsArg.get(this.name);
+		if (a !== void 0 && this.args && this.args[a]) return void this.args[a].constEvaluate(t, n);
+		let o = e._builtinComponentOfArg.get(this.name);
+		if (o !== void 0 && this.args && this.args[o]) {
+			let e = [N.f32];
+			this.args[o].constEvaluate(t, e), n[0] = e[0] instanceof F && e[0].format !== null ? e[0].format : e[0];
+			return;
+		}
 	}
 	search(e) {
 		for (let t of this.args) t.search(e);
 		e(this);
 	}
-}, L = class extends P {
+};
+at._builtinFixedReturnType = /* @__PURE__ */ new Map([
+	["all", N.bool],
+	["any", N.bool],
+	["arrayLength", N.u32],
+	["dot4U8Packed", N.u32],
+	["dot4I8Packed", N.i32],
+	["pack4x8snorm", N.u32],
+	["pack4x8unorm", N.u32],
+	["pack4xI8", N.u32],
+	["pack4xU8", N.u32],
+	["pack4x8Clamp", N.u32],
+	["pack4xU8Clamp", N.u32],
+	["pack2x16snorm", N.u32],
+	["pack2x16unorm", N.u32],
+	["pack2x16float", N.u32],
+	["unpack4x8snorm", F.vec4f],
+	["unpack4x8unorm", F.vec4f],
+	["unpack4xI8", F.vec4i],
+	["unpack4xU8", F.vec4u],
+	["unpack2x16snorm", F.vec2f],
+	["unpack2x16unorm", F.vec2f],
+	["unpack2x16float", F.vec2f],
+	["storageBarrier", N.void],
+	["textureBarrier", N.void],
+	["workgroupBarrier", N.void],
+	["atomicStore", N.void]
+]), at._builtinSameAsArg = /* @__PURE__ */ new Map([
+	["abs", 0],
+	["acos", 0],
+	["acosh", 0],
+	["asin", 0],
+	["asinh", 0],
+	["atan", 0],
+	["atanh", 0],
+	["atan2", 0],
+	["ceil", 0],
+	["clamp", 0],
+	["cos", 0],
+	["cosh", 0],
+	["countLeadingZeros", 0],
+	["countOneBits", 0],
+	["countTrailingZeros", 0],
+	["cross", 0],
+	["degrees", 0],
+	["exp", 0],
+	["exp2", 0],
+	["extractBits", 0],
+	["faceForward", 0],
+	["firstLeadingBit", 0],
+	["firstTrailingBit", 0],
+	["floor", 0],
+	["fma", 0],
+	["fract", 0],
+	["insertBits", 0],
+	["inverseSqrt", 0],
+	["ldexp", 0],
+	["log", 0],
+	["log2", 0],
+	["max", 0],
+	["min", 0],
+	["mix", 0],
+	["normalize", 0],
+	["pow", 0],
+	["quantizeToF16", 0],
+	["radians", 0],
+	["reflect", 0],
+	["refract", 0],
+	["reverseBits", 0],
+	["round", 0],
+	["saturate", 0],
+	["sign", 0],
+	["sin", 0],
+	["sinh", 0],
+	["smoothstep", 2],
+	["sqrt", 0],
+	["step", 1],
+	["tan", 0],
+	["tanh", 0],
+	["trunc", 0],
+	["dpdx", 0],
+	["dpdxCoarse", 0],
+	["dpdxFine", 0],
+	["dpdy", 0],
+	["dpdyCoarse", 0],
+	["dpdyFine", 0],
+	["fwidth", 0],
+	["fwidthCoarse", 0],
+	["fwidthFine", 0],
+	["select", 0],
+	["workgroupUniformLoad", 0],
+	["atomicLoad", 0],
+	["atomicAdd", 1],
+	["atomicSub", 1],
+	["atomicMax", 1],
+	["atomicMin", 1],
+	["atomicAnd", 1],
+	["atomicOr", 1],
+	["atomicXor", 1],
+	["atomicExchange", 1],
+	["subgroupAdd", 0],
+	["subgroupExclusiveAdd", 0],
+	["subgroupInclusiveAdd", 0],
+	["subgroupAnd", 0],
+	["subgroupBroadcast", 0],
+	["subgroupBroadcastFirst", 0],
+	["subgroupMax", 0],
+	["subgroupMin", 0],
+	["subgroupMul", 0],
+	["subgroupExclusiveMul", 0],
+	["subgroupInclusiveMul", 0],
+	["subgroupOr", 0],
+	["subgroupShuffle", 0],
+	["subgroupShuffleDown", 0],
+	["subgroupShuffleUp", 0],
+	["subgroupShuffleXor", 0],
+	["subgroupXor", 0],
+	["quadBroadcast", 0],
+	["quadSwapDiagonal", 0],
+	["quadSwapX", 0],
+	["quadSwapY", 0]
+]), at._builtinComponentOfArg = /* @__PURE__ */ new Map([
+	["length", 0],
+	["distance", 0],
+	["dot", 0],
+	["determinant", 0]
+]);
+var R = class extends I {
 	constructor(e) {
 		super(), this.name = e;
 	}
@@ -2179,9 +2320,14 @@ var it = class extends A {
 		e(this), this.postfix && this.postfix.search(e);
 	}
 	constEvaluate(e, t) {
-		return e.evalExpression(this, e.context);
+		let n = e.evalExpression(this, e.context);
+		if (t !== void 0 && this.postfix === null) {
+			let n = e.context.getVariable(this.name);
+			n !== null && n.node !== null && n.node.type !== null && (t[0] = n.node.type);
+		}
+		return n;
 	}
-}, st = class extends P {
+}, ot = class extends I {
 	constructor(e, t) {
 		super(), this.name = e, this.initializer = t;
 	}
@@ -2189,16 +2335,13 @@ var it = class extends A {
 		return "constExpr";
 	}
 	constEvaluate(e, t) {
-		if (this.initializer) {
-			let t = e.evalExpression(this.initializer, e.context);
-			return t !== null && this.postfix ? t.getSubData(e, this.postfix, e.context) : t;
-		}
-		return null;
+		let n = e.evalExpression(this.initializer, e.context);
+		return t !== void 0 && this.initializer.constEvaluate(e, t), n !== null && this.postfix ? n.getSubData(e, this.postfix, e.context) : n;
 	}
 	search(e) {
 		this.initializer.search(e);
 	}
-}, R = class extends P {
+}, z = class extends I {
 	constructor(e, t) {
 		super(), this.value = e, this.type = t;
 	}
@@ -2209,18 +2352,18 @@ var it = class extends A {
 		return t !== void 0 && (t[0] = this.type), this.value;
 	}
 	get isScalar() {
-		return this.value instanceof W;
+		return this.value instanceof U;
 	}
 	get isVector() {
-		return this.value instanceof G || this.value instanceof K;
+		return this.value instanceof W || this.value instanceof G;
 	}
 	get scalarValue() {
-		return this.value instanceof W ? this.value.value : (console.error("Value is not scalar."), 0);
+		return this.value instanceof U ? this.value.value : (console.error("Value is not scalar."), 0);
 	}
 	get vectorValue() {
-		return this.value instanceof G || this.value instanceof K ? this.value.data : (console.error("Value is not a vector or matrix."), new Float32Array());
+		return this.value instanceof W || this.value instanceof G ? this.value.data : (console.error("Value is not a vector or matrix."), /* @__PURE__ */ new Float32Array());
 	}
-}, ct = class extends P {
+}, st = class extends I {
 	constructor(e, t) {
 		super(), this.type = e, this.value = t;
 	}
@@ -2230,14 +2373,14 @@ var it = class extends A {
 	search(e) {
 		this.value.search(e);
 	}
-}, z = class extends P {
+}, ct = class extends I {
 	constructor(e) {
-		super(), this.index = e;
+		super(), typeof e == "number" && (e = new z(new U(new Uint32Array([e]), new S("u32", null)), N.u32)), this.index = e;
 	}
 	search(e) {
 		this.index.search(e);
 	}
-}, lt = class extends P {
+}, lt = class extends I {
 	constructor() {
 		super();
 	}
@@ -2249,7 +2392,8 @@ var it = class extends A {
 		return "unaryOp";
 	}
 	constEvaluate(e, t) {
-		return e.evalExpression(this, e.context);
+		let n = e.evalExpression(this, e.context);
+		return t !== void 0 && (this.operator === "!" ? t[0] = N.bool : this.right.constEvaluate(e, t)), n;
 	}
 	search(e) {
 		this.right.search(e);
@@ -2262,25 +2406,40 @@ var it = class extends A {
 		return "binaryOp";
 	}
 	_getPromotedType(e, t) {
-		return e.name === t.name ? e : e.name === "f32" || t.name === "f32" ? A.f32 : e.name === "u32" || t.name === "u32" ? A.u32 : A.i32;
+		return e.name === t.name ? e : e.name === "f32" || t.name === "f32" ? N.f32 : e.name === "u32" || t.name === "u32" ? N.u32 : N.i32;
 	}
 	constEvaluate(e, t) {
-		return e.evalExpression(this, e.context);
+		let n = e.evalExpression(this, e.context);
+		if (t !== void 0) switch (this.operator) {
+			case "==":
+			case "!=":
+			case "<":
+			case ">":
+			case "<=":
+			case ">=":
+			case "&&":
+			case "||":
+				t[0] = N.bool;
+				break;
+			default: {
+				let n = [N.f32], r = [N.f32];
+				this.left.constEvaluate(e, n), this.right.constEvaluate(e, r), t[0] = this._getPromotedType(n[0], r[0]);
+				break;
+			}
+		}
+		return n;
 	}
 	search(e) {
 		this.left.search(e), this.right.search(e);
 	}
-}, ut = class extends T {
+}, ut = class extends O {
 	constructor(e) {
 		super(), this.body = e;
 	}
 	search(e) {
 		e(this), this.searchBlock(this.body, e);
 	}
-}, dt = class extends P {
-	constructor() {
-		super();
-	}
+}, dt = class extends I {
 	get astNodeType() {
 		return "default";
 	}
@@ -2304,14 +2463,14 @@ var it = class extends A {
 	search(e) {
 		this.searchBlock(this.body, e);
 	}
-}, mt = class extends T {
+}, mt = class extends O {
 	constructor(e, t, n) {
 		super(), this.name = e, this.type = t, this.attributes = n;
 	}
 	get astNodeType() {
 		return "argument";
 	}
-}, ht = class extends T {
+}, ht = class extends O {
 	constructor(e, t) {
 		super(), this.condition = e, this.body = t;
 	}
@@ -2321,14 +2480,14 @@ var it = class extends A {
 	search(e) {
 		this.condition.search(e), this.searchBlock(this.body, e);
 	}
-}, gt = class extends T {
+}, gt = class extends O {
 	constructor(e, t, n) {
 		super(), this.name = e, this.type = t, this.attributes = n;
 	}
 	get astNodeType() {
 		return "member";
 	}
-}, _t = class extends T {
+}, _t = class extends O {
 	constructor(e, t) {
 		super(), this.name = e, this.value = t;
 	}
@@ -2338,9 +2497,6 @@ var it = class extends A {
 }, H = class e {
 	constructor(t, n) {
 		this.parent = null, this.typeInfo = t, this.parent = n, this.id = e._id++;
-	}
-	clone() {
-		throw `Clone: Not implemented for ${this.constructor.name}`;
 	}
 	setDataValue(e, t, n, r) {
 		console.error(`SetDataValue: Not implemented for ${this.constructor.name}`);
@@ -2354,17 +2510,30 @@ var it = class extends A {
 };
 H._id = 0;
 var vt = class extends H {
+	constructor(e, t) {
+		super(e, t);
+	}
+	clone() {
+		return this;
+	}
+	toString() {
+		return this.typeInfo.name;
+	}
+}, yt = class extends H {
 	constructor() {
-		super(new _("void", null), null);
+		super(new S("void", null), null);
+	}
+	clone() {
+		return this;
 	}
 	toString() {
 		return "void";
 	}
 };
-vt.void = new vt();
-var U = class extends H {
+yt.void = new yt();
+var bt = class extends H {
 	constructor(e) {
-		super(new fe("pointer", e.typeInfo, null), null), this.reference = e;
+		super(new le("pointer", e.typeInfo, null), null), this.reference = e;
 	}
 	clone() {
 		return this;
@@ -2378,15 +2547,15 @@ var U = class extends H {
 	toString() {
 		return `&${this.reference.toString()}`;
 	}
-}, W = class e extends H {
+}, U = class e extends H {
 	constructor(e, t, n = null) {
-		super(t, n), e instanceof Int32Array || e instanceof Uint32Array || e instanceof Float32Array ? this.data = e : this.typeInfo.name === "x32" ? e - Math.floor(e) === 0 ? this.data = e >= 0 ? new Uint32Array([e]) : new Int32Array([e]) : this.data = new Float32Array([e]) : this.typeInfo.name === "i32" || this.typeInfo.name === "bool" ? this.data = new Int32Array([e]) : this.typeInfo.name === "u32" ? this.data = new Uint32Array([e]) : this.typeInfo.name === "f32" || this.typeInfo.name === "f16" ? this.data = new Float32Array([e]) : console.error("ScalarData2: Invalid type", t);
+		super(t, n), e instanceof Int32Array || e instanceof Uint32Array || e instanceof Float32Array ? this.data = e : this.typeInfo.name === "x32" ? this.data = e - Math.floor(e) === 0 ? e >= 0 ? new Uint32Array([e]) : new Int32Array([e]) : new Float32Array([e]) : this.typeInfo.name === "i32" || this.typeInfo.name === "bool" ? this.data = new Int32Array([e]) : this.typeInfo.name === "u32" ? this.data = new Uint32Array([e]) : this.typeInfo.name === "f32" || this.typeInfo.name === "f16" ? this.data = new Float32Array([e]) : console.error("ScalarData2: Invalid type", t);
 	}
 	clone() {
 		if (this.data instanceof Float32Array) return new e(new Float32Array(this.data), this.typeInfo, null);
 		if (this.data instanceof Int32Array) return new e(new Int32Array(this.data), this.typeInfo, null);
 		if (this.data instanceof Uint32Array) return new e(new Uint32Array(this.data), this.typeInfo, null);
-		throw "ScalarData: Invalid data type";
+		throw Error("ScalarData: Invalid data type");
 	}
 	get value() {
 		return this.data[0];
@@ -2407,11 +2576,11 @@ var U = class extends H {
 		return `${this.value}`;
 	}
 };
-function yt(e, t, n) {
+function xt(e, t, n) {
 	let r = t.length;
-	return r === 2 ? n === "f32" ? new G(new Float32Array(t), e.getTypeInfo("vec2f")) : n === "i32" || n === "bool" ? new G(new Int32Array(t), e.getTypeInfo("vec2i")) : n === "u32" ? new G(new Uint32Array(t), e.getTypeInfo("vec2u")) : n === "f16" ? new G(new Float32Array(t), e.getTypeInfo("vec2h")) : (console.error(`getSubData: Unknown format ${n}`), null) : r === 3 ? n === "f32" ? new G(new Float32Array(t), e.getTypeInfo("vec3f")) : n === "i32" || n === "bool" ? new G(new Int32Array(t), e.getTypeInfo("vec3i")) : n === "u32" ? new G(new Uint32Array(t), e.getTypeInfo("vec3u")) : n === "f16" ? new G(new Float32Array(t), e.getTypeInfo("vec3h")) : (console.error(`getSubData: Unknown format ${n}`), null) : r === 4 ? n === "f32" ? new G(new Float32Array(t), e.getTypeInfo("vec4f")) : n === "i32" || n === "bool" ? new G(new Int32Array(t), e.getTypeInfo("vec4i")) : n === "u32" ? new G(new Uint32Array(t), e.getTypeInfo("vec4u")) : n === "f16" ? new G(new Float32Array(t), e.getTypeInfo("vec4h")) : (console.error(`getSubData: Unknown format ${n}`), null) : (console.error(`getSubData: Invalid vector size ${t.length}`), null);
+	return r === 2 ? n === "f32" ? new W(new Float32Array(t), e.getTypeInfo("vec2f")) : n === "i32" || n === "bool" ? new W(new Int32Array(t), e.getTypeInfo("vec2i")) : n === "u32" ? new W(new Uint32Array(t), e.getTypeInfo("vec2u")) : n === "f16" ? new W(new Float32Array(t), e.getTypeInfo("vec2h")) : (console.error(`getSubData: Unknown format ${n}`), null) : r === 3 ? n === "f32" ? new W(new Float32Array(t), e.getTypeInfo("vec3f")) : n === "i32" || n === "bool" ? new W(new Int32Array(t), e.getTypeInfo("vec3i")) : n === "u32" ? new W(new Uint32Array(t), e.getTypeInfo("vec3u")) : n === "f16" ? new W(new Float32Array(t), e.getTypeInfo("vec3h")) : (console.error(`getSubData: Unknown format ${n}`), null) : r === 4 ? n === "f32" ? new W(new Float32Array(t), e.getTypeInfo("vec4f")) : n === "i32" || n === "bool" ? new W(new Int32Array(t), e.getTypeInfo("vec4i")) : n === "u32" ? new W(new Uint32Array(t), e.getTypeInfo("vec4u")) : n === "f16" ? new W(new Float32Array(t), e.getTypeInfo("vec4h")) : (console.error(`getSubData: Unknown format ${n}`), null) : (console.error(`getSubData: Invalid vector size ${t.length}`), null);
 }
-var G = class e extends H {
+var W = class e extends H {
 	constructor(e, t, n = null) {
 		if (super(t, n), e instanceof Float32Array || e instanceof Uint32Array || e instanceof Int32Array) this.data = e;
 		else {
@@ -2423,38 +2592,38 @@ var G = class e extends H {
 		if (this.data instanceof Float32Array) return new e(new Float32Array(this.data), this.typeInfo, null);
 		if (this.data instanceof Int32Array) return new e(new Int32Array(this.data), this.typeInfo, null);
 		if (this.data instanceof Uint32Array) return new e(new Uint32Array(this.data), this.typeInfo, null);
-		throw "VectorData: Invalid data type";
+		throw Error("VectorData: Invalid data type");
 	}
 	setDataValue(t, n, r, i) {
-		r instanceof F ? console.error("TODO: Set vector postfix") : n instanceof e ? this.data = n.data : console.error("SetDataValue: Invalid value", n);
+		r instanceof it ? console.error("TODO: Set vector postfix") : n instanceof e ? this.data = n.data : console.error("SetDataValue: Invalid value", n);
 	}
 	getSubData(e, t, n) {
 		if (t === null) return this;
 		let r = e.getTypeInfo("f32");
-		if (this.typeInfo instanceof b) r = this.typeInfo.format || r;
+		if (this.typeInfo instanceof C) r = this.typeInfo.format || r;
 		else {
 			let t = this.typeInfo.name;
 			t === "vec2f" || t === "vec3f" || t === "vec4f" ? r = e.getTypeInfo("f32") : t === "vec2i" || t === "vec3i" || t === "vec4i" ? r = e.getTypeInfo("i32") : t === "vec2b" || t === "vec3b" || t === "vec4b" ? r = e.getTypeInfo("bool") : t === "vec2u" || t === "vec3u" || t === "vec4u" ? r = e.getTypeInfo("u32") : t === "vec2h" || t === "vec3h" || t === "vec4h" ? r = e.getTypeInfo("f16") : console.error(`GetSubData: Unknown type ${t}`);
 		}
 		let i = this;
 		for (; t !== null && i !== null;) {
-			if (t instanceof z) {
+			if (t instanceof ct) {
 				let a = t.index, o = -1;
-				if (a instanceof R) {
-					if (!(a.value instanceof W)) return console.error(`GetSubData: Invalid array index ${a.value}`), null;
+				if (a instanceof z) {
+					if (!(a.value instanceof U)) return console.error(`GetSubData: Invalid array index ${a.value}`), null;
 					o = a.value.value;
 				} else {
 					let t = e.evalExpression(a, n);
-					if (!(t instanceof W)) return console.error("GetSubData: Unknown index type", a), null;
+					if (!(t instanceof U)) return console.error("GetSubData: Unknown index type", a), null;
 					o = t.value;
 				}
 				if (o < 0 || o >= i.data.length) return console.error("GetSubData: Index out of range", o), null;
-				if (i.data instanceof Float32Array) return new W(new Float32Array(i.data.buffer, i.data.byteOffset + 4 * o, 1), r);
-				if (i.data instanceof Int32Array) return new W(new Int32Array(i.data.buffer, i.data.byteOffset + 4 * o, 1), r);
-				if (i.data instanceof Uint32Array) return new W(new Uint32Array(i.data.buffer, i.data.byteOffset + 4 * o, 1), r);
-				throw "GetSubData: Invalid data type";
+				if (i.data instanceof Float32Array) return new U(new Float32Array(i.data.buffer, i.data.byteOffset + 4 * o, 1), r);
+				if (i.data instanceof Int32Array) return new U(new Int32Array(i.data.buffer, i.data.byteOffset + 4 * o, 1), r);
+				if (i.data instanceof Uint32Array) return new U(new Uint32Array(i.data.buffer, i.data.byteOffset + 4 * o, 1), r);
+				throw Error("GetSubData: Invalid data type");
 			}
-			if (!(t instanceof F)) return console.error("GetSubData: Unknown postfix", t), null;
+			if (!(t instanceof it)) return console.error("GetSubData: Unknown postfix", t), null;
 			{
 				let n = t.value.toLowerCase();
 				if (n.length === 1) {
@@ -2466,13 +2635,13 @@ var G = class e extends H {
 						if (n !== "w" && n !== "a") return console.error(`GetSubData: Unknown member ${n}`), null;
 						e = 3;
 					}
-					if (this.data instanceof Float32Array) return new W(new Float32Array(this.data.buffer, this.data.byteOffset + 4 * e, 1), r, this);
-					if (this.data instanceof Int32Array) return new W(new Int32Array(this.data.buffer, this.data.byteOffset + 4 * e, 1), r, this);
-					if (this.data instanceof Uint32Array) return new W(new Uint32Array(this.data.buffer, this.data.byteOffset + 4 * e, 1), r, this);
+					if (this.data instanceof Float32Array) return new U(new Float32Array(this.data.buffer, this.data.byteOffset + 4 * e, 1), r, this);
+					if (this.data instanceof Int32Array) return new U(new Int32Array(this.data.buffer, this.data.byteOffset + 4 * e, 1), r, this);
+					if (this.data instanceof Uint32Array) return new U(new Uint32Array(this.data.buffer, this.data.byteOffset + 4 * e, 1), r, this);
 				}
 				let a = [];
 				for (let e of n) e === "x" || e === "r" ? a.push(this.data[0]) : e === "y" || e === "g" ? a.push(this.data[1]) : e === "z" || e === "b" ? a.push(this.data[2]) : e === "w" || e === "a" ? a.push(this.data[3]) : console.error(`GetDataValue: Unknown member ${e}`);
-				i = yt(e, a, r.name);
+				i = xt(e, a, r.name);
 			}
 			t = t.postfix;
 		}
@@ -2483,20 +2652,20 @@ var G = class e extends H {
 		for (let t = 1; t < this.data.length; ++t) e += `, ${this.data[t]}`;
 		return e;
 	}
-}, K = class e extends H {
+}, G = class e extends H {
 	constructor(e, t, n = null) {
-		super(t, n), e instanceof Float32Array ? this.data = e : this.data = new Float32Array(e);
+		super(t, n), this.data = e instanceof Float32Array ? e : new Float32Array(e);
 	}
 	clone() {
 		return new e(new Float32Array(this.data), this.typeInfo, null);
 	}
 	setDataValue(t, n, r, i) {
-		r instanceof F ? console.error("TODO: Set matrix postfix") : n instanceof e ? this.data = n.data : console.error("SetDataValue: Invalid value", n);
+		r instanceof it ? console.error("TODO: Set matrix postfix") : n instanceof e ? this.data = n.data : console.error("SetDataValue: Invalid value", n);
 	}
 	getSubData(e, t, n) {
 		if (t === null) return this;
 		let r = this.typeInfo.name;
-		if (e.getTypeInfo("f32"), this.typeInfo instanceof b) this.typeInfo.format;
+		if (e.getTypeInfo("f32"), this.typeInfo instanceof C) this.typeInfo.format;
 		else if (r.endsWith("f")) e.getTypeInfo("f32");
 		else if (r.endsWith("i")) e.getTypeInfo("i32");
 		else if (r.endsWith("u")) e.getTypeInfo("u32");
@@ -2504,23 +2673,23 @@ var G = class e extends H {
 			if (!r.endsWith("h")) return console.error(`GetDataValue: Unknown type ${r}`), null;
 			e.getTypeInfo("f16");
 		}
-		if (t instanceof z) {
+		if (t instanceof ct) {
 			let i = t.index, a = -1;
-			if (i instanceof R) {
-				if (!(i.value instanceof W)) return console.error(`GetDataValue: Invalid array index ${i.value}`), null;
+			if (i instanceof z) {
+				if (!(i.value instanceof U)) return console.error(`GetDataValue: Invalid array index ${i.value}`), null;
 				a = i.value.value;
 			} else {
 				let t = e.evalExpression(i, n);
-				if (!(t instanceof W)) return console.error("GetDataValue: Unknown index type", i), null;
+				if (!(t instanceof U)) return console.error("GetDataValue: Unknown index type", i), null;
 				a = t.value;
 			}
 			if (a < 0 || a >= this.data.length) return console.error("GetDataValue: Index out of range", a), null;
 			let o = r.endsWith("h") ? "h" : "f", s;
-			if (r === "mat2x2" || r === "mat2x2f" || r === "mat2x2h" || r === "mat3x2" || r === "mat3x2f" || r === "mat3x2h" || r === "mat4x2" || r === "mat4x2f" || r === "mat4x2h") s = new G(new Float32Array(this.data.buffer, this.data.byteOffset + 2 * a * 4, 2), e.getTypeInfo(`vec2${o}`));
-			else if (r === "mat2x3" || r === "mat2x3f" || r === "mat2x3h" || r === "mat3x3" || r === "mat3x3f" || r === "mat3x3h" || r === "mat4x3" || r === "mat4x3f" || r === "mat4x3h") s = new G(new Float32Array(this.data.buffer, this.data.byteOffset + 3 * a * 4, 3), e.getTypeInfo(`vec3${o}`));
+			if (r === "mat2x2" || r === "mat2x2f" || r === "mat2x2h" || r === "mat3x2" || r === "mat3x2f" || r === "mat3x2h" || r === "mat4x2" || r === "mat4x2f" || r === "mat4x2h") s = new W(new Float32Array(this.data.buffer, this.data.byteOffset + 2 * a * 4, 2), e.getTypeInfo(`vec2${o}`));
+			else if (r === "mat2x3" || r === "mat2x3f" || r === "mat2x3h" || r === "mat3x3" || r === "mat3x3f" || r === "mat3x3h" || r === "mat4x3" || r === "mat4x3f" || r === "mat4x3h") s = new W(new Float32Array(this.data.buffer, this.data.byteOffset + 3 * a * 4, 3), e.getTypeInfo(`vec3${o}`));
 			else {
 				if (r !== "mat2x4" && r !== "mat2x4f" && r !== "mat2x4h" && r !== "mat3x4" && r !== "mat3x4f" && r !== "mat3x4h" && r !== "mat4x4" && r !== "mat4x4f" && r !== "mat4x4h") return console.error(`GetDataValue: Unknown type ${r}`), null;
-				s = new G(new Float32Array(this.data.buffer, this.data.byteOffset + 4 * a * 4, 4), e.getTypeInfo(`vec4${o}`));
+				s = new W(new Float32Array(this.data.buffer, this.data.byteOffset + 4 * a * 4, 4), e.getTypeInfo(`vec4${o}`));
 			}
 			return t.postfix ? s.getSubData(e, t.postfix, n) : s;
 		}
@@ -2531,41 +2700,43 @@ var G = class e extends H {
 		for (let t = 1; t < this.data.length; ++t) e += `, ${this.data[t]}`;
 		return e;
 	}
-}, q = class e extends H {
+}, K = class e extends H {
 	constructor(e, t, n = 0, r = null) {
 		super(t, r), this.buffer = e instanceof ArrayBuffer ? e : e.buffer, this.offset = n;
 	}
 	clone() {
-		return new e(new Uint8Array(new Uint8Array(this.buffer, this.offset, this.typeInfo.size)).buffer, this.typeInfo, 0, null);
+		let t = new Uint8Array(new Uint8Array(this.buffer, this.offset, this.typeInfo.size));
+		return new e(t.buffer, this.typeInfo, 0, null);
 	}
 	setDataValue(e, t, n, r) {
 		if (t === null) return void console.log("setDataValue: NULL data.");
 		let i = this.offset, a = this.typeInfo;
 		for (; n;) {
-			if (n instanceof z) if (a instanceof y) {
-				let t = n.index;
-				if (t instanceof R) {
-					if (!(t.value instanceof W)) return void console.error(`SetDataValue: Invalid index type ${t.value}`);
-					i += t.value.value * a.stride;
-				} else {
-					let n = e.evalExpression(t, r);
-					if (!(n instanceof W)) return void console.error("SetDataValue: Unknown index type", t);
-					i += n.value * a.stride;
-				}
-				a = a.format;
-			} else console.error(`SetDataValue: Type ${a.getTypeName()} is not an array`);
-			else {
-				if (!(n instanceof F)) return void console.error("SetDataValue: Unknown postfix type", n);
+			if (n instanceof ct) {
+				if (a instanceof ce) {
+					let t = n.index;
+					if (t instanceof z) {
+						if (!(t.value instanceof U)) return void console.error(`SetDataValue: Invalid index type ${t.value}`);
+						i += t.value.value * a.stride;
+					} else {
+						let n = e.evalExpression(t, r);
+						if (!(n instanceof U)) return void console.error("SetDataValue: Unknown index type", t);
+						i += n.value * a.stride;
+					}
+					a = a.format;
+				} else console.error(`SetDataValue: Type ${a.getTypeName()} is not an array`);
+			} else {
+				if (!(n instanceof it)) return void console.error("SetDataValue: Unknown postfix type", n);
 				{
 					let e = n.value;
-					if (a instanceof v) {
+					if (a instanceof se) {
 						let t = !1;
 						for (let n of a.members) if (n.name === e) {
 							i += n.offset, a = n.type, t = !0;
 							break;
 						}
 						if (!t) return void console.error(`SetDataValue: Member ${e} not found`);
-					} else if (a instanceof _) {
+					} else if (a instanceof S) {
 						let n = a.getTypeName(), r = 0;
 						if (e === "x" || e === "r") r = 0;
 						else if (e === "y" || e === "g") r = 1;
@@ -2574,7 +2745,7 @@ var G = class e extends H {
 							if (e !== "w" && e !== "a") return void console.error(`SetDataValue: Unknown member ${e}`);
 							r = 3;
 						}
-						if (!(t instanceof W)) return void console.error("SetDataValue: Invalid value", t);
+						if (!(t instanceof U)) return void console.error("SetDataValue: Invalid value", t);
 						let o = t.value;
 						n === "vec2f" ? new Float32Array(this.buffer, i, 2)[r] = o : n === "vec3f" ? new Float32Array(this.buffer, i, 3)[r] = o : n === "vec4f" ? new Float32Array(this.buffer, i, 4)[r] = o : n === "vec2i" ? new Int32Array(this.buffer, i, 2)[r] = o : n === "vec3i" ? new Int32Array(this.buffer, i, 3)[r] = o : n === "vec4i" ? new Int32Array(this.buffer, i, 4)[r] = o : n === "vec2u" ? new Uint32Array(this.buffer, i, 2)[r] = o : n === "vec3u" ? new Uint32Array(this.buffer, i, 3)[r] = o : n === "vec4u" ? new Uint32Array(this.buffer, i, 4)[r] = o : console.error(`SetDataValue: Type ${n} is not a struct`);
 						return;
@@ -2587,147 +2758,150 @@ var G = class e extends H {
 	}
 	setData(t, n, r, i, a) {
 		let o = r.getTypeName();
-		if (o !== "f32" && o !== "f16") if (o !== "i32" && o !== "atomic<i32>" && o !== "x32") if (o !== "u32" && o !== "atomic<u32>") if (o !== "bool") {
-			if (o === "vec2f" || o === "vec2h") {
-				let e = new Float32Array(this.buffer, i, 2);
-				n instanceof G ? (e[0] = n.data[0], e[1] = n.data[1]) : (e[0] = n[0], e[1] = n[1]);
-				return;
-			}
-			if (o === "vec3f" || o === "vec3h") {
-				let e = new Float32Array(this.buffer, i, 3);
-				n instanceof G ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2]);
-				return;
-			}
-			if (o === "vec4f" || o === "vec4h") {
-				let e = new Float32Array(this.buffer, i, 4);
-				n instanceof G ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2], e[3] = n.data[3]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2], e[3] = n[3]);
-				return;
-			}
-			if (o === "vec2i") {
-				let e = new Int32Array(this.buffer, i, 2);
-				n instanceof G ? (e[0] = n.data[0], e[1] = n.data[1]) : (e[0] = n[0], e[1] = n[1]);
-				return;
-			}
-			if (o === "vec3i") {
-				let e = new Int32Array(this.buffer, i, 3);
-				n instanceof G ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2]);
-				return;
-			}
-			if (o === "vec4i") {
-				let e = new Int32Array(this.buffer, i, 4);
-				n instanceof G ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2], e[3] = n.data[3]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2], e[3] = n[3]);
-				return;
-			}
-			if (o === "vec2u") {
-				let e = new Uint32Array(this.buffer, i, 2);
-				n instanceof G ? (e[0] = n.data[0], e[1] = n.data[1]) : (e[0] = n[0], e[1] = n[1]);
-				return;
-			}
-			if (o === "vec3u") {
-				let e = new Uint32Array(this.buffer, i, 3);
-				n instanceof G ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2]);
-				return;
-			}
-			if (o === "vec4u") {
-				let e = new Uint32Array(this.buffer, i, 4);
-				n instanceof G ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2], e[3] = n.data[3]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2], e[3] = n[3]);
-				return;
-			}
-			if (o === "vec2b") {
-				let e = new Uint32Array(this.buffer, i, 2);
-				n instanceof G ? (e[0] = n.data[0], e[1] = n.data[1]) : (e[0] = n[0], e[1] = n[1]);
-				return;
-			}
-			if (o === "vec3b") {
-				let e = new Uint32Array(this.buffer, i, 3);
-				n instanceof G ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2]);
-				return;
-			}
-			if (o === "vec4b") {
-				let e = new Uint32Array(this.buffer, i, 4);
-				n instanceof G ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2], e[3] = n.data[3]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2], e[3] = n[3]);
-				return;
-			}
-			if (o === "mat2x2f" || o === "mat2x2h") {
-				let e = new Float32Array(this.buffer, i, 4);
-				n instanceof K ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2], e[3] = n.data[3]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2], e[3] = n[3]);
-				return;
-			}
-			if (o === "mat2x3f" || o === "mat2x3h") {
-				let e = new Float32Array(this.buffer, i, 6);
-				n instanceof K ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2], e[3] = n.data[3], e[4] = n.data[4], e[5] = n.data[5]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2], e[3] = n[3], e[4] = n[4], e[5] = n[5]);
-				return;
-			}
-			if (o === "mat2x4f" || o === "mat2x4h") {
-				let e = new Float32Array(this.buffer, i, 8);
-				n instanceof K ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2], e[3] = n.data[3], e[4] = n.data[4], e[5] = n.data[5], e[6] = n.data[6], e[7] = n.data[7]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2], e[3] = n[3], e[4] = n[4], e[5] = n[5], e[6] = n[6], e[7] = n[7]);
-				return;
-			}
-			if (o === "mat3x2f" || o === "mat3x2h") {
-				let e = new Float32Array(this.buffer, i, 6);
-				n instanceof K ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2], e[3] = n.data[3], e[4] = n.data[4], e[5] = n.data[5]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2], e[3] = n[3], e[4] = n[4], e[5] = n[5]);
-				return;
-			}
-			if (o === "mat3x3f" || o === "mat3x3h") {
-				let e = new Float32Array(this.buffer, i, 9);
-				n instanceof K ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2], e[3] = n.data[3], e[4] = n.data[4], e[5] = n.data[5], e[6] = n.data[6], e[7] = n.data[7], e[8] = n.data[8]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2], e[3] = n[3], e[4] = n[4], e[5] = n[5], e[6] = n[6], e[7] = n[7], e[8] = n[8]);
-				return;
-			}
-			if (o === "mat3x4f" || o === "mat3x4h") {
-				let e = new Float32Array(this.buffer, i, 12);
-				n instanceof K ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2], e[3] = n.data[3], e[4] = n.data[4], e[5] = n.data[5], e[6] = n.data[6], e[7] = n.data[7], e[8] = n.data[8], e[9] = n.data[9], e[10] = n.data[10], e[11] = n.data[11]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2], e[3] = n[3], e[4] = n[4], e[5] = n[5], e[6] = n[6], e[7] = n[7], e[8] = n[8], e[9] = n[9], e[10] = n[10], e[11] = n[11]);
-				return;
-			}
-			if (o === "mat4x2f" || o === "mat4x2h") {
-				let e = new Float32Array(this.buffer, i, 8);
-				n instanceof K ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2], e[3] = n.data[3], e[4] = n.data[4], e[5] = n.data[5], e[6] = n.data[6], e[7] = n.data[7]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2], e[3] = n[3], e[4] = n[4], e[5] = n[5], e[6] = n[6], e[7] = n[7]);
-				return;
-			}
-			if (o === "mat4x3f" || o === "mat4x3h") {
-				let e = new Float32Array(this.buffer, i, 12);
-				n instanceof K ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2], e[3] = n.data[3], e[4] = n.data[4], e[5] = n.data[5], e[6] = n.data[6], e[7] = n.data[7], e[8] = n.data[8], e[9] = n.data[9], e[10] = n.data[10], e[11] = n.data[11]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2], e[3] = n[3], e[4] = n[4], e[5] = n[5], e[6] = n[6], e[7] = n[7], e[8] = n[8], e[9] = n[9], e[10] = n[10], e[11] = n[11]);
-				return;
-			}
-			if (o === "mat4x4f" || o === "mat4x4h") {
-				let e = new Float32Array(this.buffer, i, 16);
-				n instanceof K ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2], e[3] = n.data[3], e[4] = n.data[4], e[5] = n.data[5], e[6] = n.data[6], e[7] = n.data[7], e[8] = n.data[8], e[9] = n.data[9], e[10] = n.data[10], e[11] = n.data[11], e[12] = n.data[12], e[13] = n.data[13], e[14] = n.data[14], e[15] = n.data[15]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2], e[3] = n[3], e[4] = n[4], e[5] = n[5], e[6] = n[6], e[7] = n[7], e[8] = n[8], e[9] = n[9], e[10] = n[10], e[11] = n[11], e[12] = n[12], e[13] = n[13], e[14] = n[14], e[15] = n[15]);
-				return;
-			}
-			if (n instanceof e) {
-				if (r === n.typeInfo) {
-					new Uint8Array(this.buffer, i, n.buffer.byteLength).set(new Uint8Array(n.buffer));
-					return;
-				}
-				console.error("SetDataValue: Type mismatch", o, n.typeInfo.getTypeName());
-			} else console.error(`SetData: Unknown type ${o}`);
-		} else n instanceof W && (new Int32Array(this.buffer, i, 1)[0] = n.value);
-		else n instanceof W && (new Uint32Array(this.buffer, i, 1)[0] = n.value);
-		else n instanceof W && (new Int32Array(this.buffer, i, 1)[0] = n.value);
-		else n instanceof W && (new Float32Array(this.buffer, i, 1)[0] = n.value);
+		if (o !== "f32" && o !== "f16") {
+			if (o !== "i32" && o !== "atomic<i32>" && o !== "x32") {
+				if (o !== "u32" && o !== "atomic<u32>") {
+					if (o !== "bool") {
+						if (o === "vec2f" || o === "vec2h") {
+							let e = new Float32Array(this.buffer, i, 2);
+							n instanceof W ? (e[0] = n.data[0], e[1] = n.data[1]) : (e[0] = n[0], e[1] = n[1]);
+							return;
+						}
+						if (o === "vec3f" || o === "vec3h") {
+							let e = new Float32Array(this.buffer, i, 3);
+							n instanceof W ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2]);
+							return;
+						}
+						if (o === "vec4f" || o === "vec4h") {
+							let e = new Float32Array(this.buffer, i, 4);
+							n instanceof W ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2], e[3] = n.data[3]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2], e[3] = n[3]);
+							return;
+						}
+						if (o === "vec2i") {
+							let e = new Int32Array(this.buffer, i, 2);
+							n instanceof W ? (e[0] = n.data[0], e[1] = n.data[1]) : (e[0] = n[0], e[1] = n[1]);
+							return;
+						}
+						if (o === "vec3i") {
+							let e = new Int32Array(this.buffer, i, 3);
+							n instanceof W ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2]);
+							return;
+						}
+						if (o === "vec4i") {
+							let e = new Int32Array(this.buffer, i, 4);
+							n instanceof W ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2], e[3] = n.data[3]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2], e[3] = n[3]);
+							return;
+						}
+						if (o === "vec2u") {
+							let e = new Uint32Array(this.buffer, i, 2);
+							n instanceof W ? (e[0] = n.data[0], e[1] = n.data[1]) : (e[0] = n[0], e[1] = n[1]);
+							return;
+						}
+						if (o === "vec3u") {
+							let e = new Uint32Array(this.buffer, i, 3);
+							n instanceof W ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2]);
+							return;
+						}
+						if (o === "vec4u") {
+							let e = new Uint32Array(this.buffer, i, 4);
+							n instanceof W ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2], e[3] = n.data[3]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2], e[3] = n[3]);
+							return;
+						}
+						if (o === "vec2b") {
+							let e = new Uint32Array(this.buffer, i, 2);
+							n instanceof W ? (e[0] = n.data[0], e[1] = n.data[1]) : (e[0] = n[0], e[1] = n[1]);
+							return;
+						}
+						if (o === "vec3b") {
+							let e = new Uint32Array(this.buffer, i, 3);
+							n instanceof W ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2]);
+							return;
+						}
+						if (o === "vec4b") {
+							let e = new Uint32Array(this.buffer, i, 4);
+							n instanceof W ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2], e[3] = n.data[3]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2], e[3] = n[3]);
+							return;
+						}
+						if (o === "mat2x2f" || o === "mat2x2h") {
+							let e = new Float32Array(this.buffer, i, 4);
+							n instanceof G ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2], e[3] = n.data[3]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2], e[3] = n[3]);
+							return;
+						}
+						if (o === "mat2x3f" || o === "mat2x3h") {
+							let e = new Float32Array(this.buffer, i, 6);
+							n instanceof G ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2], e[3] = n.data[3], e[4] = n.data[4], e[5] = n.data[5]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2], e[3] = n[3], e[4] = n[4], e[5] = n[5]);
+							return;
+						}
+						if (o === "mat2x4f" || o === "mat2x4h") {
+							let e = new Float32Array(this.buffer, i, 8);
+							n instanceof G ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2], e[3] = n.data[3], e[4] = n.data[4], e[5] = n.data[5], e[6] = n.data[6], e[7] = n.data[7]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2], e[3] = n[3], e[4] = n[4], e[5] = n[5], e[6] = n[6], e[7] = n[7]);
+							return;
+						}
+						if (o === "mat3x2f" || o === "mat3x2h") {
+							let e = new Float32Array(this.buffer, i, 6);
+							n instanceof G ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2], e[3] = n.data[3], e[4] = n.data[4], e[5] = n.data[5]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2], e[3] = n[3], e[4] = n[4], e[5] = n[5]);
+							return;
+						}
+						if (o === "mat3x3f" || o === "mat3x3h") {
+							let e = new Float32Array(this.buffer, i, 9);
+							n instanceof G ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2], e[3] = n.data[3], e[4] = n.data[4], e[5] = n.data[5], e[6] = n.data[6], e[7] = n.data[7], e[8] = n.data[8]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2], e[3] = n[3], e[4] = n[4], e[5] = n[5], e[6] = n[6], e[7] = n[7], e[8] = n[8]);
+							return;
+						}
+						if (o === "mat3x4f" || o === "mat3x4h") {
+							let e = new Float32Array(this.buffer, i, 12);
+							n instanceof G ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2], e[3] = n.data[3], e[4] = n.data[4], e[5] = n.data[5], e[6] = n.data[6], e[7] = n.data[7], e[8] = n.data[8], e[9] = n.data[9], e[10] = n.data[10], e[11] = n.data[11]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2], e[3] = n[3], e[4] = n[4], e[5] = n[5], e[6] = n[6], e[7] = n[7], e[8] = n[8], e[9] = n[9], e[10] = n[10], e[11] = n[11]);
+							return;
+						}
+						if (o === "mat4x2f" || o === "mat4x2h") {
+							let e = new Float32Array(this.buffer, i, 8);
+							n instanceof G ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2], e[3] = n.data[3], e[4] = n.data[4], e[5] = n.data[5], e[6] = n.data[6], e[7] = n.data[7]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2], e[3] = n[3], e[4] = n[4], e[5] = n[5], e[6] = n[6], e[7] = n[7]);
+							return;
+						}
+						if (o === "mat4x3f" || o === "mat4x3h") {
+							let e = new Float32Array(this.buffer, i, 12);
+							n instanceof G ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2], e[3] = n.data[3], e[4] = n.data[4], e[5] = n.data[5], e[6] = n.data[6], e[7] = n.data[7], e[8] = n.data[8], e[9] = n.data[9], e[10] = n.data[10], e[11] = n.data[11]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2], e[3] = n[3], e[4] = n[4], e[5] = n[5], e[6] = n[6], e[7] = n[7], e[8] = n[8], e[9] = n[9], e[10] = n[10], e[11] = n[11]);
+							return;
+						}
+						if (o === "mat4x4f" || o === "mat4x4h") {
+							let e = new Float32Array(this.buffer, i, 16);
+							n instanceof G ? (e[0] = n.data[0], e[1] = n.data[1], e[2] = n.data[2], e[3] = n.data[3], e[4] = n.data[4], e[5] = n.data[5], e[6] = n.data[6], e[7] = n.data[7], e[8] = n.data[8], e[9] = n.data[9], e[10] = n.data[10], e[11] = n.data[11], e[12] = n.data[12], e[13] = n.data[13], e[14] = n.data[14], e[15] = n.data[15]) : (e[0] = n[0], e[1] = n[1], e[2] = n[2], e[3] = n[3], e[4] = n[4], e[5] = n[5], e[6] = n[6], e[7] = n[7], e[8] = n[8], e[9] = n[9], e[10] = n[10], e[11] = n[11], e[12] = n[12], e[13] = n[13], e[14] = n[14], e[15] = n[15]);
+							return;
+						}
+						if (n instanceof e) {
+							if (r === n.typeInfo) {
+								new Uint8Array(this.buffer, i, n.buffer.byteLength).set(new Uint8Array(n.buffer));
+								return;
+							}
+							console.error("SetDataValue: Type mismatch", o, n.typeInfo.getTypeName());
+						} else console.error(`SetData: Unknown type ${o}`);
+					} else n instanceof U && (new Int32Array(this.buffer, i, 1)[0] = n.value);
+				} else n instanceof U && (new Uint32Array(this.buffer, i, 1)[0] = n.value);
+			} else n instanceof U && (new Int32Array(this.buffer, i, 1)[0] = n.value);
+		} else n instanceof U && (new Float32Array(this.buffer, i, 1)[0] = n.value);
 	}
 	getSubData(t, n, r) {
 		if (n === null) return this;
 		let i = this.offset, a = this.typeInfo;
 		for (; n;) {
-			if (n instanceof z) {
-				let e = n.index, o = e instanceof P ? t.evalExpression(e, r) : e, s = 0;
-				if (o instanceof W ? s = o.value : typeof o == "number" ? s = o : console.error("GetDataValue: Invalid index type", e), a instanceof y) i += s * a.stride, a = a.format;
+			if (n instanceof ct) {
+				let e = n.index, o = e instanceof I ? t.evalExpression(e, r) : e, s = 0;
+				if (o instanceof U ? s = o.value : typeof o == "number" ? s = o : console.error("GetDataValue: Invalid index type", e), a instanceof ce) i += s * a.stride, a = a.format;
 				else {
 					let e = a.getTypeName();
-					e === "mat4x4" || e === "mat4x4f" || e === "mat4x4h" ? (i += 16 * s, a = t.getTypeInfo("vec4f")) : console.error(`getDataValue: Type ${a.getTypeName()} is not an array`);
+					e === "mat4x4" || e === "mat4x4f" || e === "mat4x4h" ? (i += 16 * s, a = t.getTypeInfo("vec4f")) : e === "mat4x3" || e === "mat4x3f" || e === "mat4x3h" ? (i += 12 * s, a = t.getTypeInfo("vec3f")) : e === "mat4x2" || e === "mat4x2f" || e === "mat4x2h" ? (i += 8 * s, a = t.getTypeInfo("vec2f")) : e === "mat3x4" || e === "mat3x4f" || e === "mat3x4h" ? (i += 12 * s, a = t.getTypeInfo("vec4f")) : e === "mat3x3" || e === "mat3x3f" || e === "mat3x3h" ? (i += 9 * s, a = t.getTypeInfo("vec3f")) : e === "mat3x2" || e === "mat3x2f" || e === "mat3x2h" ? (i += 6 * s, a = t.getTypeInfo("vec2f")) : e === "mat2x4" || e === "mat2x4f" || e === "mat2x4h" ? (i += 8 * s, a = t.getTypeInfo("vec4f")) : e === "mat2x3" || e === "mat2x3f" || e === "mat2x3h" ? (i += 6 * s, a = t.getTypeInfo("vec3f")) : e === "mat2x2" || e === "mat2x2f" || e === "mat2x2h" ? (i += 4 * s, a = t.getTypeInfo("vec2f")) : e === "vec2f" || e === "vec3f" || e === "vec4f" ? (i += 4 * s, a = t.getTypeInfo("f32")) : e === "vec2h" || e === "vec3h" || e === "vec4h" ? (i += 2 * s, a = t.getTypeInfo("f16")) : e === "vec2b" || e === "vec3b" || e === "vec4b" ? (i += 1 * s, a = t.getTypeInfo("bool")) : e === "vec2i" || e === "vec3i" || e === "vec4i" ? (i += 4 * s, a = t.getTypeInfo("i32")) : e === "vec2u" || e === "vec3u" || e === "vec4u" ? (i += 4 * s, a = t.getTypeInfo("u32")) : console.error(`getDataValue: Type ${a.getTypeName()} is not an array`);
 				}
 			} else {
-				if (!(n instanceof F)) return console.error("GetDataValue: Unknown postfix type", n), null;
+				if (!(n instanceof it)) return console.error("GetDataValue: Unknown postfix type", n), null;
 				{
 					let e = n.value;
-					if (a instanceof v) {
+					if (a instanceof se) {
 						let t = !1;
 						for (let n of a.members) if (n.name === e) {
 							i += n.offset, a = n.type, t = !0;
 							break;
 						}
 						if (!t) return console.error(`GetDataValue: Member ${e} not found`), null;
-					} else if (a instanceof _) {
+					} else if (a instanceof S) {
 						let n = a.getTypeName();
 						if (n === "vec2f" || n === "vec3f" || n === "vec4f" || n === "vec2i" || n === "vec3i" || n === "vec4i" || n === "vec2u" || n === "vec3u" || n === "vec4u" || n === "vec2b" || n === "vec3b" || n === "vec4b" || n === "vec2h" || n === "vec3h" || n === "vec4h" || n === "vec2" || n === "vec3" || n === "vec4") {
 							if (e.length > 0 && e.length < 5) {
@@ -2742,11 +2916,11 @@ var G = class e extends H {
 										c = 3;
 									}
 									if (e.length === 1) {
-										if (n.endsWith("f")) return this.buffer.byteLength < i + 4 * c + 4 ? (console.log("Insufficient buffer data"), null) : new W(new Float32Array(this.buffer, i + 4 * c, 1), t.getTypeInfo("f32"), this);
-										if (n.endsWith("h")) return new W(new Float32Array(this.buffer, i + 4 * c, 1), t.getTypeInfo("f16"), this);
-										if (n.endsWith("i")) return new W(new Int32Array(this.buffer, i + 4 * c, 1), t.getTypeInfo("i32"), this);
-										if (n.endsWith("b")) return new W(new Int32Array(this.buffer, i + 4 * c, 1), t.getTypeInfo("bool"), this);
-										if (n.endsWith("u")) return new W(new Uint32Array(this.buffer, i + 4 * c, 1), t.getTypeInfo("i32"), this);
+										if (n.endsWith("f")) return this.buffer.byteLength < i + 4 * c + 4 ? (console.log("Insufficient buffer data"), null) : new U(new Float32Array(this.buffer, i + 4 * c, 1), t.getTypeInfo("f32"), this);
+										if (n.endsWith("h")) return new U(new Float32Array(this.buffer, i + 4 * c, 1), t.getTypeInfo("f16"), this);
+										if (n.endsWith("i")) return new U(new Int32Array(this.buffer, i + 4 * c, 1), t.getTypeInfo("i32"), this);
+										if (n.endsWith("b")) return new U(new Int32Array(this.buffer, i + 4 * c, 1), t.getTypeInfo("bool"), this);
+										if (n.endsWith("u")) return new U(new Uint32Array(this.buffer, i + 4 * c, 1), t.getTypeInfo("i32"), this);
 									}
 									if (n === "vec2f") o.push(new Float32Array(this.buffer, i, 2)[c]);
 									else if (n === "vec3f") {
@@ -2763,7 +2937,7 @@ var G = class e extends H {
 										o.push(e[c]);
 									} else n === "vec3u" ? (r = "u", o.push(new Uint32Array(this.buffer, i, 3)[c])) : n === "vec4u" && (r = "u", o.push(new Uint32Array(this.buffer, i, 4)[c]));
 								}
-								return o.length === 2 ? a = t.getTypeInfo(`vec2${r}`) : o.length === 3 ? a = t.getTypeInfo(`vec3${r}`) : o.length === 4 ? a = t.getTypeInfo(`vec4${r}`) : console.error(`GetDataValue: Invalid vector length ${o.length}`), new G(o, a, null);
+								return o.length === 2 ? a = t.getTypeInfo(`vec2${r}`) : o.length === 3 ? a = t.getTypeInfo(`vec3${r}`) : o.length === 4 ? a = t.getTypeInfo(`vec4${r}`) : console.error(`GetDataValue: Invalid vector length ${o.length}`), new W(o, a, null);
 							}
 							return console.error(`GetDataValue: Unknown member ${e}`), null;
 						}
@@ -2774,44 +2948,62 @@ var G = class e extends H {
 			n = n.postfix;
 		}
 		let o = a.getTypeName();
-		return o === "f32" ? new W(new Float32Array(this.buffer, i, 1), a, this) : o === "i32" ? new W(new Int32Array(this.buffer, i, 1), a, this) : o === "u32" ? new W(new Uint32Array(this.buffer, i, 1), a, this) : o === "vec2f" ? new G(new Float32Array(this.buffer, i, 2), a, this) : o === "vec3f" ? new G(new Float32Array(this.buffer, i, 3), a, this) : o === "vec4f" ? new G(new Float32Array(this.buffer, i, 4), a, this) : o === "vec2i" ? new G(new Int32Array(this.buffer, i, 2), a, this) : o === "vec3i" ? new G(new Int32Array(this.buffer, i, 3), a, this) : o === "vec4i" ? new G(new Int32Array(this.buffer, i, 4), a, this) : o === "vec2u" ? new G(new Uint32Array(this.buffer, i, 2), a, this) : o === "vec3u" ? new G(new Uint32Array(this.buffer, i, 3), a, this) : o === "vec4u" ? new G(new Uint32Array(this.buffer, i, 4), a, this) : a instanceof b && a.name === "atomic" ? a.format?.name === "u32" ? new W(new Uint32Array(this.buffer, i, 1)[0], a.format, this) : a.format?.name === "i32" ? new W(new Int32Array(this.buffer, i, 1)[0], a.format, this) : (console.error(`GetDataValue: Invalid atomic format ${a.format?.name}`), null) : new e(this.buffer, a, i, this);
+		return o === "f32" ? new U(new Float32Array(this.buffer, i, 1), a, this) : o === "i32" ? new U(new Int32Array(this.buffer, i, 1), a, this) : o === "u32" ? new U(new Uint32Array(this.buffer, i, 1), a, this) : o === "vec2f" ? new W(new Float32Array(this.buffer, i, 2), a, this) : o === "vec3f" ? new W(new Float32Array(this.buffer, i, 3), a, this) : o === "vec4f" ? new W(new Float32Array(this.buffer, i, 4), a, this) : o === "vec2i" ? new W(new Int32Array(this.buffer, i, 2), a, this) : o === "vec3i" ? new W(new Int32Array(this.buffer, i, 3), a, this) : o === "vec4i" ? new W(new Int32Array(this.buffer, i, 4), a, this) : o === "vec2u" ? new W(new Uint32Array(this.buffer, i, 2), a, this) : o === "vec3u" ? new W(new Uint32Array(this.buffer, i, 3), a, this) : o === "vec4u" ? new W(new Uint32Array(this.buffer, i, 4), a, this) : a instanceof C && a.name === "atomic" ? a.format?.name === "u32" ? new U(new Uint32Array(this.buffer, i, 1)[0], a.format, this) : a.format?.name === "i32" ? new U(new Int32Array(this.buffer, i, 1)[0], a.format, this) : (console.error(`GetDataValue: Invalid atomic format ${a.format?.name}`), null) : new e(this.buffer, a, i, this);
+	}
+	toArray() {
+		let e = this.typeInfo.getTypeName();
+		return e === "f32" || e === "f16" ? new Float32Array(this.buffer, this.offset, 1) : e === "i32" || e === "atomic<i32>" || e === "x32" ? new Int32Array(this.buffer, this.offset, 1) : e === "u32" || e === "atomic<u32>" ? new Uint32Array(this.buffer, this.offset, 1) : e === "bool" ? new Int32Array(this.buffer, this.offset, 1) : e === "vec2f" || e === "vec2h" ? new Float32Array(this.buffer, this.offset, 2) : e === "vec3f" || e === "vec3h" ? new Float32Array(this.buffer, this.offset, 3) : e === "vec4f" || e === "vec4h" ? new Float32Array(this.buffer, this.offset, 4) : e === "vec2i" ? new Int32Array(this.buffer, this.offset, 2) : e === "vec3i" ? new Int32Array(this.buffer, this.offset, 3) : e === "vec4i" ? new Int32Array(this.buffer, this.offset, 4) : e === "vec2u" ? new Uint32Array(this.buffer, this.offset, 2) : e === "vec3u" ? new Uint32Array(this.buffer, this.offset, 3) : e === "vec4u" ? new Uint32Array(this.buffer, this.offset, 4) : e === "vec2b" ? new Uint32Array(this.buffer, this.offset, 2) : e === "vec3b" ? new Uint32Array(this.buffer, this.offset, 3) : e === "vec4b" ? new Uint32Array(this.buffer, this.offset, 4) : e === "mat2x2f" || e === "mat2x2h" ? new Float32Array(this.buffer, this.offset, 4) : e === "mat2x3f" || e === "mat2x3h" ? new Float32Array(this.buffer, this.offset, 6) : e === "mat2x4f" || e === "mat2x4h" ? new Float32Array(this.buffer, this.offset, 8) : e === "mat3x2f" || e === "mat3x2h" ? new Float32Array(this.buffer, this.offset, 6) : e === "mat3x3f" || e === "mat3x3h" ? new Float32Array(this.buffer, this.offset, 9) : e === "mat3x4f" || e === "mat3x4h" ? new Float32Array(this.buffer, this.offset, 12) : e === "mat4x2f" || e === "mat4x2h" ? new Float32Array(this.buffer, this.offset, 8) : e === "mat4x3f" || e === "mat4x3h" ? new Float32Array(this.buffer, this.offset, 12) : e === "mat4x4f" || e === "mat4x4h" ? new Float32Array(this.buffer, this.offset, 16) : null;
 	}
 	toString() {
 		let e = "";
-		if (this.typeInfo instanceof y) if (this.typeInfo.format.name === "f32") {
-			let t = new Float32Array(this.buffer, this.offset);
-			e = `[${t[0]}`;
-			for (let n = 1; n < t.length; ++n) e += `, ${t[n]}`;
-		} else if (this.typeInfo.format.name === "i32") {
-			let t = new Int32Array(this.buffer, this.offset);
-			e = `[${t[0]}`;
-			for (let n = 1; n < t.length; ++n) e += `, ${t[n]}`;
-		} else if (this.typeInfo.format.name === "u32") {
-			let t = new Uint32Array(this.buffer, this.offset);
-			e = `[${t[0]}`;
-			for (let n = 1; n < t.length; ++n) e += `, ${t[n]}`;
-		} else if (this.typeInfo.format.name === "vec2f") {
-			let t = new Float32Array(this.buffer, this.offset);
-			e = `[${t[0]}, ${t[1]}]`;
-			for (let n = 1; n < t.length / 2; ++n) e += `, [${t[2 * n]}, ${t[2 * n + 1]}]`;
-		} else if (this.typeInfo.format.name === "vec3f") {
-			let t = new Float32Array(this.buffer, this.offset);
-			e = `[${t[0]}, ${t[1]}, ${t[2]}]`;
-			for (let n = 4; n < t.length; n += 4) e += `, [${t[n]}, ${t[n + 1]}, ${t[n + 2]}]`;
-		} else if (this.typeInfo.format.name === "vec4f") {
-			let t = new Float32Array(this.buffer, this.offset);
-			e = `[${t[0]}, ${t[1]}, ${t[2]}, ${t[3]}]`;
-			for (let n = 4; n < t.length; n += 4) e += `, [${t[n]}, ${t[n + 1]}, ${t[n + 2]}, ${t[n + 3]}]`;
-		} else e = "[...]";
-		else this.typeInfo instanceof v ? e += "{...}" : e = "[...]";
+		if (this.typeInfo instanceof ce) {
+			if (this.typeInfo.format.name === "f32") {
+				let t = new Float32Array(this.buffer, this.offset);
+				e = `[${t[0]}`;
+				for (let n = 1; n < t.length; ++n) e += `, ${t[n]}`;
+			} else if (this.typeInfo.format.name === "i32") {
+				let t = new Int32Array(this.buffer, this.offset);
+				e = `[${t[0]}`;
+				for (let n = 1; n < t.length; ++n) e += `, ${t[n]}`;
+			} else if (this.typeInfo.format.name === "u32") {
+				let t = new Uint32Array(this.buffer, this.offset);
+				e = `[${t[0]}`;
+				for (let n = 1; n < t.length; ++n) e += `, ${t[n]}`;
+			} else if (this.typeInfo.format.name === "vec2f") {
+				let t = new Float32Array(this.buffer, this.offset);
+				e = `[${t[0]}, ${t[1]}]`;
+				for (let n = 1; n < t.length / 2; ++n) e += `, [${t[2 * n]}, ${t[2 * n + 1]}]`;
+			} else if (this.typeInfo.format.name === "vec3f") {
+				let t = new Float32Array(this.buffer, this.offset);
+				e = `[${t[0]}, ${t[1]}, ${t[2]}]`;
+				for (let n = 4; n < t.length; n += 4) e += `, [${t[n]}, ${t[n + 1]}, ${t[n + 2]}]`;
+			} else if (this.typeInfo.format.name === "vec4f") {
+				let t = new Float32Array(this.buffer, this.offset);
+				e = `[${t[0]}, ${t[1]}, ${t[2]}, ${t[3]}]`;
+				for (let n = 4; n < t.length; n += 4) e += `, [${t[n]}, ${t[n + 1]}, ${t[n + 2]}, ${t[n + 3]}]`;
+			} else e = "[...]";
+		} else this.typeInfo instanceof se ? e += "{...}" : e = "[...]";
 		return e;
 	}
-}, J = class e extends H {
+}, St = class e extends H {
+	constructor(e, t) {
+		super(t, null), this.descriptor = e ?? {};
+	}
+	clone() {
+		return new e(this.descriptor, this.typeInfo);
+	}
+	getSubData(e, t, n) {
+		return t ? (console.error("getSubData: Sampler data does not support postfix", t), null) : this;
+	}
+}, q = class e extends H {
 	constructor(e, t, n, r) {
 		super(t, null), this.data = e, this.descriptor = n, this.view = r;
 	}
 	clone() {
 		return new e(this.data, this.typeInfo, this.descriptor, this.view);
+	}
+	getSubData(e, t, n) {
+		return t ? (console.error("getSubData: Texture data does not support postfix", t), null) : this;
 	}
 	get width() {
 		var e;
@@ -2859,25 +3051,25 @@ var G = class e extends H {
 		return t;
 	}
 	get texelByteSize() {
-		let e = ke[this.format];
+		let e = Ee[this.format];
 		return e ? e.isDepthStencil ? 4 : e.bytesPerBlock : 0;
 	}
 	get bytesPerRow() {
 		return this.width * this.texelByteSize;
 	}
 	get isDepthStencil() {
-		let e = ke[this.format];
+		let e = Ee[this.format];
 		return !!e && e.isDepthStencil;
 	}
 	getGpuSize() {
-		let e = this.format, t = ke[e], n = this.width;
+		let e = this.format, t = Ee[e], n = this.width;
 		if (!e || n <= 0 || !t) return -1;
 		let r = this.height, i = this.depthOrArrayLayers, a = this.dimension;
 		return n / t.blockWidth * (a === "1d" ? 1 : r / t.blockHeight) * t.bytesPerBlock * i;
 	}
 	getPixel(e, t, n = 0, r = 0) {
 		let i = this.texelByteSize, a = this.bytesPerRow, o = this.height, s = this.data[r];
-		return Oe(new Uint8Array(s), e, t, n, r, o, a, i, this.format);
+		return Te(new Uint8Array(s), e, t, n, r, o, a, i, this.format);
 	}
 	setPixel(e, t, n, r, i) {
 		let a = this.texelByteSize, o = this.bytesPerRow, s = this.height, c = this.data[r];
@@ -2885,76 +3077,76 @@ var G = class e extends H {
 			let u = r * (o >>= i) * (a >>= i) + n * o + t * s;
 			switch (c) {
 				case "r8unorm":
-					w(e, u, "8unorm", 1, l);
+					D(e, u, "8unorm", 1, l);
 					return;
 				case "r8snorm":
-					w(e, u, "8snorm", 1, l);
+					D(e, u, "8snorm", 1, l);
 					return;
 				case "r8uint":
-					w(e, u, "8uint", 1, l);
+					D(e, u, "8uint", 1, l);
 					return;
 				case "r8sint":
-					w(e, u, "8sint", 1, l);
+					D(e, u, "8sint", 1, l);
 					return;
 				case "rg8unorm":
-					w(e, u, "8unorm", 2, l);
+					D(e, u, "8unorm", 2, l);
 					return;
 				case "rg8snorm":
-					w(e, u, "8snorm", 2, l);
+					D(e, u, "8snorm", 2, l);
 					return;
 				case "rg8uint":
-					w(e, u, "8uint", 2, l);
+					D(e, u, "8uint", 2, l);
 					return;
 				case "rg8sint":
-					w(e, u, "8sint", 2, l);
+					D(e, u, "8sint", 2, l);
 					return;
 				case "rgba8unorm-srgb":
 				case "rgba8unorm":
 				case "bgra8unorm-srgb":
 				case "bgra8unorm":
-					w(e, u, "8unorm", 4, l);
+					D(e, u, "8unorm", 4, l);
 					return;
 				case "rgba8snorm":
-					w(e, u, "8snorm", 4, l);
+					D(e, u, "8snorm", 4, l);
 					return;
 				case "rgba8uint":
-					w(e, u, "8uint", 4, l);
+					D(e, u, "8uint", 4, l);
 					return;
 				case "rgba8sint":
-					w(e, u, "8sint", 4, l);
+					D(e, u, "8sint", 4, l);
 					return;
 				case "r16uint":
-					w(e, u, "16uint", 1, l);
+					D(e, u, "16uint", 1, l);
 					return;
 				case "r16sint":
-					w(e, u, "16sint", 1, l);
+					D(e, u, "16sint", 1, l);
 					return;
 				case "r16float":
-					w(e, u, "16float", 1, l);
+					D(e, u, "16float", 1, l);
 					return;
 				case "rg16uint":
-					w(e, u, "16uint", 2, l);
+					D(e, u, "16uint", 2, l);
 					return;
 				case "rg16sint":
-					w(e, u, "16sint", 2, l);
+					D(e, u, "16sint", 2, l);
 					return;
 				case "rg16float":
-					w(e, u, "16float", 2, l);
+					D(e, u, "16float", 2, l);
 					return;
 				case "rgba16uint":
-					w(e, u, "16uint", 4, l);
+					D(e, u, "16uint", 4, l);
 					return;
 				case "rgba16sint":
-					w(e, u, "16sint", 4, l);
+					D(e, u, "16sint", 4, l);
 					return;
 				case "rgba16float":
-					w(e, u, "16float", 4, l);
+					D(e, u, "16float", 4, l);
 					return;
 				case "r32uint":
-					w(e, u, "32uint", 1, l);
+					D(e, u, "32uint", 1, l);
 					return;
 				case "r32sint":
-					w(e, u, "32sint", 1, l);
+					D(e, u, "32sint", 1, l);
 					return;
 				case "depth16unorm":
 				case "depth24plus":
@@ -2962,25 +3154,25 @@ var G = class e extends H {
 				case "depth32float":
 				case "depth32float-stencil8":
 				case "r32float":
-					w(e, u, "32float", 1, l);
+					D(e, u, "32float", 1, l);
 					return;
 				case "rg32uint":
-					w(e, u, "32uint", 2, l);
+					D(e, u, "32uint", 2, l);
 					return;
 				case "rg32sint":
-					w(e, u, "32sint", 2, l);
+					D(e, u, "32sint", 2, l);
 					return;
 				case "rg32float":
-					w(e, u, "32float", 2, l);
+					D(e, u, "32float", 2, l);
 					return;
 				case "rgba32uint":
-					w(e, u, "32uint", 4, l);
+					D(e, u, "32uint", 4, l);
 					return;
 				case "rgba32sint":
-					w(e, u, "32sint", 4, l);
+					D(e, u, "32sint", 4, l);
 					return;
 				case "rgba32float":
-					w(e, u, "32float", 4, l);
+					D(e, u, "32float", 4, l);
 					return;
 				case "rg11b10ufloat": console.error("TODO: rg11b10ufloat not supported for writing");
 			}
@@ -2989,378 +3181,381 @@ var G = class e extends H {
 };
 ((e) => {
 	e[e.token = 0] = "token", e[e.keyword = 1] = "keyword", e[e.reserved = 2] = "reserved";
-})(k ||= {});
-var Y = class {
+})(M ||= {});
+var J = class {
 	constructor(e, t, n) {
 		this.name = e, this.type = t, this.rule = n;
 	}
 	toString() {
 		return this.name;
 	}
-}, X = class {};
-O = X, X.none = new Y("", k.reserved, ""), X.eof = new Y("EOF", k.token, ""), X.reserved = {
-	asm: new Y("asm", k.reserved, "asm"),
-	bf16: new Y("bf16", k.reserved, "bf16"),
-	do: new Y("do", k.reserved, "do"),
-	enum: new Y("enum", k.reserved, "enum"),
-	f16: new Y("f16", k.reserved, "f16"),
-	f64: new Y("f64", k.reserved, "f64"),
-	handle: new Y("handle", k.reserved, "handle"),
-	i8: new Y("i8", k.reserved, "i8"),
-	i16: new Y("i16", k.reserved, "i16"),
-	i64: new Y("i64", k.reserved, "i64"),
-	mat: new Y("mat", k.reserved, "mat"),
-	premerge: new Y("premerge", k.reserved, "premerge"),
-	regardless: new Y("regardless", k.reserved, "regardless"),
-	typedef: new Y("typedef", k.reserved, "typedef"),
-	u8: new Y("u8", k.reserved, "u8"),
-	u16: new Y("u16", k.reserved, "u16"),
-	u64: new Y("u64", k.reserved, "u64"),
-	unless: new Y("unless", k.reserved, "unless"),
-	using: new Y("using", k.reserved, "using"),
-	vec: new Y("vec", k.reserved, "vec"),
-	void: new Y("void", k.reserved, "void")
-}, X.keywords = {
-	array: new Y("array", k.keyword, "array"),
-	atomic: new Y("atomic", k.keyword, "atomic"),
-	bool: new Y("bool", k.keyword, "bool"),
-	f32: new Y("f32", k.keyword, "f32"),
-	i32: new Y("i32", k.keyword, "i32"),
-	mat2x2: new Y("mat2x2", k.keyword, "mat2x2"),
-	mat2x3: new Y("mat2x3", k.keyword, "mat2x3"),
-	mat2x4: new Y("mat2x4", k.keyword, "mat2x4"),
-	mat3x2: new Y("mat3x2", k.keyword, "mat3x2"),
-	mat3x3: new Y("mat3x3", k.keyword, "mat3x3"),
-	mat3x4: new Y("mat3x4", k.keyword, "mat3x4"),
-	mat4x2: new Y("mat4x2", k.keyword, "mat4x2"),
-	mat4x3: new Y("mat4x3", k.keyword, "mat4x3"),
-	mat4x4: new Y("mat4x4", k.keyword, "mat4x4"),
-	ptr: new Y("ptr", k.keyword, "ptr"),
-	sampler: new Y("sampler", k.keyword, "sampler"),
-	sampler_comparison: new Y("sampler_comparison", k.keyword, "sampler_comparison"),
-	struct: new Y("struct", k.keyword, "struct"),
-	texture_1d: new Y("texture_1d", k.keyword, "texture_1d"),
-	texture_2d: new Y("texture_2d", k.keyword, "texture_2d"),
-	texture_2d_array: new Y("texture_2d_array", k.keyword, "texture_2d_array"),
-	texture_3d: new Y("texture_3d", k.keyword, "texture_3d"),
-	texture_cube: new Y("texture_cube", k.keyword, "texture_cube"),
-	texture_cube_array: new Y("texture_cube_array", k.keyword, "texture_cube_array"),
-	texture_multisampled_2d: new Y("texture_multisampled_2d", k.keyword, "texture_multisampled_2d"),
-	texture_storage_1d: new Y("texture_storage_1d", k.keyword, "texture_storage_1d"),
-	texture_storage_2d: new Y("texture_storage_2d", k.keyword, "texture_storage_2d"),
-	texture_storage_2d_array: new Y("texture_storage_2d_array", k.keyword, "texture_storage_2d_array"),
-	texture_storage_3d: new Y("texture_storage_3d", k.keyword, "texture_storage_3d"),
-	texture_depth_2d: new Y("texture_depth_2d", k.keyword, "texture_depth_2d"),
-	texture_depth_2d_array: new Y("texture_depth_2d_array", k.keyword, "texture_depth_2d_array"),
-	texture_depth_cube: new Y("texture_depth_cube", k.keyword, "texture_depth_cube"),
-	texture_depth_cube_array: new Y("texture_depth_cube_array", k.keyword, "texture_depth_cube_array"),
-	texture_depth_multisampled_2d: new Y("texture_depth_multisampled_2d", k.keyword, "texture_depth_multisampled_2d"),
-	texture_external: new Y("texture_external", k.keyword, "texture_external"),
-	u32: new Y("u32", k.keyword, "u32"),
-	vec2: new Y("vec2", k.keyword, "vec2"),
-	vec3: new Y("vec3", k.keyword, "vec3"),
-	vec4: new Y("vec4", k.keyword, "vec4"),
-	bitcast: new Y("bitcast", k.keyword, "bitcast"),
-	block: new Y("block", k.keyword, "block"),
-	break: new Y("break", k.keyword, "break"),
-	case: new Y("case", k.keyword, "case"),
-	continue: new Y("continue", k.keyword, "continue"),
-	continuing: new Y("continuing", k.keyword, "continuing"),
-	default: new Y("default", k.keyword, "default"),
-	diagnostic: new Y("diagnostic", k.keyword, "diagnostic"),
-	discard: new Y("discard", k.keyword, "discard"),
-	else: new Y("else", k.keyword, "else"),
-	enable: new Y("enable", k.keyword, "enable"),
-	fallthrough: new Y("fallthrough", k.keyword, "fallthrough"),
-	false: new Y("false", k.keyword, "false"),
-	fn: new Y("fn", k.keyword, "fn"),
-	for: new Y("for", k.keyword, "for"),
-	function: new Y("function", k.keyword, "function"),
-	if: new Y("if", k.keyword, "if"),
-	let: new Y("let", k.keyword, "let"),
-	const: new Y("const", k.keyword, "const"),
-	loop: new Y("loop", k.keyword, "loop"),
-	while: new Y("while", k.keyword, "while"),
-	private: new Y("private", k.keyword, "private"),
-	read: new Y("read", k.keyword, "read"),
-	read_write: new Y("read_write", k.keyword, "read_write"),
-	return: new Y("return", k.keyword, "return"),
-	requires: new Y("requires", k.keyword, "requires"),
-	storage: new Y("storage", k.keyword, "storage"),
-	switch: new Y("switch", k.keyword, "switch"),
-	true: new Y("true", k.keyword, "true"),
-	alias: new Y("alias", k.keyword, "alias"),
-	type: new Y("type", k.keyword, "type"),
-	uniform: new Y("uniform", k.keyword, "uniform"),
-	var: new Y("var", k.keyword, "var"),
-	override: new Y("override", k.keyword, "override"),
-	workgroup: new Y("workgroup", k.keyword, "workgroup"),
-	write: new Y("write", k.keyword, "write"),
-	r8unorm: new Y("r8unorm", k.keyword, "r8unorm"),
-	r8snorm: new Y("r8snorm", k.keyword, "r8snorm"),
-	r8uint: new Y("r8uint", k.keyword, "r8uint"),
-	r8sint: new Y("r8sint", k.keyword, "r8sint"),
-	r16uint: new Y("r16uint", k.keyword, "r16uint"),
-	r16sint: new Y("r16sint", k.keyword, "r16sint"),
-	r16float: new Y("r16float", k.keyword, "r16float"),
-	rg8unorm: new Y("rg8unorm", k.keyword, "rg8unorm"),
-	rg8snorm: new Y("rg8snorm", k.keyword, "rg8snorm"),
-	rg8uint: new Y("rg8uint", k.keyword, "rg8uint"),
-	rg8sint: new Y("rg8sint", k.keyword, "rg8sint"),
-	r32uint: new Y("r32uint", k.keyword, "r32uint"),
-	r32sint: new Y("r32sint", k.keyword, "r32sint"),
-	r32float: new Y("r32float", k.keyword, "r32float"),
-	rg16uint: new Y("rg16uint", k.keyword, "rg16uint"),
-	rg16sint: new Y("rg16sint", k.keyword, "rg16sint"),
-	rg16float: new Y("rg16float", k.keyword, "rg16float"),
-	rgba8unorm: new Y("rgba8unorm", k.keyword, "rgba8unorm"),
-	rgba8unorm_srgb: new Y("rgba8unorm_srgb", k.keyword, "rgba8unorm_srgb"),
-	rgba8snorm: new Y("rgba8snorm", k.keyword, "rgba8snorm"),
-	rgba8uint: new Y("rgba8uint", k.keyword, "rgba8uint"),
-	rgba8sint: new Y("rgba8sint", k.keyword, "rgba8sint"),
-	bgra8unorm: new Y("bgra8unorm", k.keyword, "bgra8unorm"),
-	bgra8unorm_srgb: new Y("bgra8unorm_srgb", k.keyword, "bgra8unorm_srgb"),
-	rgb10a2unorm: new Y("rgb10a2unorm", k.keyword, "rgb10a2unorm"),
-	rg11b10float: new Y("rg11b10float", k.keyword, "rg11b10float"),
-	rg32uint: new Y("rg32uint", k.keyword, "rg32uint"),
-	rg32sint: new Y("rg32sint", k.keyword, "rg32sint"),
-	rg32float: new Y("rg32float", k.keyword, "rg32float"),
-	rgba16uint: new Y("rgba16uint", k.keyword, "rgba16uint"),
-	rgba16sint: new Y("rgba16sint", k.keyword, "rgba16sint"),
-	rgba16float: new Y("rgba16float", k.keyword, "rgba16float"),
-	rgba32uint: new Y("rgba32uint", k.keyword, "rgba32uint"),
-	rgba32sint: new Y("rgba32sint", k.keyword, "rgba32sint"),
-	rgba32float: new Y("rgba32float", k.keyword, "rgba32float"),
-	static_assert: new Y("static_assert", k.keyword, "static_assert")
-}, X.tokens = {
-	decimal_float_literal: new Y("decimal_float_literal", k.token, /((-?[0-9]*\.[0-9]+|-?[0-9]+\.[0-9]*)((e|E)(\+|-)?[0-9]+)?[fh]?)|(-?[0-9]+(e|E)(\+|-)?[0-9]+[fh]?)|(-?[0-9]+[fh])/),
-	hex_float_literal: new Y("hex_float_literal", k.token, /-?0x((([0-9a-fA-F]*\.[0-9a-fA-F]+|[0-9a-fA-F]+\.[0-9a-fA-F]*)((p|P)(\+|-)?[0-9]+[fh]?)?)|([0-9a-fA-F]+(p|P)(\+|-)?[0-9]+[fh]?))/),
-	int_literal: new Y("int_literal", k.token, /-?0x[0-9a-fA-F]+|0i?|-?[1-9][0-9]*i?/),
-	uint_literal: new Y("uint_literal", k.token, /0x[0-9a-fA-F]+u|0u|[1-9][0-9]*u/),
-	name: new Y("name", k.token, /([_\p{XID_Start}][\p{XID_Continue}]+)|([\p{XID_Start}])/u),
-	ident: new Y("ident", k.token, /[_a-zA-Z][0-9a-zA-Z_]*/),
-	and: new Y("and", k.token, "&"),
-	and_and: new Y("and_and", k.token, "&&"),
-	arrow: new Y("arrow ", k.token, "->"),
-	attr: new Y("attr", k.token, "@"),
-	forward_slash: new Y("forward_slash", k.token, "/"),
-	bang: new Y("bang", k.token, "!"),
-	bracket_left: new Y("bracket_left", k.token, "["),
-	bracket_right: new Y("bracket_right", k.token, "]"),
-	brace_left: new Y("brace_left", k.token, "{"),
-	brace_right: new Y("brace_right", k.token, "}"),
-	colon: new Y("colon", k.token, ":"),
-	comma: new Y("comma", k.token, ","),
-	equal: new Y("equal", k.token, "="),
-	equal_equal: new Y("equal_equal", k.token, "=="),
-	not_equal: new Y("not_equal", k.token, "!="),
-	greater_than: new Y("greater_than", k.token, ">"),
-	greater_than_equal: new Y("greater_than_equal", k.token, ">="),
-	shift_right: new Y("shift_right", k.token, ">>"),
-	less_than: new Y("less_than", k.token, "<"),
-	less_than_equal: new Y("less_than_equal", k.token, "<="),
-	shift_left: new Y("shift_left", k.token, "<<"),
-	modulo: new Y("modulo", k.token, "%"),
-	minus: new Y("minus", k.token, "-"),
-	minus_minus: new Y("minus_minus", k.token, "--"),
-	period: new Y("period", k.token, "."),
-	plus: new Y("plus", k.token, "+"),
-	plus_plus: new Y("plus_plus", k.token, "++"),
-	or: new Y("or", k.token, "|"),
-	or_or: new Y("or_or", k.token, "||"),
-	paren_left: new Y("paren_left", k.token, "("),
-	paren_right: new Y("paren_right", k.token, ")"),
-	semicolon: new Y("semicolon", k.token, ";"),
-	star: new Y("star", k.token, "*"),
-	tilde: new Y("tilde", k.token, "~"),
-	underscore: new Y("underscore", k.token, "_"),
-	xor: new Y("xor", k.token, "^"),
-	plus_equal: new Y("plus_equal", k.token, "+="),
-	minus_equal: new Y("minus_equal", k.token, "-="),
-	times_equal: new Y("times_equal", k.token, "*="),
-	division_equal: new Y("division_equal", k.token, "/="),
-	modulo_equal: new Y("modulo_equal", k.token, "%="),
-	and_equal: new Y("and_equal", k.token, "&="),
-	or_equal: new Y("or_equal", k.token, "|="),
-	xor_equal: new Y("xor_equal", k.token, "^="),
-	shift_right_equal: new Y("shift_right_equal", k.token, ">>="),
-	shift_left_equal: new Y("shift_left_equal", k.token, "<<=")
-}, X.simpleTokens = {
-	"@": O.tokens.attr,
-	"{": O.tokens.brace_left,
-	"}": O.tokens.brace_right,
-	":": O.tokens.colon,
-	",": O.tokens.comma,
-	"(": O.tokens.paren_left,
-	")": O.tokens.paren_right,
-	";": O.tokens.semicolon
-}, X.literalTokens = {
-	"&": O.tokens.and,
-	"&&": O.tokens.and_and,
-	"->": O.tokens.arrow,
-	"/": O.tokens.forward_slash,
-	"!": O.tokens.bang,
-	"[": O.tokens.bracket_left,
-	"]": O.tokens.bracket_right,
-	"=": O.tokens.equal,
-	"==": O.tokens.equal_equal,
-	"!=": O.tokens.not_equal,
-	">": O.tokens.greater_than,
-	">=": O.tokens.greater_than_equal,
-	">>": O.tokens.shift_right,
-	"<": O.tokens.less_than,
-	"<=": O.tokens.less_than_equal,
-	"<<": O.tokens.shift_left,
-	"%": O.tokens.modulo,
-	"-": O.tokens.minus,
-	"--": O.tokens.minus_minus,
-	".": O.tokens.period,
-	"+": O.tokens.plus,
-	"++": O.tokens.plus_plus,
-	"|": O.tokens.or,
-	"||": O.tokens.or_or,
-	"*": O.tokens.star,
-	"~": O.tokens.tilde,
-	_: O.tokens.underscore,
-	"^": O.tokens.xor,
-	"+=": O.tokens.plus_equal,
-	"-=": O.tokens.minus_equal,
-	"*=": O.tokens.times_equal,
-	"/=": O.tokens.division_equal,
-	"%=": O.tokens.modulo_equal,
-	"&=": O.tokens.and_equal,
-	"|=": O.tokens.or_equal,
-	"^=": O.tokens.xor_equal,
-	">>=": O.tokens.shift_right_equal,
-	"<<=": O.tokens.shift_left_equal
-}, X.regexTokens = {
-	decimal_float_literal: O.tokens.decimal_float_literal,
-	hex_float_literal: O.tokens.hex_float_literal,
-	int_literal: O.tokens.int_literal,
-	uint_literal: O.tokens.uint_literal,
-	ident: O.tokens.ident
-}, X.storage_class = [
-	O.keywords.function,
-	O.keywords.private,
-	O.keywords.workgroup,
-	O.keywords.uniform,
-	O.keywords.storage
-], X.access_mode = [
-	O.keywords.read,
-	O.keywords.write,
-	O.keywords.read_write
-], X.sampler_type = [O.keywords.sampler, O.keywords.sampler_comparison], X.sampled_texture_type = [
-	O.keywords.texture_1d,
-	O.keywords.texture_2d,
-	O.keywords.texture_2d_array,
-	O.keywords.texture_3d,
-	O.keywords.texture_cube,
-	O.keywords.texture_cube_array
-], X.multisampled_texture_type = [O.keywords.texture_multisampled_2d], X.storage_texture_type = [
-	O.keywords.texture_storage_1d,
-	O.keywords.texture_storage_2d,
-	O.keywords.texture_storage_2d_array,
-	O.keywords.texture_storage_3d
-], X.depth_texture_type = [
-	O.keywords.texture_depth_2d,
-	O.keywords.texture_depth_2d_array,
-	O.keywords.texture_depth_cube,
-	O.keywords.texture_depth_cube_array,
-	O.keywords.texture_depth_multisampled_2d
-], X.texture_external_type = [O.keywords.texture_external], X.any_texture_type = [
-	...O.sampled_texture_type,
-	...O.multisampled_texture_type,
-	...O.storage_texture_type,
-	...O.depth_texture_type,
-	...O.texture_external_type
-], X.texel_format = [
-	O.keywords.r8unorm,
-	O.keywords.r8snorm,
-	O.keywords.r8uint,
-	O.keywords.r8sint,
-	O.keywords.r16uint,
-	O.keywords.r16sint,
-	O.keywords.r16float,
-	O.keywords.rg8unorm,
-	O.keywords.rg8snorm,
-	O.keywords.rg8uint,
-	O.keywords.rg8sint,
-	O.keywords.r32uint,
-	O.keywords.r32sint,
-	O.keywords.r32float,
-	O.keywords.rg16uint,
-	O.keywords.rg16sint,
-	O.keywords.rg16float,
-	O.keywords.rgba8unorm,
-	O.keywords.rgba8unorm_srgb,
-	O.keywords.rgba8snorm,
-	O.keywords.rgba8uint,
-	O.keywords.rgba8sint,
-	O.keywords.bgra8unorm,
-	O.keywords.bgra8unorm_srgb,
-	O.keywords.rgb10a2unorm,
-	O.keywords.rg11b10float,
-	O.keywords.rg32uint,
-	O.keywords.rg32sint,
-	O.keywords.rg32float,
-	O.keywords.rgba16uint,
-	O.keywords.rgba16sint,
-	O.keywords.rgba16float,
-	O.keywords.rgba32uint,
-	O.keywords.rgba32sint,
-	O.keywords.rgba32float
-], X.const_literal = [
-	O.tokens.int_literal,
-	O.tokens.uint_literal,
-	O.tokens.decimal_float_literal,
-	O.tokens.hex_float_literal,
-	O.keywords.true,
-	O.keywords.false
-], X.literal_or_ident = [
-	O.tokens.ident,
-	O.tokens.int_literal,
-	O.tokens.uint_literal,
-	O.tokens.decimal_float_literal,
-	O.tokens.hex_float_literal,
-	O.tokens.name
-], X.element_count_expression = [
-	O.tokens.int_literal,
-	O.tokens.uint_literal,
-	O.tokens.ident
-], X.template_types = [
-	O.keywords.vec2,
-	O.keywords.vec3,
-	O.keywords.vec4,
-	O.keywords.mat2x2,
-	O.keywords.mat2x3,
-	O.keywords.mat2x4,
-	O.keywords.mat3x2,
-	O.keywords.mat3x3,
-	O.keywords.mat3x4,
-	O.keywords.mat4x2,
-	O.keywords.mat4x3,
-	O.keywords.mat4x4,
-	O.keywords.atomic,
-	O.keywords.bitcast,
-	...O.any_texture_type
-], X.attribute_name = [
-	O.tokens.ident,
-	O.keywords.block,
-	O.keywords.diagnostic
-], X.assignment_operators = [
-	O.tokens.equal,
-	O.tokens.plus_equal,
-	O.tokens.minus_equal,
-	O.tokens.times_equal,
-	O.tokens.division_equal,
-	O.tokens.modulo_equal,
-	O.tokens.and_equal,
-	O.tokens.or_equal,
-	O.tokens.xor_equal,
-	O.tokens.shift_right_equal,
-	O.tokens.shift_left_equal
-], X.increment_operators = [O.tokens.plus_plus, O.tokens.minus_minus];
-var bt = class {
+}, Y = class {};
+j = Y, Y.none = new J("", M.reserved, ""), Y.eof = new J("EOF", M.token, ""), Y.reserved = {
+	asm: new J("asm", M.reserved, "asm"),
+	bf16: new J("bf16", M.reserved, "bf16"),
+	do: new J("do", M.reserved, "do"),
+	enum: new J("enum", M.reserved, "enum"),
+	f16: new J("f16", M.reserved, "f16"),
+	f64: new J("f64", M.reserved, "f64"),
+	handle: new J("handle", M.reserved, "handle"),
+	i8: new J("i8", M.reserved, "i8"),
+	i16: new J("i16", M.reserved, "i16"),
+	i64: new J("i64", M.reserved, "i64"),
+	mat: new J("mat", M.reserved, "mat"),
+	premerge: new J("premerge", M.reserved, "premerge"),
+	regardless: new J("regardless", M.reserved, "regardless"),
+	typedef: new J("typedef", M.reserved, "typedef"),
+	u8: new J("u8", M.reserved, "u8"),
+	u16: new J("u16", M.reserved, "u16"),
+	u64: new J("u64", M.reserved, "u64"),
+	unless: new J("unless", M.reserved, "unless"),
+	using: new J("using", M.reserved, "using"),
+	vec: new J("vec", M.reserved, "vec"),
+	void: new J("void", M.reserved, "void")
+}, Y.keywords = {
+	array: new J("array", M.keyword, "array"),
+	atomic: new J("atomic", M.keyword, "atomic"),
+	bool: new J("bool", M.keyword, "bool"),
+	f32: new J("f32", M.keyword, "f32"),
+	i32: new J("i32", M.keyword, "i32"),
+	mat2x2: new J("mat2x2", M.keyword, "mat2x2"),
+	mat2x3: new J("mat2x3", M.keyword, "mat2x3"),
+	mat2x4: new J("mat2x4", M.keyword, "mat2x4"),
+	mat3x2: new J("mat3x2", M.keyword, "mat3x2"),
+	mat3x3: new J("mat3x3", M.keyword, "mat3x3"),
+	mat3x4: new J("mat3x4", M.keyword, "mat3x4"),
+	mat4x2: new J("mat4x2", M.keyword, "mat4x2"),
+	mat4x3: new J("mat4x3", M.keyword, "mat4x3"),
+	mat4x4: new J("mat4x4", M.keyword, "mat4x4"),
+	ptr: new J("ptr", M.keyword, "ptr"),
+	sampler: new J("sampler", M.keyword, "sampler"),
+	sampler_comparison: new J("sampler_comparison", M.keyword, "sampler_comparison"),
+	struct: new J("struct", M.keyword, "struct"),
+	texture_1d: new J("texture_1d", M.keyword, "texture_1d"),
+	texture_2d: new J("texture_2d", M.keyword, "texture_2d"),
+	texture_2d_array: new J("texture_2d_array", M.keyword, "texture_2d_array"),
+	texture_3d: new J("texture_3d", M.keyword, "texture_3d"),
+	texture_cube: new J("texture_cube", M.keyword, "texture_cube"),
+	texture_cube_array: new J("texture_cube_array", M.keyword, "texture_cube_array"),
+	texture_multisampled_2d: new J("texture_multisampled_2d", M.keyword, "texture_multisampled_2d"),
+	texture_storage_1d: new J("texture_storage_1d", M.keyword, "texture_storage_1d"),
+	texture_storage_2d: new J("texture_storage_2d", M.keyword, "texture_storage_2d"),
+	texture_storage_2d_array: new J("texture_storage_2d_array", M.keyword, "texture_storage_2d_array"),
+	texture_storage_3d: new J("texture_storage_3d", M.keyword, "texture_storage_3d"),
+	texture_depth_2d: new J("texture_depth_2d", M.keyword, "texture_depth_2d"),
+	texture_depth_2d_array: new J("texture_depth_2d_array", M.keyword, "texture_depth_2d_array"),
+	texture_depth_cube: new J("texture_depth_cube", M.keyword, "texture_depth_cube"),
+	texture_depth_cube_array: new J("texture_depth_cube_array", M.keyword, "texture_depth_cube_array"),
+	texture_depth_multisampled_2d: new J("texture_depth_multisampled_2d", M.keyword, "texture_depth_multisampled_2d"),
+	texture_external: new J("texture_external", M.keyword, "texture_external"),
+	u32: new J("u32", M.keyword, "u32"),
+	vec2: new J("vec2", M.keyword, "vec2"),
+	vec3: new J("vec3", M.keyword, "vec3"),
+	vec4: new J("vec4", M.keyword, "vec4"),
+	bitcast: new J("bitcast", M.keyword, "bitcast"),
+	block: new J("block", M.keyword, "block"),
+	break: new J("break", M.keyword, "break"),
+	case: new J("case", M.keyword, "case"),
+	continue: new J("continue", M.keyword, "continue"),
+	continuing: new J("continuing", M.keyword, "continuing"),
+	default: new J("default", M.keyword, "default"),
+	diagnostic: new J("diagnostic", M.keyword, "diagnostic"),
+	discard: new J("discard", M.keyword, "discard"),
+	else: new J("else", M.keyword, "else"),
+	enable: new J("enable", M.keyword, "enable"),
+	fallthrough: new J("fallthrough", M.keyword, "fallthrough"),
+	false: new J("false", M.keyword, "false"),
+	fn: new J("fn", M.keyword, "fn"),
+	for: new J("for", M.keyword, "for"),
+	function: new J("function", M.keyword, "function"),
+	if: new J("if", M.keyword, "if"),
+	let: new J("let", M.keyword, "let"),
+	const: new J("const", M.keyword, "const"),
+	loop: new J("loop", M.keyword, "loop"),
+	while: new J("while", M.keyword, "while"),
+	private: new J("private", M.keyword, "private"),
+	read: new J("read", M.keyword, "read"),
+	read_write: new J("read_write", M.keyword, "read_write"),
+	return: new J("return", M.keyword, "return"),
+	requires: new J("requires", M.keyword, "requires"),
+	storage: new J("storage", M.keyword, "storage"),
+	immediate: new J("immediate", M.keyword, "immediate"),
+	switch: new J("switch", M.keyword, "switch"),
+	true: new J("true", M.keyword, "true"),
+	alias: new J("alias", M.keyword, "alias"),
+	type: new J("type", M.keyword, "type"),
+	uniform: new J("uniform", M.keyword, "uniform"),
+	var: new J("var", M.keyword, "var"),
+	override: new J("override", M.keyword, "override"),
+	workgroup: new J("workgroup", M.keyword, "workgroup"),
+	write: new J("write", M.keyword, "write"),
+	r8unorm: new J("r8unorm", M.keyword, "r8unorm"),
+	r8snorm: new J("r8snorm", M.keyword, "r8snorm"),
+	r8uint: new J("r8uint", M.keyword, "r8uint"),
+	r8sint: new J("r8sint", M.keyword, "r8sint"),
+	r16uint: new J("r16uint", M.keyword, "r16uint"),
+	r16sint: new J("r16sint", M.keyword, "r16sint"),
+	r16float: new J("r16float", M.keyword, "r16float"),
+	rg8unorm: new J("rg8unorm", M.keyword, "rg8unorm"),
+	rg8snorm: new J("rg8snorm", M.keyword, "rg8snorm"),
+	rg8uint: new J("rg8uint", M.keyword, "rg8uint"),
+	rg8sint: new J("rg8sint", M.keyword, "rg8sint"),
+	r32uint: new J("r32uint", M.keyword, "r32uint"),
+	r32sint: new J("r32sint", M.keyword, "r32sint"),
+	r32float: new J("r32float", M.keyword, "r32float"),
+	rg16uint: new J("rg16uint", M.keyword, "rg16uint"),
+	rg16sint: new J("rg16sint", M.keyword, "rg16sint"),
+	rg16float: new J("rg16float", M.keyword, "rg16float"),
+	rgba8unorm: new J("rgba8unorm", M.keyword, "rgba8unorm"),
+	rgba8unorm_srgb: new J("rgba8unorm_srgb", M.keyword, "rgba8unorm_srgb"),
+	rgba8snorm: new J("rgba8snorm", M.keyword, "rgba8snorm"),
+	rgba8uint: new J("rgba8uint", M.keyword, "rgba8uint"),
+	rgba8sint: new J("rgba8sint", M.keyword, "rgba8sint"),
+	bgra8unorm: new J("bgra8unorm", M.keyword, "bgra8unorm"),
+	bgra8unorm_srgb: new J("bgra8unorm_srgb", M.keyword, "bgra8unorm_srgb"),
+	rgb10a2unorm: new J("rgb10a2unorm", M.keyword, "rgb10a2unorm"),
+	rg11b10float: new J("rg11b10float", M.keyword, "rg11b10float"),
+	rg32uint: new J("rg32uint", M.keyword, "rg32uint"),
+	rg32sint: new J("rg32sint", M.keyword, "rg32sint"),
+	rg32float: new J("rg32float", M.keyword, "rg32float"),
+	rgba16uint: new J("rgba16uint", M.keyword, "rgba16uint"),
+	rgba16sint: new J("rgba16sint", M.keyword, "rgba16sint"),
+	rgba16float: new J("rgba16float", M.keyword, "rgba16float"),
+	rgba32uint: new J("rgba32uint", M.keyword, "rgba32uint"),
+	rgba32sint: new J("rgba32sint", M.keyword, "rgba32sint"),
+	rgba32float: new J("rgba32float", M.keyword, "rgba32float"),
+	static_assert: new J("static_assert", M.keyword, "static_assert"),
+	const_assert: new J("const_assert", M.keyword, "const_assert")
+}, Y.tokens = {
+	decimal_float_literal: new J("decimal_float_literal", M.token, /((-?[0-9]*\.[0-9]+|-?[0-9]+\.[0-9]*)((e|E)(\+|-)?[0-9]+)?[fh]?)|(-?[0-9]+(e|E)(\+|-)?[0-9]+[fh]?)|(-?[0-9]+[fh])/),
+	hex_float_literal: new J("hex_float_literal", M.token, /-?0x((([0-9a-fA-F]*\.[0-9a-fA-F]+|[0-9a-fA-F]+\.[0-9a-fA-F]*)((p|P)(\+|-)?[0-9]+[fh]?)?)|([0-9a-fA-F]+(p|P)(\+|-)?[0-9]+[fh]?))/),
+	int_literal: new J("int_literal", M.token, /-?0x[0-9a-fA-F]+|0i?|-?[1-9][0-9]*i?/),
+	uint_literal: new J("uint_literal", M.token, /0x[0-9a-fA-F]+u|0u|[1-9][0-9]*u/),
+	name: new J("name", M.token, /([_\p{XID_Start}][\p{XID_Continue}]+)|([\p{XID_Start}])/u),
+	ident: new J("ident", M.token, /[_a-zA-Z][0-9a-zA-Z_]*/),
+	and: new J("and", M.token, "&"),
+	and_and: new J("and_and", M.token, "&&"),
+	arrow: new J("arrow ", M.token, "->"),
+	attr: new J("attr", M.token, "@"),
+	forward_slash: new J("forward_slash", M.token, "/"),
+	bang: new J("bang", M.token, "!"),
+	bracket_left: new J("bracket_left", M.token, "["),
+	bracket_right: new J("bracket_right", M.token, "]"),
+	brace_left: new J("brace_left", M.token, "{"),
+	brace_right: new J("brace_right", M.token, "}"),
+	colon: new J("colon", M.token, ":"),
+	comma: new J("comma", M.token, ","),
+	equal: new J("equal", M.token, "="),
+	equal_equal: new J("equal_equal", M.token, "=="),
+	not_equal: new J("not_equal", M.token, "!="),
+	greater_than: new J("greater_than", M.token, ">"),
+	greater_than_equal: new J("greater_than_equal", M.token, ">="),
+	shift_right: new J("shift_right", M.token, ">>"),
+	less_than: new J("less_than", M.token, "<"),
+	less_than_equal: new J("less_than_equal", M.token, "<="),
+	shift_left: new J("shift_left", M.token, "<<"),
+	modulo: new J("modulo", M.token, "%"),
+	minus: new J("minus", M.token, "-"),
+	minus_minus: new J("minus_minus", M.token, "--"),
+	period: new J("period", M.token, "."),
+	plus: new J("plus", M.token, "+"),
+	plus_plus: new J("plus_plus", M.token, "++"),
+	or: new J("or", M.token, "|"),
+	or_or: new J("or_or", M.token, "||"),
+	paren_left: new J("paren_left", M.token, "("),
+	paren_right: new J("paren_right", M.token, ")"),
+	semicolon: new J("semicolon", M.token, ";"),
+	star: new J("star", M.token, "*"),
+	tilde: new J("tilde", M.token, "~"),
+	underscore: new J("underscore", M.token, "_"),
+	xor: new J("xor", M.token, "^"),
+	plus_equal: new J("plus_equal", M.token, "+="),
+	minus_equal: new J("minus_equal", M.token, "-="),
+	times_equal: new J("times_equal", M.token, "*="),
+	division_equal: new J("division_equal", M.token, "/="),
+	modulo_equal: new J("modulo_equal", M.token, "%="),
+	and_equal: new J("and_equal", M.token, "&="),
+	or_equal: new J("or_equal", M.token, "|="),
+	xor_equal: new J("xor_equal", M.token, "^="),
+	shift_right_equal: new J("shift_right_equal", M.token, ">>="),
+	shift_left_equal: new J("shift_left_equal", M.token, "<<=")
+}, Y.simpleTokens = {
+	"@": j.tokens.attr,
+	"{": j.tokens.brace_left,
+	"}": j.tokens.brace_right,
+	":": j.tokens.colon,
+	",": j.tokens.comma,
+	"(": j.tokens.paren_left,
+	")": j.tokens.paren_right,
+	";": j.tokens.semicolon
+}, Y.literalTokens = {
+	"&": j.tokens.and,
+	"&&": j.tokens.and_and,
+	"->": j.tokens.arrow,
+	"/": j.tokens.forward_slash,
+	"!": j.tokens.bang,
+	"[": j.tokens.bracket_left,
+	"]": j.tokens.bracket_right,
+	"=": j.tokens.equal,
+	"==": j.tokens.equal_equal,
+	"!=": j.tokens.not_equal,
+	">": j.tokens.greater_than,
+	">=": j.tokens.greater_than_equal,
+	">>": j.tokens.shift_right,
+	"<": j.tokens.less_than,
+	"<=": j.tokens.less_than_equal,
+	"<<": j.tokens.shift_left,
+	"%": j.tokens.modulo,
+	"-": j.tokens.minus,
+	"--": j.tokens.minus_minus,
+	".": j.tokens.period,
+	"+": j.tokens.plus,
+	"++": j.tokens.plus_plus,
+	"|": j.tokens.or,
+	"||": j.tokens.or_or,
+	"*": j.tokens.star,
+	"~": j.tokens.tilde,
+	_: j.tokens.underscore,
+	"^": j.tokens.xor,
+	"+=": j.tokens.plus_equal,
+	"-=": j.tokens.minus_equal,
+	"*=": j.tokens.times_equal,
+	"/=": j.tokens.division_equal,
+	"%=": j.tokens.modulo_equal,
+	"&=": j.tokens.and_equal,
+	"|=": j.tokens.or_equal,
+	"^=": j.tokens.xor_equal,
+	">>=": j.tokens.shift_right_equal,
+	"<<=": j.tokens.shift_left_equal
+}, Y.regexTokens = {
+	decimal_float_literal: j.tokens.decimal_float_literal,
+	hex_float_literal: j.tokens.hex_float_literal,
+	int_literal: j.tokens.int_literal,
+	uint_literal: j.tokens.uint_literal,
+	ident: j.tokens.ident
+}, Y.storage_class = [
+	j.keywords.function,
+	j.keywords.private,
+	j.keywords.workgroup,
+	j.keywords.uniform,
+	j.keywords.storage,
+	j.keywords.immediate
+], Y.access_mode = [
+	j.keywords.read,
+	j.keywords.write,
+	j.keywords.read_write
+], Y.sampler_type = [j.keywords.sampler, j.keywords.sampler_comparison], Y.sampled_texture_type = [
+	j.keywords.texture_1d,
+	j.keywords.texture_2d,
+	j.keywords.texture_2d_array,
+	j.keywords.texture_3d,
+	j.keywords.texture_cube,
+	j.keywords.texture_cube_array
+], Y.multisampled_texture_type = [j.keywords.texture_multisampled_2d], Y.storage_texture_type = [
+	j.keywords.texture_storage_1d,
+	j.keywords.texture_storage_2d,
+	j.keywords.texture_storage_2d_array,
+	j.keywords.texture_storage_3d
+], Y.depth_texture_type = [
+	j.keywords.texture_depth_2d,
+	j.keywords.texture_depth_2d_array,
+	j.keywords.texture_depth_cube,
+	j.keywords.texture_depth_cube_array,
+	j.keywords.texture_depth_multisampled_2d
+], Y.texture_external_type = [j.keywords.texture_external], Y.any_texture_type = [
+	...j.sampled_texture_type,
+	...j.multisampled_texture_type,
+	...j.storage_texture_type,
+	...j.depth_texture_type,
+	...j.texture_external_type
+], Y.texel_format = [
+	j.keywords.r8unorm,
+	j.keywords.r8snorm,
+	j.keywords.r8uint,
+	j.keywords.r8sint,
+	j.keywords.r16uint,
+	j.keywords.r16sint,
+	j.keywords.r16float,
+	j.keywords.rg8unorm,
+	j.keywords.rg8snorm,
+	j.keywords.rg8uint,
+	j.keywords.rg8sint,
+	j.keywords.r32uint,
+	j.keywords.r32sint,
+	j.keywords.r32float,
+	j.keywords.rg16uint,
+	j.keywords.rg16sint,
+	j.keywords.rg16float,
+	j.keywords.rgba8unorm,
+	j.keywords.rgba8unorm_srgb,
+	j.keywords.rgba8snorm,
+	j.keywords.rgba8uint,
+	j.keywords.rgba8sint,
+	j.keywords.bgra8unorm,
+	j.keywords.bgra8unorm_srgb,
+	j.keywords.rgb10a2unorm,
+	j.keywords.rg11b10float,
+	j.keywords.rg32uint,
+	j.keywords.rg32sint,
+	j.keywords.rg32float,
+	j.keywords.rgba16uint,
+	j.keywords.rgba16sint,
+	j.keywords.rgba16float,
+	j.keywords.rgba32uint,
+	j.keywords.rgba32sint,
+	j.keywords.rgba32float
+], Y.const_literal = [
+	j.tokens.int_literal,
+	j.tokens.uint_literal,
+	j.tokens.decimal_float_literal,
+	j.tokens.hex_float_literal,
+	j.keywords.true,
+	j.keywords.false
+], Y.literal_or_ident = [
+	j.tokens.ident,
+	j.tokens.int_literal,
+	j.tokens.uint_literal,
+	j.tokens.decimal_float_literal,
+	j.tokens.hex_float_literal,
+	j.tokens.name
+], Y.element_count_expression = [
+	j.tokens.int_literal,
+	j.tokens.uint_literal,
+	j.tokens.ident
+], Y.template_types = [
+	j.keywords.vec2,
+	j.keywords.vec3,
+	j.keywords.vec4,
+	j.keywords.mat2x2,
+	j.keywords.mat2x3,
+	j.keywords.mat2x4,
+	j.keywords.mat3x2,
+	j.keywords.mat3x3,
+	j.keywords.mat3x4,
+	j.keywords.mat4x2,
+	j.keywords.mat4x3,
+	j.keywords.mat4x4,
+	j.keywords.atomic,
+	j.keywords.bitcast,
+	...j.any_texture_type
+], Y.attribute_name = [
+	j.tokens.ident,
+	j.keywords.block,
+	j.keywords.diagnostic
+], Y.assignment_operators = [
+	j.tokens.equal,
+	j.tokens.plus_equal,
+	j.tokens.minus_equal,
+	j.tokens.times_equal,
+	j.tokens.division_equal,
+	j.tokens.modulo_equal,
+	j.tokens.and_equal,
+	j.tokens.or_equal,
+	j.tokens.xor_equal,
+	j.tokens.shift_right_equal,
+	j.tokens.shift_left_equal
+], Y.increment_operators = [j.tokens.plus_plus, j.tokens.minus_minus];
+var Ct = class {
 	constructor(e, t, n, r, i) {
 		this.type = e, this.lexeme = t, this.line = n, this.start = r, this.end = i;
 	}
@@ -3368,21 +3563,21 @@ var bt = class {
 		return this.lexeme;
 	}
 	isTemplateType() {
-		return X.template_types.indexOf(this.type) != -1;
+		return Y.template_types.includes(this.type);
 	}
 	isArrayType() {
-		return this.type == X.keywords.array;
+		return this.type === Y.keywords.array;
 	}
 	isArrayOrTemplateType() {
 		return this.isArrayType() || this.isTemplateType();
 	}
-}, xt = class {
+}, wt = class e {
 	constructor(e) {
 		this._tokens = [], this._start = 0, this._current = 0, this._line = 1, this._source = e ?? "";
 	}
 	scanTokens() {
 		for (; !this._isAtEnd();) if (this._start = this._current, !this.scanToken()) throw `Invalid syntax at line ${this._line}`;
-		return this._tokens.push(new bt(X.eof, "", this._line, this._current, this._current)), this._tokens;
+		return this._tokens.push(new Ct(Y.eof, "", this._line, this._current, this._current)), this._tokens;
 	}
 	scanToken() {
 		let e = this._advance();
@@ -3409,54 +3604,54 @@ var bt = class {
 				return !0;
 			}
 		}
-		let t = X.simpleTokens[e];
+		let t = Y.simpleTokens[e];
 		if (t) return this._addToken(t), !0;
-		let n = X.none, r = this._isAlpha(e), i = e === "_";
+		let n = Y.none, r = this._isAlpha(e), i = e === "_";
 		if (this._isAlphaNumeric(e)) {
 			let t = this._peekAhead();
 			for (; this._isAlphaNumeric(t);) e += this._advance(), t = this._peekAhead();
 		}
 		if (r) {
-			let t = X.keywords[e];
+			let t = Y.keywords[e];
 			if (t) return this._addToken(t), !0;
 		}
-		if (r || i) return this._addToken(X.tokens.ident), !0;
+		if (r || i) return this._addToken(Y.tokens.ident), !0;
 		for (;;) {
 			let t = this._findType(e), r = this._peekAhead();
 			if (e == "-" && this._tokens.length > 0) {
-				if (r == "=") return this._current++, e += r, this._addToken(X.tokens.minus_equal), !0;
-				if (r == "-") return this._current++, e += r, this._addToken(X.tokens.minus_minus), !0;
+				if (r == "=") return this._current++, e += r, this._addToken(Y.tokens.minus_equal), !0;
+				if (r == "-") return this._current++, e += r, this._addToken(Y.tokens.minus_minus), !0;
 				let n = this._tokens.length - 1;
-				if ((X.literal_or_ident.indexOf(this._tokens[n].type) != -1 || this._tokens[n].type == X.tokens.paren_right) && r != ">") return this._addToken(t), !0;
+				if ((Y.literal_or_ident.includes(this._tokens[n].type) || this._tokens[n].type == Y.tokens.paren_right) && r != ">") return this._addToken(t), !0;
 			}
 			if (e == ">" && (r == ">" || r == "=")) {
 				let e = !1, n = this._tokens.length - 1;
-				for (let t = 0; t < 5 && n >= 0 && X.assignment_operators.indexOf(this._tokens[n].type) === -1; ++t, --n) if (this._tokens[n].type === X.tokens.less_than) {
+				for (let t = 0; t < 5 && n >= 0 && !Y.assignment_operators.includes(this._tokens[n].type); ++t, --n) if (this._tokens[n].type === Y.tokens.less_than) {
 					n > 0 && this._tokens[n - 1].isArrayOrTemplateType() && (e = !0);
 					break;
 				}
 				if (e) return this._addToken(t), !0;
 			}
-			if (t === X.none) {
+			if (t === Y.none) {
 				let r = e, i = 0;
-				for (let e = 0; e < 2; ++e) if (r += this._peekAhead(e), t = this._findType(r), t !== X.none) {
+				for (let e = 0; e < 2; ++e) if (r += this._peekAhead(e), t = this._findType(r), t !== Y.none) {
 					i = e;
 					break;
 				}
-				if (t === X.none) return n !== X.none && (this._current--, this._addToken(n), !0);
+				if (t === Y.none) return n !== Y.none && (this._current--, this._addToken(n), !0);
 				e = r, this._current += i + 1;
 			}
 			if (n = t, this._isAtEnd()) break;
 			e += this._advance();
 		}
-		return n !== X.none && (this._addToken(n), !0);
+		return n !== Y.none && (this._addToken(n), !0);
 	}
 	_findType(e) {
-		for (let t in X.regexTokens) {
-			let n = X.regexTokens[t];
+		for (let t in Y.regexTokens) {
+			let n = Y.regexTokens[t];
 			if (this._match(e, n.rule)) return n;
 		}
-		return X.literalTokens[e] || X.none;
+		return Y.literalTokens[e] || Y.none;
 	}
 	_match(e, t) {
 		let n = t.exec(e);
@@ -3465,8 +3660,8 @@ var bt = class {
 	_isAtEnd() {
 		return this._current >= this._source.length;
 	}
-	_isAlpha(e) {
-		return !this._isNumeric(e) && !this._isWhitespace(e) && e !== "_" && e !== "." && e !== "(" && e !== ")" && e !== "[" && e !== "]" && e !== "{" && e !== "}" && e !== "," && e !== ";" && e !== ":" && e !== "=" && e !== "!" && e !== "<" && e !== ">" && e !== "+" && e !== "-" && e !== "*" && e !== "/" && e !== "%" && e !== "&" && e !== "|" && e !== "^" && e !== "~" && e !== "@" && e !== "#" && e !== "?" && e !== "'" && e !== "`" && e !== "\"" && e !== "\\" && e !== "\n" && e !== "\r" && e !== "	" && e !== "\0";
+	_isAlpha(t) {
+		return !this._isNumeric(t) && !this._isWhitespace(t) && t !== "_" && !e._operators.has(t);
 	}
 	_isNumeric(e) {
 		return e >= "0" && e <= "9";
@@ -3479,95 +3674,103 @@ var bt = class {
 	}
 	_advance(e = 0) {
 		let t = this._source[this._current];
-		return e ||= 0, e++, this._current += e, t;
+		return this._current += e + 1, t ?? "\0";
 	}
 	_peekAhead(e = 0) {
-		return e ||= 0, this._current + e >= this._source.length ? "\0" : this._source[this._current + e];
+		return this._current + e >= this._source.length ? "\0" : this._source[this._current + e];
 	}
 	_addToken(e) {
 		let t = this._source.substring(this._start, this._current);
-		this._tokens.push(new bt(e, t, this._line, this._start, this._current));
+		this._tokens.push(new Ct(e, t, this._line, this._start, this._current));
 	}
 };
-function Z(e) {
+function X(e) {
 	return Array.isArray(e) || e?.buffer instanceof ArrayBuffer;
 }
-var St = new Float32Array(1), Ct = new Uint32Array(St.buffer), wt = new Uint32Array(St.buffer), Tt = new Int32Array(1), Et = new Float32Array(Tt.buffer), Dt = new Uint32Array(Tt.buffer), Ot = new Uint32Array(1), kt = new Float32Array(Ot.buffer), At = new Int32Array(Ot.buffer);
-function jt(e, t, n) {
+wt._operators = /* @__PURE__ */ new Set(/* @__PURE__ */ ".()[]{},;:=!<>+-*/%&|^~@#?'`\"\\\n\r	\0".split(""));
+var Tt = /* @__PURE__ */ new Float32Array(1), Et = new Uint32Array(Tt.buffer), Dt = new Uint32Array(Tt.buffer), Ot = /* @__PURE__ */ new Int32Array(1), kt = new Float32Array(Ot.buffer), At = new Uint32Array(Ot.buffer), jt = /* @__PURE__ */ new Uint32Array(1), Mt = new Float32Array(jt.buffer), Nt = new Int32Array(jt.buffer);
+function Pt(e, t, n) {
 	if (t === n) return e;
 	if (t === "f32") {
-		if (n === "i32" || n === "x32") return St[0] = e, Ct[0];
-		if (n === "u32") return St[0] = e, wt[0];
-	} else if (t === "i32" || t === "x32") {
-		if (n === "f32") return Tt[0] = e, Et[0];
+		if (n === "i32" || n === "x32") return Tt[0] = e, Et[0];
 		if (n === "u32") return Tt[0] = e, Dt[0];
-	} else if (t === "u32") {
+	} else if (t === "i32" || t === "x32") {
 		if (n === "f32") return Ot[0] = e, kt[0];
-		if (n === "i32" || n === "x32") return Ot[0] = e, At[0];
+		if (n === "u32") return Ot[0] = e, At[0];
+	} else if (t === "u32") {
+		if (n === "f32") return jt[0] = e, Mt[0];
+		if (n === "i32" || n === "x32") return jt[0] = e, Nt[0];
 	}
 	return console.error(`Unsupported cast from ${t} to ${n}`), e;
 }
-var Mt = class {
+var Ft = class {
 	constructor(e) {
 		this.resources = null, this.inUse = !1, this.info = null, this.node = e;
 	}
-}, Nt = class {
+}, It = class {
 	constructor(e, t) {
 		this.align = e, this.size = t;
 	}
-}, Pt = class e {
+}, Lt = class e {
 	constructor() {
-		this.uniforms = [], this.storage = [], this.textures = [], this.samplers = [], this.aliases = [], this.overrides = [], this.structs = [], this.entry = new be(), this.functions = [], this._types = /* @__PURE__ */ new Map(), this._functions = /* @__PURE__ */ new Map();
+		this.uniforms = [], this.storage = [], this.immediates = [], this.textures = [], this.samplers = [], this.aliases = [], this.overrides = [], this.structs = [], this.entry = new _e(), this.functions = [], this._types = /* @__PURE__ */ new Map(), this._functions = /* @__PURE__ */ new Map();
 	}
 	_isStorageTexture(e) {
 		return e.name == "texture_storage_1d" || e.name == "texture_storage_2d" || e.name == "texture_storage_2d_array" || e.name == "texture_storage_3d";
 	}
 	updateAST(e) {
-		for (let t of e) t instanceof Ne && this._functions.set(t.name, new Mt(t));
-		for (let t of e) if (t instanceof j) {
+		for (let t of e) t instanceof Ae && this._functions.set(t.name, new Ft(t));
+		for (let t of e) if (t instanceof P) {
 			let e = this.getTypeInfo(t, null);
-			e instanceof v && this.structs.push(e);
+			e instanceof se && this.structs.push(e);
 		}
-		for (let t of e) if (t instanceof $e) this.aliases.push(this._getAliasInfo(t));
+		for (let t of e) if (t instanceof Xe) this.aliases.push(this._getAliasInfo(t));
 		else {
-			if (t instanceof Re) {
+			if (t instanceof Fe) {
 				let e = t, n = this._getAttributeNum(e.attributes, "id", 0), r = e.type == null ? null : this.getTypeInfo(e.type, e.attributes);
-				this.overrides.push(new _e(e.name, r, e.attributes, n));
+				this.overrides.push(new me(e.name, r, e.attributes, n));
 				continue;
 			}
 			if (this._isUniformVar(t)) {
-				let e = t, n = this._getAttributeNum(e.attributes, "group", 0), r = this._getAttributeNum(e.attributes, "binding", 0), i = this.getTypeInfo(e.type, e.attributes), a = new pe(e.name, i, n, r, e.attributes, x.Uniform, e.access);
+				let e = t, n = this._getAttributeNum(e.attributes, "group", 0), r = this._getAttributeNum(e.attributes, "binding", 0), i = this.getTypeInfo(e.type, e.attributes), a = new ue(e.name, i, n, r, e.attributes, w.Uniform, e.access);
 				a.access ||= "read", this.uniforms.push(a);
 				continue;
 			}
+			if (this._isImmediateVar(t)) {
+				let e = t, n = this._getAttributeNum(e.attributes, "group", 0), r = this._getAttributeNum(e.attributes, "binding", 0), i = this.getTypeInfo(e.type, e.attributes), a = new ue(e.name, i, n, r, e.attributes, w.Immediate, e.access);
+				a.access ||= "read", this.immediates.push(a);
+				continue;
+			}
 			if (this._isStorageVar(t)) {
-				let e = t, n = this._getAttributeNum(e.attributes, "group", 0), r = this._getAttributeNum(e.attributes, "binding", 0), i = this.getTypeInfo(e.type, e.attributes), a = this._isStorageTexture(i), o = new pe(e.name, i, n, r, e.attributes, a ? x.StorageTexture : x.Storage, e.access);
+				let e = t, n = this._getAttributeNum(e.attributes, "group", 0), r = this._getAttributeNum(e.attributes, "binding", 0), i = this.getTypeInfo(e.type, e.attributes), a = this._isStorageTexture(i), o = new ue(e.name, i, n, r, e.attributes, a ? w.StorageTexture : w.Storage, e.access);
 				o.access ||= "read", this.storage.push(o);
 				continue;
 			}
 			if (this._isTextureVar(t)) {
-				let e = t, n = this._getAttributeNum(e.attributes, "group", 0), r = this._getAttributeNum(e.attributes, "binding", 0), i = this.getTypeInfo(e.type, e.attributes), a = this._isStorageTexture(i), o = new pe(e.name, i, n, r, e.attributes, a ? x.StorageTexture : x.Texture, e.access);
-				o.access ||= "read", a ? this.storage.push(o) : this.textures.push(o);
+				let e = t, n = this._getAttributeNum(e.attributes, "group", 0), r = this._getAttributeNum(e.attributes, "binding", 0), i = this.getTypeInfo(e.type, e.attributes), a = this._isStorageTexture(i), o = a ? i.access : e.access, s = new ue(e.name, i, n, r, e.attributes, a ? w.StorageTexture : w.Texture, o || e.access);
+				s.access ||= "read", a ? this.storage.push(s) : this.textures.push(s);
 				continue;
 			}
 			if (this._isSamplerVar(t)) {
-				let e = t, n = this._getAttributeNum(e.attributes, "group", 0), r = this._getAttributeNum(e.attributes, "binding", 0), i = this.getTypeInfo(e.type, e.attributes), a = new pe(e.name, i, n, r, e.attributes, x.Sampler, e.access);
+				let e = t, n = this._getAttributeNum(e.attributes, "group", 0), r = this._getAttributeNum(e.attributes, "binding", 0), i = this.getTypeInfo(e.type, e.attributes), a = new ue(e.name, i, n, r, e.attributes, w.Sampler, e.access);
 				this.samplers.push(a);
 				continue;
 			}
 		}
-		for (let t of e) if (t instanceof Ne) {
-			let e = this._getAttribute(t, "vertex"), n = this._getAttribute(t, "fragment"), r = this._getAttribute(t, "compute"), i = e || n || r, a = new ye(t.name, i?.name, t.attributes);
-			a.attributes = t.attributes, a.startLine = t.startLine, a.endLine = t.endLine, this.functions.push(a), this._functions.get(t.name).info = a, i && (this._functions.get(t.name).inUse = !0, a.inUse = !0, a.resources = this._findResources(t, !!i), a.inputs = this._getInputs(t.args), a.outputs = this._getOutputs(t.returnType), this.entry[i.name].push(a)), a.arguments = t.args.map((e) => new ve(e.name, this.getTypeInfo(e.type, e.attributes), e.attributes)), a.returnType = t.returnType ? this.getTypeInfo(t.returnType, t.attributes) : null;
+		for (let t of e) if (t instanceof Ae) {
+			let e = this._getAttribute(t, "vertex"), n = this._getAttribute(t, "fragment"), r = this._getAttribute(t, "compute"), i = e || n || r, a = new ge(t.name, i?.name, t.attributes);
+			a.attributes = t.attributes, a.startLine = t.startLine, a.endLine = t.endLine, this.functions.push(a), this._functions.get(t.name).info = a, i && (this._functions.get(t.name).inUse = !0, a.inUse = !0, a.inputs = this._getInputs(t.args), a.outputs = this._getOutputs(t.returnType), this.entry[i.name].push(a)), a.resources = this._findResources(t, !!i), a.arguments = t.args.map((e) => new he(e.name, this.getTypeInfo(e.type, e.attributes), e.attributes)), a.returnType = t.returnType ? this.getTypeInfo(t.returnType, t.attributes) : null;
 			continue;
 		}
 		for (let e of this._functions.values()) e.info && (e.info.inUse = e.inUse, this._addCalls(e.node, e.info.calls));
 		for (let e of this._functions.values()) e.node.search((t) => {
 			var n, r, i;
 			if (t instanceof _t) {
-				if (t.value) if (Z(t.value)) for (let r of t.value) for (let t of this.overrides) r === t.name && ((n = e.info) == null || n.overrides.push(t));
-				else for (let n of this.overrides) t.value === n.name && ((r = e.info) == null || r.overrides.push(n));
-			} else if (t instanceof L) for (let n of this.overrides) t.name === n.name && ((i = e.info) == null || i.overrides.push(n));
+				if (t.value) {
+					if (X(t.value)) for (let r of t.value) for (let t of this.overrides) r === t.name && ((n = e.info) == null || n.overrides.push(t));
+					else for (let n of this.overrides) t.value === n.name && ((r = e.info) == null || r.overrides.push(n));
+				}
+			} else if (t instanceof R) for (let n of this.overrides) t.name === n.name && ((i = e.info) == null || i.overrides.push(n));
 		});
 		for (let e of this.uniforms) this._markStructsInUse(e.type);
 		for (let e of this.storage) this._markStructsInUse(e.type);
@@ -3585,13 +3788,15 @@ var Mt = class {
 		return null;
 	}
 	_markStructsInUse(e) {
-		if (e) if (e.isStruct) {
-			if (e.inUse = !0, e.members) for (let t of e.members) this._markStructsInUse(t.type);
-		} else if (e.isArray) this._markStructsInUse(e.format);
-		else if (e.isTemplate) e.format && this._markStructsInUse(e.format);
-		else {
-			let t = this._getAlias(e.name);
-			t && this._markStructsInUse(t);
+		if (e) {
+			if (e.isStruct) {
+				if (e.inUse = !0, e.members) for (let t of e.members) this._markStructsInUse(t.type);
+			} else if (e.isArray) this._markStructsInUse(e.format);
+			else if (e.isTemplate) e.format && this._markStructsInUse(e.format);
+			else {
+				let t = this._getAlias(e.name);
+				t && this._markStructsInUse(t);
+			}
 		}
 	}
 	_addCalls(e, t) {
@@ -3632,28 +3837,40 @@ var Mt = class {
 	_findResources(e, t) {
 		let n = [], r = this, i = [];
 		return e.search((a) => {
-			if (a instanceof Ae) i.push({});
-			else if (a instanceof je) i.pop();
-			else if (a instanceof D) {
-				let e = a;
-				t && e.type !== null && this._markStructsFromAST(e.type), i.length > 0 && (i[i.length - 1][e.name] = e);
-			} else if (a instanceof I) {
-				let e = a;
-				t && e.type !== null && this._markStructsFromAST(e.type);
-			} else if (a instanceof ze) {
+			if (a instanceof De) i.push({});
+			else if (a instanceof Oe) i.pop();
+			else if (a instanceof A) {
 				let e = a;
 				t && e.type !== null && this._markStructsFromAST(e.type), i.length > 0 && (i[i.length - 1][e.name] = e);
 			} else if (a instanceof L) {
 				let e = a;
+				t && e.type !== null && this._markStructsFromAST(e.type);
+			} else if (a instanceof Ie) {
+				let e = a;
+				t && e.type !== null && this._markStructsFromAST(e.type), i.length > 0 && (i[i.length - 1][e.name] = e);
+			} else if (a instanceof R) {
+				let e = a;
 				if (i.length > 0 && i[i.length - 1][e.name]) return;
 				let t = r._findResource(e.name);
 				t && n.push(t);
-			} else if (a instanceof ot) {
+			} else if (a instanceof at) {
 				let i = a, o = r._functions.get(i.name);
-				o && (t && (o.inUse = !0), e.calls.add(o.node), o.resources === null && (o.resources = r._findResources(o.node, t)), n.push(...o.resources));
-			} else if (a instanceof Ge) {
+				if (o && (t && (o.inUse = !0), e.calls.add(o.node), o.resources = r._findResources(o.node, t), n.push(...o.resources)), i.name === "textureSample" && i.args.length >= 2) {
+					let e = i.args[0], t = null;
+					if (e instanceof R) {
+						let n = r._findResource(e.name);
+						n && n.resourceType === w.Texture && (t = n);
+					}
+					let n = i.args[1], a = null;
+					if (n instanceof R) {
+						let e = r._findResource(n.name);
+						e && e.resourceType === w.Sampler && (a = e);
+					}
+					t && a && (t.relations === null && (t.relations = []), t.relations.push(a), a.relations === null && (a.relations = []), a.relations.push(t));
+				}
+			} else if (a instanceof He) {
 				let i = a, o = r._functions.get(i.name);
-				o && (t && (o.inUse = !0), e.calls.add(o.node), o.resources === null && (o.resources = r._findResources(o.node, t)), n.push(...o.resources));
+				o && (t && (o.inUse = !0), e.calls.add(o.node), o.resources = r._findResources(o.node, t), n.push(...o.resources));
 			}
 		}), [...new Map(n.map((e) => [e.name, e])).values()];
 	}
@@ -3669,7 +3886,7 @@ var Mt = class {
 		return e;
 	}
 	_getOutputs(e, t = void 0) {
-		if (t === void 0 && (t = []), e instanceof j) this._getStructOutputs(e, t);
+		if (t === void 0 && (t = []), e instanceof P) this._getStructOutputs(e, t);
 		else {
 			let n = this._getOutputInfo(e);
 			n !== null && t.push(n);
@@ -3677,11 +3894,11 @@ var Mt = class {
 		return t;
 	}
 	_getStructOutputs(e, t) {
-		for (let n of e.members) if (n.type instanceof j) this._getStructOutputs(n.type, t);
+		for (let n of e.members) if (n.type instanceof P) this._getStructOutputs(n.type, t);
 		else {
 			let e = this._getAttribute(n, "location") || this._getAttribute(n, "builtin");
 			if (e !== null) {
-				let r = this.getTypeInfo(n.type, n.type.attributes), i = this._parseInt(e.value), a = new ge(n.name, r, e.name, i);
+				let r = this.getTypeInfo(n.type, n.type.attributes), i = this._parseInt(e.value), a = new pe(n.name, r, e.name, i);
 				t.push(a);
 			}
 		}
@@ -3690,13 +3907,13 @@ var Mt = class {
 		let t = this._getAttribute(e, "location") || this._getAttribute(e, "builtin");
 		if (t !== null) {
 			let n = this.getTypeInfo(e, e.attributes), r = this._parseInt(t.value);
-			return new ge("", n, t.name, r);
+			return new pe("", n, t.name, r);
 		}
 		return null;
 	}
 	_getInputs(e, t = void 0) {
 		t === void 0 && (t = []);
-		for (let n of e) if (n.type instanceof j) this._getStructInputs(n.type, t);
+		for (let n of e) if (n.type instanceof P) this._getStructInputs(n.type, t);
 		else {
 			let e = this._getInputInfo(n);
 			e !== null && t.push(e);
@@ -3704,7 +3921,7 @@ var Mt = class {
 		return t;
 	}
 	_getStructInputs(e, t) {
-		for (let n of e.members) if (n.type instanceof j) this._getStructInputs(n.type, t);
+		for (let n of e.members) if (n.type instanceof P) this._getStructInputs(n.type, t);
 		else {
 			let e = this._getInputInfo(n);
 			e !== null && t.push(e);
@@ -3713,7 +3930,7 @@ var Mt = class {
 	_getInputInfo(e) {
 		let t = this._getAttribute(e, "location") || this._getAttribute(e, "builtin");
 		if (t !== null) {
-			let n = this._getAttribute(e, "interpolation"), r = this.getTypeInfo(e.type, e.attributes), i = this._parseInt(t.value), a = new he(e.name, r, t.name, i);
+			let n = this._getAttribute(e, "interpolate"), r = this.getTypeInfo(e.type, e.attributes), i = this._parseInt(t.value), a = new fe(e.name, r, t.name, i);
 			return n !== null && (a.interpolation = this._parseString(n.value)), a;
 		}
 		return null;
@@ -3731,7 +3948,7 @@ var Mt = class {
 		return null;
 	}
 	_getAliasInfo(e) {
-		return new me(e.name, this.getTypeInfo(e.type, null));
+		return new de(e.name, this.getTypeInfo(e.type, null));
 	}
 	getTypeInfoByName(e) {
 		for (let t of this.structs) if (t.name == e) return t;
@@ -3740,40 +3957,40 @@ var Mt = class {
 	}
 	getTypeInfo(e, t = null) {
 		if (this._types.has(e)) return this._types.get(e);
-		if (e instanceof it) {
-			let n = e.type ? this.getTypeInfo(e.type, e.attributes) : null, r = new fe(e.name, n, t);
+		if (e instanceof tt) {
+			let n = e.type ? this.getTypeInfo(e.type, e.attributes) : null, r = new le(e.name, n, t);
 			return this._types.set(e, r), this._updateTypeInfo(r), r;
 		}
-		if (e instanceof N) {
-			let n = e, r = n.format ? this.getTypeInfo(n.format, n.attributes) : null, i = new y(n.name, t);
+		if (e instanceof nt) {
+			let n = e, r = n.format ? this.getTypeInfo(n.format, n.attributes) : null, i = new ce(n.name, t);
 			return i.format = r, i.count = n.count, this._types.set(e, i), this._updateTypeInfo(i), i;
 		}
-		if (e instanceof j) {
-			let n = e, r = new v(n.name, t);
+		if (e instanceof P) {
+			let n = e, r = new se(n.name, t);
 			r.startLine = n.startLine, r.endLine = n.endLine;
 			for (let e of n.members) {
 				let t = this.getTypeInfo(e.type, e.attributes);
-				r.members.push(new de(e.name, t, e.attributes));
+				r.members.push(new oe(e.name, t, e.attributes));
 			}
 			return this._types.set(e, r), this._updateTypeInfo(r), r;
 		}
-		if (e instanceof at) {
-			let n = e, r = n.format instanceof A, i = n.format ? r ? this.getTypeInfo(n.format, null) : new _(n.format, null) : null, a = new b(n.name, i, t, n.access);
+		if (e instanceof rt) {
+			let n = e, r = n.format instanceof N, i = n.format ? r ? this.getTypeInfo(n.format, null) : new S(n.format, null) : null, a = new C(n.name, i, t, n.access);
 			return this._types.set(e, a), this._updateTypeInfo(a), a;
 		}
-		if (e instanceof M) {
-			let n = e, r = n.format ? this.getTypeInfo(n.format, null) : null, i = new b(n.name, r, t, n.access);
+		if (e instanceof F) {
+			let n = e, r = n.format ? this.getTypeInfo(n.format, null) : null, i = new C(n.name, r, t, n.access);
 			return this._types.set(e, i), this._updateTypeInfo(i), i;
 		}
-		let n = new _(e.name, t);
+		let n = new S(e.name, t);
 		return this._types.set(e, n), this._updateTypeInfo(n), n;
 	}
 	_updateTypeInfo(e) {
-		if (e.size = this._getTypeSize(e)?.size ?? 0, e instanceof y && e.format) {
+		if (e.size = this._getTypeSize(e)?.size ?? 0, e instanceof ce && e.format) {
 			let t = this._getTypeSize(e.format);
 			e.stride = Math.max(t?.size ?? 0, t?.align ?? 0), this._updateTypeInfo(e.format);
 		}
-		e instanceof fe && this._updateTypeInfo(e.format), e instanceof v && this._updateStructInfo(e);
+		e instanceof le && this._updateTypeInfo(e.format), e instanceof se && this._updateStructInfo(e);
 	}
 	_updateStructInfo(e) {
 		let t = 0, n = 0, r = 0, i = 0;
@@ -3789,7 +4006,7 @@ var Mt = class {
 	_getTypeSize(t) {
 		if (t == null) return null;
 		let n = this._getAttributeNum(t.attributes, "size", 0), r = this._getAttributeNum(t.attributes, "align", 0);
-		if (t instanceof de && (t = t.type), t instanceof _) {
+		if (t instanceof oe && (t = t.type), t instanceof S) {
 			let e = this._getAlias(t.name);
 			e !== null && (t = e);
 		}
@@ -3797,41 +4014,44 @@ var Mt = class {
 			let i = e._typeInfo[t.name];
 			if (i !== void 0) {
 				let e = t.format?.name === "f16" ? 2 : 1;
-				return new Nt(Math.max(r, i.align / e), Math.max(n, i.size / e));
+				return new It(Math.max(r, i.align / e), Math.max(n, i.size / e));
 			}
 		}
 		{
 			let i = e._typeInfo[t.name.substring(0, t.name.length - 1)];
 			if (i) {
 				let e = t.name[t.name.length - 1] === "h" ? 2 : 1;
-				return new Nt(Math.max(r, i.align / e), Math.max(n, i.size / e));
+				return new It(Math.max(r, i.align / e), Math.max(n, i.size / e));
 			}
 		}
-		if (t instanceof y) {
+		if (t instanceof ce) {
 			let e = t, i = 8, a = 8, o = this._getTypeSize(e.format);
-			return o !== null && (a = o.size, i = o.align), a = e.count * this._getAttributeNum(t?.attributes ?? null, "stride", this._roundUp(i, a)), n && (a = n), new Nt(Math.max(r, i), Math.max(n, a));
+			return o !== null && (a = o.size, i = o.align), a = e.count * this._getAttributeNum(t?.attributes ?? null, "stride", this._roundUp(i, a)), n && (a = n), new It(Math.max(r, i), Math.max(n, a));
 		}
-		if (t instanceof v) {
+		if (t instanceof se) {
 			let e = 0, i = 0, a = 0, o = 0, s = 0;
 			for (let n of t.members) {
 				let t = this._getTypeSize(n.type);
 				t !== null && (e = Math.max(t.align, e), a = this._roundUp(t.align, a + o), o = t.size, s = a);
 			}
-			return i = this._roundUp(e, s + o), new Nt(Math.max(r, e), Math.max(n, i));
+			return i = this._roundUp(e, s + o), new It(Math.max(r, e), Math.max(n, i));
 		}
 		return null;
 	}
 	_isUniformVar(e) {
-		return e instanceof D && e.storage == "uniform";
+		return e instanceof A && e.storage == "uniform";
+	}
+	_isImmediateVar(e) {
+		return e instanceof A && e.storage == "immediate";
 	}
 	_isStorageVar(e) {
-		return e instanceof D && e.storage == "storage";
+		return e instanceof A && e.storage == "storage";
 	}
 	_isTextureVar(t) {
-		return t instanceof D && t.type !== null && e._textureTypes.indexOf(t.type.name) != -1;
+		return t instanceof A && t.type !== null && e._textureTypes.indexOf(t.type.name) != -1;
 	}
 	_isSamplerVar(t) {
-		return t instanceof D && t.type !== null && e._samplerTypes.indexOf(t.type.name) != -1;
+		return t instanceof A && t.type !== null && e._samplerTypes.indexOf(t.type.name) != -1;
 	}
 	_getAttribute(e, t) {
 		let n = e;
@@ -3852,7 +4072,7 @@ var Mt = class {
 		return Math.ceil(t / e) * e;
 	}
 };
-Pt._typeInfo = {
+Lt._typeInfo = {
 	f16: {
 		align: 2,
 		size: 2
@@ -3921,24 +4141,33 @@ Pt._typeInfo = {
 		align: 16,
 		size: 64
 	}
-}, Pt._textureTypes = X.any_texture_type.map((e) => e.name), Pt._samplerTypes = X.sampler_type.map((e) => e.name);
-var Ft = 0, It = class e {
+}, Lt._textureTypes = Y.any_texture_type.map((e) => e.name), Lt._samplerTypes = Y.sampler_type.map((e) => e.name);
+var Rt = 0, zt = class e {
 	constructor(e, t, n) {
-		this.id = Ft++, this.name = e, this.value = t, this.node = n;
+		this.id = Rt++, this.name = e, this.value = t, this.node = n;
 	}
 	clone() {
 		return new e(this.name, this.value, this.node);
 	}
-}, Lt = class e {
+}, Bt = class e {
 	constructor(e) {
-		this.id = Ft++, this.name = e.name, this.node = e;
+		this.id = Rt++, this.name = e.name, this.node = e;
 	}
 	clone() {
 		return new e(this.node);
 	}
-}, Rt = class e {
+}, Vt = class e {
 	constructor(e) {
-		this.parent = null, this.variables = /* @__PURE__ */ new Map(), this.functions = /* @__PURE__ */ new Map(), this.currentFunctionName = "", this.id = Ft++, e && (this.parent = e, this.currentFunctionName = e.currentFunctionName);
+		this.parent = null, this.variables = /* @__PURE__ */ new Map(), this.functions = /* @__PURE__ */ new Map(), this.derivatives = /* @__PURE__ */ new Map(), this.currentFunctionName = "", this.id = Rt++, e && (this.parent = e, this.currentFunctionName = e.currentFunctionName);
+	}
+	setDerivative(e, t) {
+		this.derivatives.set(e, t);
+	}
+	getDerivative(e) {
+		return this.derivatives.has(e) ? this.derivatives.get(e) ?? null : this.parent ? this.parent.getDerivative(e) : null;
+	}
+	clearDerivative(e) {
+		this.derivatives.has(e) ? this.derivatives.delete(e) : this.parent && this.parent.clearDerivative(e);
 	}
 	getVariable(e) {
 		return this.variables.has(e) ? this.variables.get(e) ?? null : this.parent ? this.parent.getVariable(e) : null;
@@ -3947,7 +4176,7 @@ var Ft = 0, It = class e {
 		return this.functions.has(e) ? this.functions.get(e) ?? null : this.parent ? this.parent.getFunction(e) : null;
 	}
 	createVariable(e, t, n) {
-		this.variables.set(e, new It(e, t, n ?? null));
+		this.variables.set(e, new zt(e, t, n ?? null));
 	}
 	setVariable(e, t, n) {
 		let r = this.getVariable(e);
@@ -3959,7 +4188,7 @@ var Ft = 0, It = class e {
 	clone() {
 		return new e(this);
 	}
-}, zt = class {
+}, Ht = class {
 	evalExpression(e, t) {
 		return null;
 	}
@@ -3969,7 +4198,7 @@ var Ft = 0, It = class e {
 	getVariableName(e, t) {
 		return "";
 	}
-}, Bt = class {
+}, Ut = class e {
 	constructor(e) {
 		this.exec = e;
 	}
@@ -3978,91 +4207,96 @@ var Ft = 0, It = class e {
 	}
 	All(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t), r = !0;
-		if (n instanceof G) return n.data.forEach((e) => {
+		if (n instanceof W) return n.data.forEach((e) => {
 			e || (r = !1);
-		}), new W(+!!r, this.getTypeInfo("bool"));
+		}), new U(+!!r, this.getTypeInfo("bool"));
 		throw Error(`All() expects a vector argument. Line ${e.line}`);
 	}
 	Any(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		if (n instanceof G) return new W(+!!n.data.some((e) => e), this.getTypeInfo("bool"));
+		if (n instanceof W) return new U(+!!n.data.some((e) => e), this.getTypeInfo("bool"));
 		throw Error(`Any() expects a vector argument. Line ${e.line}`);
 	}
 	Select(e, t) {
 		let n = this.exec.evalExpression(e.args[2], t);
-		if (!(n instanceof W)) throw Error(`Select() expects a bool condition. Line ${e.line}`);
+		if (n instanceof W) {
+			let r = this.exec.evalExpression(e.args[0], t), i = this.exec.evalExpression(e.args[1], t);
+			if (!(r instanceof W && i instanceof W)) throw Error(`Select() with a vector condition expects vector values. Line ${e.line}`);
+			return new W(n.data.map((e, t) => e ? i.data[t] : r.data[t]), r.typeInfo);
+		}
+		if (!(n instanceof U)) throw Error(`Select() expects a bool condition. Line ${e.line}`);
 		return n.value ? this.exec.evalExpression(e.args[1], t) : this.exec.evalExpression(e.args[0], t);
 	}
 	ArrayLength(e, t) {
 		let n = e.args[0];
 		n instanceof B && (n = n.right);
 		let r = this.exec.evalExpression(n, t);
-		if (r instanceof q && r.typeInfo.size === 0) {
+		if (r instanceof K && r.typeInfo.size === 0) {
 			let e = r.typeInfo;
-			return new W(r.buffer.byteLength / e.stride, this.getTypeInfo("u32"));
+			return new U(r.buffer.byteLength / e.stride, this.getTypeInfo("u32"));
 		}
-		return new W(r.typeInfo.size, this.getTypeInfo("u32"));
+		return new U(r.typeInfo.size, this.getTypeInfo("u32"));
 	}
 	Abs(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		if (n instanceof G) return new G(n.data.map((e) => Math.abs(e)), n.typeInfo);
+		if (n instanceof W) return new W(n.data.map((e) => Math.abs(e)), n.typeInfo);
 		let r = n;
-		return new W(Math.abs(r.value), r.typeInfo);
+		return new U(Math.abs(r.value), r.typeInfo);
 	}
 	Acos(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		return n instanceof G ? new G(n.data.map((e) => Math.acos(e)), n.typeInfo) : new W(Math.acos(n.value), n.typeInfo);
+		return n instanceof W ? new W(n.data.map((e) => Math.acos(e)), n.typeInfo) : new U(Math.acos(n.value), n.typeInfo);
 	}
 	Acosh(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		return n instanceof G ? new G(n.data.map((e) => Math.acosh(e)), n.typeInfo) : new W(Math.acosh(n.value), n.typeInfo);
+		return n instanceof W ? new W(n.data.map((e) => Math.acosh(e)), n.typeInfo) : new U(Math.acosh(n.value), n.typeInfo);
 	}
 	Asin(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		return n instanceof G ? new G(n.data.map((e) => Math.asin(e)), n.typeInfo) : new W(Math.asin(n.value), n.typeInfo);
+		return n instanceof W ? new W(n.data.map((e) => Math.asin(e)), n.typeInfo) : new U(Math.asin(n.value), n.typeInfo);
 	}
 	Asinh(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		return n instanceof G ? new G(n.data.map((e) => Math.asinh(e)), n.typeInfo) : new W(Math.asinh(n.value), n.typeInfo);
+		return n instanceof W ? new W(n.data.map((e) => Math.asinh(e)), n.typeInfo) : new U(Math.asinh(n.value), n.typeInfo);
 	}
 	Atan(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		return n instanceof G ? new G(n.data.map((e) => Math.atan(e)), n.typeInfo) : new W(Math.atan(n.value), n.typeInfo);
+		return n instanceof W ? new W(n.data.map((e) => Math.atan(e)), n.typeInfo) : new U(Math.atan(n.value), n.typeInfo);
 	}
 	Atanh(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		return n instanceof G ? new G(n.data.map((e) => Math.atanh(e)), n.typeInfo) : new W(Math.atanh(n.value), n.typeInfo);
+		return n instanceof W ? new W(n.data.map((e) => Math.atanh(e)), n.typeInfo) : new U(Math.atanh(n.value), n.typeInfo);
 	}
 	Atan2(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t), r = this.exec.evalExpression(e.args[1], t);
-		if (n instanceof G && r instanceof G) return new G(n.data.map((e, t) => Math.atan2(e, r.data[t])), n.typeInfo);
+		if (n instanceof W && r instanceof W) return new W(n.data.map((e, t) => Math.atan2(e, r.data[t])), n.typeInfo);
 		let i = n, a = r;
-		return new W(Math.atan2(i.value, a.value), n.typeInfo);
+		return new U(Math.atan2(i.value, a.value), n.typeInfo);
 	}
 	Ceil(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		return n instanceof G ? new G(n.data.map((e) => Math.ceil(e)), n.typeInfo) : new W(Math.ceil(n.value), n.typeInfo);
+		return n instanceof W ? new W(n.data.map((e) => Math.ceil(e)), n.typeInfo) : new U(Math.ceil(n.value), n.typeInfo);
 	}
 	_clamp(e, t, n) {
 		return Math.min(Math.max(e, t), n);
 	}
 	Clamp(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t), r = this.exec.evalExpression(e.args[1], t), i = this.exec.evalExpression(e.args[2], t);
-		if (n instanceof G && r instanceof G && i instanceof G) return new G(n.data.map((e, t) => this._clamp(e, r.data[t], i.data[t])), n.typeInfo);
+		if (n instanceof W && r instanceof W && i instanceof W) return new W(n.data.map((e, t) => this._clamp(e, r.data[t], i.data[t])), n.typeInfo);
 		let a = n, o = r, s = i;
-		return new W(this._clamp(a.value, o.value, s.value), n.typeInfo);
+		return new U(this._clamp(a.value, o.value, s.value), n.typeInfo);
 	}
 	Cos(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		return n instanceof G ? new G(n.data.map((e) => Math.cos(e)), n.typeInfo) : new W(Math.cos(n.value), n.typeInfo);
+		return n instanceof W ? new W(n.data.map((e) => Math.cos(e)), n.typeInfo) : new U(Math.cos(n.value), n.typeInfo);
 	}
 	Cosh(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		return n instanceof G ? new G(n.data.map((e) => Math.cosh(e)), n.typeInfo) : new W(Math.cos(n.value), n.typeInfo);
+		return n instanceof W ? new W(n.data.map((e) => Math.cosh(e)), n.typeInfo) : new U(Math.cos(n.value), n.typeInfo);
 	}
 	CountLeadingZeros(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		return n instanceof G ? new G(n.data.map((e) => Math.clz32(e)), n.typeInfo) : new W(Math.clz32(n.value), n.typeInfo);
+		return n instanceof W ? new W(n.data.map((e) => Math.clz32(e)), n.typeInfo) : new U(Math.clz32(n.value), n.typeInfo);
 	}
 	_countOneBits(e) {
 		let t = 0;
@@ -4071,9 +4305,9 @@ var Ft = 0, It = class e {
 	}
 	CountOneBits(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		if (n instanceof G) return new G(n.data.map((e) => this._countOneBits(e)), n.typeInfo);
+		if (n instanceof W) return new W(n.data.map((e) => this._countOneBits(e)), n.typeInfo);
 		let r = n;
-		return new W(this._countOneBits(r.value), n.typeInfo);
+		return new U(this._countOneBits(r.value), n.typeInfo);
 	}
 	_countTrailingZeros(e) {
 		if (e === 0) return 32;
@@ -4083,16 +4317,16 @@ var Ft = 0, It = class e {
 	}
 	CountTrailingZeros(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		if (n instanceof G) return new G(n.data.map((e) => this._countTrailingZeros(e)), n.typeInfo);
+		if (n instanceof W) return new W(n.data.map((e) => this._countTrailingZeros(e)), n.typeInfo);
 		let r = n;
-		return new W(this._countTrailingZeros(r.value), n.typeInfo);
+		return new U(this._countTrailingZeros(r.value), n.typeInfo);
 	}
 	Cross(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t), r = this.exec.evalExpression(e.args[1], t);
-		if (n instanceof G && r instanceof G) {
+		if (n instanceof W && r instanceof W) {
 			if (n.data.length !== 3 || r.data.length !== 3) return console.error(`Cross() expects 3D vectors. Line ${e.line}`), null;
 			let t = n.data, i = r.data;
-			return new G([
+			return new W([
 				t[1] * i[2] - i[1] * t[2],
 				t[2] * i[0] - i[2] * t[0],
 				t[0] * i[1] - i[0] * t[1]
@@ -4102,32 +4336,31 @@ var Ft = 0, It = class e {
 	}
 	Degrees(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t), r = 180 / Math.PI;
-		return n instanceof G ? new G(n.data.map((e) => e * r), n.typeInfo) : new W(n.value * r, this.getTypeInfo("f32"));
+		return n instanceof W ? new W(n.data.map((e) => e * r), n.typeInfo) : new U(n.value * r, this.getTypeInfo("f32"));
 	}
 	Determinant(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		if (n instanceof K) {
-			let e = n.data, t = n.typeInfo.getTypeName(), r = t.endsWith("h") ? this.getTypeInfo("f16") : this.getTypeInfo("f32");
-			if (t === "mat2x2" || t === "mat2x2f" || t === "mat2x2h") return new W(e[0] * e[3] - e[1] * e[2], r);
-			if (t === "mat2x3" || t === "mat2x3f" || t === "mat2x3h") return new W(e[0] * (e[4] * e[8] - e[5] * e[7]) - e[1] * (e[3] * e[8] - e[5] * e[6]) + e[2] * (e[3] * e[7] - e[4] * e[6]), r);
-			if (t === "mat2x4" || t === "mat2x4f" || t === "mat2x4h") console.error(`TODO: Determinant for ${t}`);
-			else if (t === "mat3x2" || t === "mat3x2f" || t === "mat3x2h") console.error(`TODO: Determinant for ${t}`);
-			else {
-				if (t === "mat3x3" || t === "mat3x3f" || t === "mat3x3h") return new W(e[0] * (e[4] * e[8] - e[5] * e[7]) - e[1] * (e[3] * e[8] - e[5] * e[6]) + e[2] * (e[3] * e[7] - e[4] * e[6]), r);
-				t === "mat3x4" || t === "mat3x4f" || t === "mat3x4h" || t === "mat4x2" || t === "mat4x2f" || t === "mat4x2h" || t === "mat4x3" || t === "mat4x3f" || t === "mat4x3h" ? console.error(`TODO: Determinant for ${t}`) : t !== "mat4x4" && t !== "mat4x4f" && t !== "mat4x4h" || console.error(`TODO: Determinant for ${t}`);
+		if (n instanceof G) {
+			let t = n.data, r = n.typeInfo.getTypeName(), i = r.endsWith("h") ? this.getTypeInfo("f16") : this.getTypeInfo("f32");
+			if (r === "mat2x2" || r === "mat2x2f" || r === "mat2x2h") return new U(t[0] * t[3] - t[1] * t[2], i);
+			if (r === "mat3x3" || r === "mat3x3f" || r === "mat3x3h") return new U(t[0] * (t[4] * t[8] - t[5] * t[7]) - t[1] * (t[3] * t[8] - t[5] * t[6]) + t[2] * (t[3] * t[7] - t[4] * t[6]), i);
+			if (r === "mat4x4" || r === "mat4x4f" || r === "mat4x4h") {
+				let e = t[0], n = t[1], r = t[2], a = t[3], o = t[4], s = t[5], c = t[6], l = t[7], u = t[8], d = t[9], f = t[10], p = t[11], m = t[12], h = t[13], g = t[14], _ = t[15];
+				return new U((e * s - o * n) * (f * _ - g * p) - (e * c - o * r) * (d * _ - h * p) + (e * l - o * a) * (d * g - h * f) + (n * c - s * r) * (u * _ - m * p) - (n * l - s * a) * (u * g - m * f) + (r * l - c * a) * (u * h - m * d), i);
 			}
+			return console.error(`Determinant: unsupported matrix type ${r}. Line ${e.line}`), null;
 		}
 		return console.error(`Determinant expects a matrix argument. Line ${e.line}`), null;
 	}
 	Distance(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t), r = this.exec.evalExpression(e.args[1], t);
-		if (n instanceof G && r instanceof G) {
+		if (n instanceof W && r instanceof W) {
 			let e = 0;
 			for (let t = 0; t < n.data.length; ++t) e += (n.data[t] - r.data[t]) * (n.data[t] - r.data[t]);
-			return new W(Math.sqrt(e), this.getTypeInfo("f32"));
+			return new U(Math.sqrt(e), this.getTypeInfo("f32"));
 		}
 		let i = n, a = r;
-		return new W(Math.abs(i.value - a.value), n.typeInfo);
+		return new U(Math.abs(i.value - a.value), n.typeInfo);
 	}
 	_dot(e, t) {
 		let n = 0;
@@ -4136,165 +4369,178 @@ var Ft = 0, It = class e {
 	}
 	Dot(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t), r = this.exec.evalExpression(e.args[1], t);
-		return n instanceof G && r instanceof G ? new W(this._dot(n.data, r.data), this.getTypeInfo("f32")) : (console.error(`Dot() expects vector arguments. Line ${e.line}`), null);
+		return n instanceof W && r instanceof W ? new U(this._dot(n.data, r.data), this.getTypeInfo("f32")) : (console.error(`Dot() expects vector arguments. Line ${e.line}`), null);
 	}
 	Dot4U8Packed(e, t) {
-		return console.error(`TODO: dot4U8Packed. Line ${e.line}`), null;
+		let n = this.exec.evalExpression(e.args[0], t), r = this.exec.evalExpression(e.args[1], t), i = n.value >>> 0, a = r.value >>> 0, o = 0;
+		for (let e = 0; e < 4; ++e) o += (i >>> 8 * e & 255) * (a >>> 8 * e & 255);
+		return new U(o >>> 0, this.getTypeInfo("u32"));
 	}
 	Dot4I8Packed(e, t) {
-		return console.error(`TODO: dot4I8Packed. Line ${e.line}`), null;
+		let n = this.exec.evalExpression(e.args[0], t), r = this.exec.evalExpression(e.args[1], t), i = n.value >>> 0, a = r.value >>> 0, o = (e) => 128 & e ? e - 256 : e, s = 0;
+		for (let e = 0; e < 4; ++e) s += o(i >>> 8 * e & 255) * o(a >>> 8 * e & 255);
+		return new U(0 | s, this.getTypeInfo("i32"));
 	}
 	Exp(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		return n instanceof G ? new G(n.data.map((e) => Math.exp(e)), n.typeInfo) : new W(Math.exp(n.value), n.typeInfo);
+		return n instanceof W ? new W(n.data.map((e) => Math.exp(e)), n.typeInfo) : new U(Math.exp(n.value), n.typeInfo);
 	}
 	Exp2(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		return n instanceof G ? new G(n.data.map((e) => 2 ** e), n.typeInfo) : new W(2 ** n.value, n.typeInfo);
+		return n instanceof W ? new W(n.data.map((e) => 2 ** e), n.typeInfo) : new U(2 ** n.value, n.typeInfo);
 	}
 	ExtractBits(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t), r = this.exec.evalExpression(e.args[1], t), i = this.exec.evalExpression(e.args[2], t);
 		if (r.typeInfo.name !== "u32" && r.typeInfo.name !== "x32") return console.error(`ExtractBits() expects an i32 offset argument. Line ${e.line}`), null;
 		if (i.typeInfo.name !== "u32" && i.typeInfo.name !== "x32") return console.error(`ExtractBits() expects an i32 count argument. Line ${e.line}`), null;
 		let a = r.value, o = i.value;
-		if (n instanceof G) return new G(n.data.map((e) => e >> a & (1 << o) - 1), n.typeInfo);
+		if (n instanceof W) return new W(n.data.map((e) => e >> a & (1 << o) - 1), n.typeInfo);
 		if (n.typeInfo.name !== "i32" && n.typeInfo.name !== "x32") return console.error(`ExtractBits() expects an i32 argument. Line ${e.line}`), null;
 		let s = n.value;
-		return new W(s >> a & (1 << o) - 1, this.getTypeInfo("i32"));
+		return new U(s >> a & (1 << o) - 1, this.getTypeInfo("i32"));
 	}
 	FaceForward(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t), r = this.exec.evalExpression(e.args[1], t), i = this.exec.evalExpression(e.args[2], t);
-		return n instanceof G && r instanceof G && i instanceof G ? new G(this._dot(r.data, i.data) < 0 ? Array.from(n.data) : n.data.map((e) => -e), n.typeInfo) : (console.error(`FaceForward() expects vector arguments. Line ${e.line}`), null);
+		return n instanceof W && r instanceof W && i instanceof W ? new W(this._dot(r.data, i.data) < 0 ? Array.from(n.data) : n.data.map((e) => -e), n.typeInfo) : (console.error(`FaceForward() expects vector arguments. Line ${e.line}`), null);
 	}
 	_firstLeadingBit(e) {
 		return e === 0 ? -1 : 31 - Math.clz32(e);
 	}
 	FirstLeadingBit(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		if (n instanceof G) return new G(n.data.map((e) => this._firstLeadingBit(e)), n.typeInfo);
+		if (n instanceof W) return new W(n.data.map((e) => this._firstLeadingBit(e)), n.typeInfo);
 		let r = n;
-		return new W(this._firstLeadingBit(r.value), n.typeInfo);
+		return new U(this._firstLeadingBit(r.value), n.typeInfo);
 	}
 	_firstTrailingBit(e) {
 		return e === 0 ? -1 : Math.log2(e & -e);
 	}
 	FirstTrailingBit(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		if (n instanceof G) return new G(n.data.map((e) => this._firstTrailingBit(e)), n.typeInfo);
+		if (n instanceof W) return new W(n.data.map((e) => this._firstTrailingBit(e)), n.typeInfo);
 		let r = n;
-		return new W(this._firstTrailingBit(r.value), n.typeInfo);
+		return new U(this._firstTrailingBit(r.value), n.typeInfo);
 	}
 	Floor(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		return n instanceof G ? new G(n.data.map((e) => Math.floor(e)), n.typeInfo) : new W(Math.floor(n.value), n.typeInfo);
+		return n instanceof W ? new W(n.data.map((e) => Math.floor(e)), n.typeInfo) : new U(Math.floor(n.value), n.typeInfo);
 	}
 	Fma(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t), r = this.exec.evalExpression(e.args[1], t), i = this.exec.evalExpression(e.args[2], t);
-		if (n instanceof G && r instanceof G && i instanceof G) return n.data.length !== r.data.length || n.data.length !== i.data.length ? (console.error(`Fma() expects vectors of the same length. Line ${e.line}`), null) : new G(n.data.map((e, t) => e * r.data[t] + i.data[t]), n.typeInfo);
+		if (n instanceof W && r instanceof W && i instanceof W) return n.data.length !== r.data.length || n.data.length !== i.data.length ? (console.error(`Fma() expects vectors of the same length. Line ${e.line}`), null) : new W(n.data.map((e, t) => e * r.data[t] + i.data[t]), n.typeInfo);
 		let a = n, o = r, s = i;
-		return new W(a.value * o.value + s.value, a.typeInfo);
+		return new U(a.value * o.value + s.value, a.typeInfo);
 	}
 	Fract(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		if (n instanceof G) return new G(n.data.map((e) => e - Math.floor(e)), n.typeInfo);
+		if (n instanceof W) return new W(n.data.map((e) => e - Math.floor(e)), n.typeInfo);
 		let r = n;
-		return new W(r.value - Math.floor(r.value), n.typeInfo);
+		return new U(r.value - Math.floor(r.value), n.typeInfo);
 	}
 	Frexp(e, t) {
-		return console.error(`TODO: frexp. Line ${e.line}`), null;
+		let n = this.exec.evalExpression(e.args[0], t), r = (e) => e === 0 || !isFinite(e) || isNaN(e) ? e : e / 2 ** (Math.floor(Math.log2(Math.abs(e))) + 1);
+		return n instanceof W ? new W(n.data.map((e) => r(e)), n.typeInfo) : new U(r(n.value), n.typeInfo);
 	}
 	InsertBits(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t), r = this.exec.evalExpression(e.args[1], t), i = this.exec.evalExpression(e.args[2], t), a = this.exec.evalExpression(e.args[3], t);
 		if (i.typeInfo.name !== "u32" && i.typeInfo.name !== "x32") return console.error(`InsertBits() expects an i32 offset argument. Line ${e.line}`), null;
 		let o = i.value, s = (1 << a.value) - 1 << o, c = ~s;
-		if (n instanceof G && r instanceof G) return new G(n.data.map((e, t) => e & c | r.data[t] << o & s), n.typeInfo);
+		if (n instanceof W && r instanceof W) return new W(n.data.map((e, t) => e & c | r.data[t] << o & s), n.typeInfo);
 		let l = n.value, u = r.value;
-		return new W(l & c | u << o & s, n.typeInfo);
+		return new U(l & c | u << o & s, n.typeInfo);
 	}
 	InverseSqrt(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		return n instanceof G ? new G(n.data.map((e) => 1 / Math.sqrt(e)), n.typeInfo) : new W(1 / Math.sqrt(n.value), n.typeInfo);
+		return n instanceof W ? new W(n.data.map((e) => 1 / Math.sqrt(e)), n.typeInfo) : new U(1 / Math.sqrt(n.value), n.typeInfo);
 	}
 	Ldexp(e, t) {
-		return console.error(`TODO: ldexp. Line ${e.line}`), null;
+		let n = this.exec.evalExpression(e.args[0], t), r = this.exec.evalExpression(e.args[1], t);
+		if (n instanceof W && r instanceof W) return new W(n.data.map((e, t) => e * 2 ** r.data[t]), n.typeInfo);
+		let i = r;
+		return new U(n.value * 2 ** i.value, n.typeInfo);
 	}
 	Length(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		if (n instanceof G) {
+		if (n instanceof W) {
 			let e = 0;
 			return n.data.forEach((t) => {
 				e += t * t;
-			}), new W(Math.sqrt(e), this.getTypeInfo("f32"));
+			}), new U(Math.sqrt(e), this.getTypeInfo("f32"));
 		}
-		return new W(Math.abs(n.value), n.typeInfo);
+		return new U(Math.abs(n.value), n.typeInfo);
 	}
 	Log(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		return n instanceof G ? new G(n.data.map((e) => Math.log(e)), n.typeInfo) : new W(Math.log(n.value), n.typeInfo);
+		return n instanceof W ? new W(n.data.map((e) => Math.log(e)), n.typeInfo) : new U(Math.log(n.value), n.typeInfo);
 	}
 	Log2(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		return n instanceof G ? new G(n.data.map((e) => Math.log2(e)), n.typeInfo) : new W(Math.log2(n.value), n.typeInfo);
+		return n instanceof W ? new W(n.data.map((e) => Math.log2(e)), n.typeInfo) : new U(Math.log2(n.value), n.typeInfo);
 	}
 	Max(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t), r = this.exec.evalExpression(e.args[1], t);
-		if (n instanceof G && r instanceof G) return new G(n.data.map((e, t) => Math.max(e, r.data[t])), n.typeInfo);
+		if (n instanceof W && r instanceof W) return new W(n.data.map((e, t) => Math.max(e, r.data[t])), n.typeInfo);
 		let i = n, a = r;
-		return new W(Math.max(i.value, a.value), n.typeInfo);
+		return new U(Math.max(i.value, a.value), n.typeInfo);
 	}
 	Min(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t), r = this.exec.evalExpression(e.args[1], t);
-		if (n instanceof G && r instanceof G) return new G(n.data.map((e, t) => Math.min(e, r.data[t])), n.typeInfo);
+		if (n instanceof W && r instanceof W) return new W(n.data.map((e, t) => Math.min(e, r.data[t])), n.typeInfo);
 		let i = n, a = r;
-		return new W(Math.min(i.value, a.value), n.typeInfo);
+		return new U(Math.min(i.value, a.value), n.typeInfo);
 	}
 	Mix(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t), r = this.exec.evalExpression(e.args[1], t), i = this.exec.evalExpression(e.args[2], t);
-		if (n instanceof G && r instanceof G && i instanceof G) return new G(n.data.map((e, t) => n.data[t] * (1 - i.data[t]) + r.data[t] * i.data[t]), n.typeInfo);
+		if (n === null || r === null || i === null) return console.error(`Mix: invalid arguments. Line ${e.line}`), null;
+		if (n instanceof W && r instanceof W) {
+			if (i instanceof W) return new W(n.data.map((e, t) => n.data[t] * (1 - i.data[t]) + r.data[t] * i.data[t]), n.typeInfo);
+			let e = i.value;
+			return new W(n.data.map((t, i) => n.data[i] * (1 - e) + r.data[i] * e), n.typeInfo);
+		}
 		let a = r, o = i;
-		return new W(n.value * (1 - o.value) + a.value * o.value, n.typeInfo);
+		return new U(n.value * (1 - o.value) + a.value * o.value, n.typeInfo);
 	}
 	Modf(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t), r = this.exec.evalExpression(e.args[1], t);
-		if (n instanceof G && r instanceof G) return new G(n.data.map((e, t) => e % r.data[t]), n.typeInfo);
+		if (n instanceof W && r instanceof W) return new W(n.data.map((e, t) => e % r.data[t]), n.typeInfo);
 		let i = r;
-		return new W(n.value % i.value, n.typeInfo);
+		return new U(n.value % i.value, n.typeInfo);
 	}
 	Normalize(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		if (n instanceof G) {
+		if (n instanceof W) {
 			let r = this.Length(e, t).value;
-			return new G(n.data.map((e) => e / r), n.typeInfo);
+			return new W(n.data.map((e) => e / r), n.typeInfo);
 		}
 		return console.error(`Normalize() expects a vector argument. Line ${e.line}`), null;
 	}
 	Pow(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t), r = this.exec.evalExpression(e.args[1], t);
-		if (n instanceof G && r instanceof G) return new G(n.data.map((e, t) => e ** +r.data[t]), n.typeInfo);
+		if (n instanceof W && r instanceof W) return new W(n.data.map((e, t) => e ** +r.data[t]), n.typeInfo);
 		let i = n, a = r;
-		return new W(i.value ** +a.value, n.typeInfo);
+		return new U(i.value ** +a.value, n.typeInfo);
 	}
-	QuantizeToF16(e, t) {
-		let n = this.exec.evalExpression(e.args[0], t);
-		return n instanceof G ? new G(n.data.map((e) => e), n.typeInfo) : new W(n.value, n.typeInfo);
+	QuantizeToF16(t, n) {
+		let r = this.exec.evalExpression(t.args[0], n), i = (t) => e._f16BitsToF32(e._f32ToF16Bits(t));
+		return r instanceof W ? new W(r.data.map((e) => i(e)), r.typeInfo) : new U(i(r.value), r.typeInfo);
 	}
 	Radians(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		return n instanceof G ? new G(n.data.map((e) => e * Math.PI / 180), n.typeInfo) : new W(n.value * Math.PI / 180, this.getTypeInfo("f32"));
+		return n instanceof W ? new W(n.data.map((e) => e * Math.PI / 180), n.typeInfo) : new U(n.value * Math.PI / 180, this.getTypeInfo("f32"));
 	}
 	Reflect(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t), r = this.exec.evalExpression(e.args[1], t);
-		if (n instanceof G && r instanceof G) {
+		if (n instanceof W && r instanceof W) {
 			let e = this._dot(n.data, r.data);
-			return new G(n.data.map((t, n) => t - 2 * e * r.data[n]), n.typeInfo);
+			return new W(n.data.map((t, n) => t - 2 * e * r.data[n]), n.typeInfo);
 		}
 		return console.error(`Reflect() expects vector arguments. Line ${e.line}`), null;
 	}
 	Refract(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t), r = this.exec.evalExpression(e.args[1], t), i = this.exec.evalExpression(e.args[2], t);
-		if (n instanceof G && r instanceof G && i instanceof W) {
+		if (n instanceof W && r instanceof W && i instanceof U) {
 			let e = this._dot(r.data, n.data);
-			return new G(n.data.map((t, n) => {
+			return new W(n.data.map((t, n) => {
 				let a = 1 - i.value * i.value * (1 - e * e);
 				if (a < 0) return 0;
 				let o = Math.sqrt(a);
@@ -4304,27 +4550,31 @@ var Ft = 0, It = class e {
 		return console.error(`Refract() expects vector arguments and a scalar argument. Line ${e.line}`), null;
 	}
 	ReverseBits(e, t) {
-		return console.error(`TODO: reverseBits. Line ${e.line}`), null;
+		let n = this.exec.evalExpression(e.args[0], t), r = (e) => {
+			let t = e >>> 0;
+			return t = (1431655765 & t) << 1 | t >>> 1 & 1431655765, t = (858993459 & t) << 2 | t >>> 2 & 858993459, t = (252645135 & t) << 4 | t >>> 4 & 252645135, t = (16711935 & t) << 8 | t >>> 8 & 16711935, (t << 16 | t >>> 16) >>> 0;
+		};
+		return n instanceof W ? new W(n.data.map((e) => r(e)), n.typeInfo) : new U(r(n.value), n.typeInfo);
 	}
 	Round(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		return n instanceof G ? new G(n.data.map((e) => Math.round(e)), n.typeInfo) : new W(Math.round(n.value), n.typeInfo);
+		return n instanceof W ? new W(n.data.map((e) => Math.round(e)), n.typeInfo) : new U(Math.round(n.value), n.typeInfo);
 	}
 	Saturate(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		return n instanceof G ? new G(n.data.map((e) => Math.min(Math.max(e, 0), 1)), n.typeInfo) : new W(Math.min(Math.max(n.value, 0), 1), n.typeInfo);
+		return n instanceof W ? new W(n.data.map((e) => Math.min(Math.max(e, 0), 1)), n.typeInfo) : new U(Math.min(Math.max(n.value, 0), 1), n.typeInfo);
 	}
 	Sign(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		return n instanceof G ? new G(n.data.map((e) => Math.sign(e)), n.typeInfo) : new W(Math.sign(n.value), n.typeInfo);
+		return n instanceof W ? new W(n.data.map((e) => Math.sign(e)), n.typeInfo) : new U(Math.sign(n.value), n.typeInfo);
 	}
 	Sin(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		return n instanceof G ? new G(n.data.map((e) => Math.sin(e)), n.typeInfo) : new W(Math.sin(n.value), n.typeInfo);
+		return n instanceof W ? new W(n.data.map((e) => Math.sin(e)), n.typeInfo) : new U(Math.sin(n.value), n.typeInfo);
 	}
 	Sinh(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		return n instanceof G ? new G(n.data.map((e) => Math.sinh(e)), n.typeInfo) : new W(Math.sinh(n.value), n.typeInfo);
+		return n instanceof W ? new W(n.data.map((e) => Math.sinh(e)), n.typeInfo) : new U(Math.sinh(n.value), n.typeInfo);
 	}
 	_smoothstep(e, t, n) {
 		let r = Math.min(Math.max((n - e) / (t - e), 0), 1);
@@ -4332,27 +4582,27 @@ var Ft = 0, It = class e {
 	}
 	SmoothStep(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t), r = this.exec.evalExpression(e.args[1], t), i = this.exec.evalExpression(e.args[2], t);
-		if (i instanceof G && n instanceof G && r instanceof G) return new G(i.data.map((e, t) => this._smoothstep(n.data[t], r.data[t], e)), i.typeInfo);
+		if (i instanceof W && n instanceof W && r instanceof W) return new W(i.data.map((e, t) => this._smoothstep(n.data[t], r.data[t], e)), i.typeInfo);
 		let a = n, o = r, s = i;
-		return new W(this._smoothstep(a.value, o.value, s.value), i.typeInfo);
+		return new U(this._smoothstep(a.value, o.value, s.value), i.typeInfo);
 	}
 	Sqrt(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		return n instanceof G ? new G(n.data.map((e) => Math.sqrt(e)), n.typeInfo) : new W(Math.sqrt(n.value), n.typeInfo);
+		return n instanceof W ? new W(n.data.map((e) => Math.sqrt(e)), n.typeInfo) : new U(Math.sqrt(n.value), n.typeInfo);
 	}
 	Step(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t), r = this.exec.evalExpression(e.args[1], t);
-		if (r instanceof G && n instanceof G) return new G(r.data.map((e, t) => e < n.data[t] ? 0 : 1), r.typeInfo);
+		if (r instanceof W && n instanceof W) return new W(r.data.map((e, t) => e < n.data[t] ? 0 : 1), r.typeInfo);
 		let i = n;
-		return new W(r.value < i.value ? 0 : 1, i.typeInfo);
+		return new U(r.value < i.value ? 0 : 1, i.typeInfo);
 	}
 	Tan(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		return n instanceof G ? new G(n.data.map((e) => Math.tan(e)), n.typeInfo) : new W(Math.tan(n.value), n.typeInfo);
+		return n instanceof W ? new W(n.data.map((e) => Math.tan(e)), n.typeInfo) : new U(Math.tan(n.value), n.typeInfo);
 	}
 	Tanh(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		return n instanceof G ? new G(n.data.map((e) => Math.tanh(e)), n.typeInfo) : new W(Math.tanh(n.value), n.typeInfo);
+		return n instanceof W ? new W(n.data.map((e) => Math.tanh(e)), n.typeInfo) : new U(Math.tanh(n.value), n.typeInfo);
 	}
 	_getTransposeType(e) {
 		let t = e.getTypeName();
@@ -4360,11 +4610,11 @@ var Ft = 0, It = class e {
 	}
 	Transpose(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		if (!(n instanceof K)) return console.error(`Transpose() expects a matrix argument. Line ${e.line}`), null;
+		if (!(n instanceof G)) return console.error(`Transpose() expects a matrix argument. Line ${e.line}`), null;
 		let r = this._getTransposeType(n.typeInfo);
 		if (n.typeInfo.name === "mat2x2" || n.typeInfo.name === "mat2x2f" || n.typeInfo.name === "mat2x2h") {
 			let e = n.data;
-			return new K([
+			return new G([
 				e[0],
 				e[2],
 				e[1],
@@ -4373,7 +4623,7 @@ var Ft = 0, It = class e {
 		}
 		if (n.typeInfo.name === "mat2x3" || n.typeInfo.name === "mat2x3f" || n.typeInfo.name === "mat2x3h") {
 			let e = n.data;
-			return new K([
+			return new G([
 				e[0],
 				e[3],
 				e[6],
@@ -4384,7 +4634,7 @@ var Ft = 0, It = class e {
 		}
 		if (n.typeInfo.name === "mat2x4" || n.typeInfo.name === "mat2x4f" || n.typeInfo.name === "mat2x4h") {
 			let e = n.data;
-			return new K([
+			return new G([
 				e[0],
 				e[4],
 				e[8],
@@ -4397,7 +4647,7 @@ var Ft = 0, It = class e {
 		}
 		if (n.typeInfo.name === "mat3x2" || n.typeInfo.name === "mat3x2f" || n.typeInfo.name === "mat3x2h") {
 			let e = n.data;
-			return new K([
+			return new G([
 				e[0],
 				e[3],
 				e[1],
@@ -4408,7 +4658,7 @@ var Ft = 0, It = class e {
 		}
 		if (n.typeInfo.name === "mat3x3" || n.typeInfo.name === "mat3x3f" || n.typeInfo.name === "mat3x3h") {
 			let e = n.data;
-			return new K([
+			return new G([
 				e[0],
 				e[3],
 				e[6],
@@ -4422,7 +4672,7 @@ var Ft = 0, It = class e {
 		}
 		if (n.typeInfo.name === "mat3x4" || n.typeInfo.name === "mat3x4f" || n.typeInfo.name === "mat3x4h") {
 			let e = n.data;
-			return new K([
+			return new G([
 				e[0],
 				e[4],
 				e[8],
@@ -4439,7 +4689,7 @@ var Ft = 0, It = class e {
 		}
 		if (n.typeInfo.name === "mat4x2" || n.typeInfo.name === "mat4x2f" || n.typeInfo.name === "mat4x2h") {
 			let e = n.data;
-			return new K([
+			return new G([
 				e[0],
 				e[4],
 				e[1],
@@ -4450,7 +4700,7 @@ var Ft = 0, It = class e {
 		}
 		if (n.typeInfo.name === "mat4x3" || n.typeInfo.name === "mat4x3f" || n.typeInfo.name === "mat4x3h") {
 			let e = n.data;
-			return new K([
+			return new G([
 				e[0],
 				e[4],
 				e[8],
@@ -4464,7 +4714,7 @@ var Ft = 0, It = class e {
 		}
 		if (n.typeInfo.name === "mat4x4" || n.typeInfo.name === "mat4x4f" || n.typeInfo.name === "mat4x4h") {
 			let e = n.data;
-			return new K([
+			return new G([
 				e[0],
 				e[4],
 				e[8],
@@ -4487,43 +4737,49 @@ var Ft = 0, It = class e {
 	}
 	Trunc(e, t) {
 		let n = this.exec.evalExpression(e.args[0], t);
-		return n instanceof G ? new G(n.data.map((e) => Math.trunc(e)), n.typeInfo) : new W(Math.trunc(n.value), n.typeInfo);
+		return n instanceof W ? new W(n.data.map((e) => Math.trunc(e)), n.typeInfo) : new U(Math.trunc(n.value), n.typeInfo);
+	}
+	_derivative(e, t) {
+		let n = t.getDerivative(e);
+		if (n !== null) return t.clearDerivative(e), n;
+		let r = this.exec.evalExpression(e.args[0], t);
+		return r instanceof W ? new W(Array.from(r.data, () => 0), r.typeInfo) : r instanceof U ? new U(0, r.typeInfo) : r;
 	}
 	Dpdx(e, t) {
-		return console.error(`TODO: dpdx. Line ${e.line}`), null;
+		return this._derivative(e, t);
 	}
 	DpdxCoarse(e, t) {
-		return console.error(`TODO: dpdxCoarse. Line ${e.line}`), null;
+		return this._derivative(e, t);
 	}
 	DpdxFine(e, t) {
-		return console.error("TODO: dpdxFine"), null;
+		return this._derivative(e, t);
 	}
 	Dpdy(e, t) {
-		return console.error("TODO: dpdy"), null;
+		return this._derivative(e, t);
 	}
 	DpdyCoarse(e, t) {
-		return console.error("TODO: dpdyCoarse"), null;
+		return this._derivative(e, t);
 	}
 	DpdyFine(e, t) {
-		return console.error("TODO: dpdyFine"), null;
+		return this._derivative(e, t);
 	}
 	Fwidth(e, t) {
-		return console.error("TODO: fwidth"), null;
+		return this._derivative(e, t);
 	}
 	FwidthCoarse(e, t) {
-		return console.error("TODO: fwidthCoarse"), null;
+		return this._derivative(e, t);
 	}
 	FwidthFine(e, t) {
-		return console.error("TODO: fwidthFine"), null;
+		return this._derivative(e, t);
 	}
 	TextureDimensions(e, t) {
 		let n = e.args[0], r = e.args.length > 1 ? this.exec.evalExpression(e.args[1], t).value : 0;
-		if (n instanceof L) {
+		if (n instanceof R) {
 			let i = n.name, a = t.getVariableValue(i);
-			if (a instanceof J) {
+			if (a instanceof q) {
 				if (r < 0 || r >= a.mipLevelCount) return console.error(`Invalid mip level for textureDimensions. Line ${e.line}`), null;
 				let t = a.getMipLevelSize(r), n = a.dimension;
-				return n === "1d" ? new W(t[0], this.getTypeInfo("u32")) : n === "3d" ? new G(t, this.getTypeInfo("vec3u")) : n === "2d" ? new G(t.slice(0, 2), this.getTypeInfo("vec2u")) : (console.error(`Invalid texture dimension ${n} not found. Line ${e.line}`), null);
+				return n === "1d" ? new U(t[0], this.getTypeInfo("u32")) : n === "3d" ? new W(t, this.getTypeInfo("vec3u")) : n === "2d" ? new W(t.slice(0, 2), this.getTypeInfo("vec2u")) : (console.error(`Invalid texture dimension ${n} not found. Line ${e.line}`), null);
 			}
 			return console.error(`Texture ${i} not found. Line ${e.line}`), null;
 		}
@@ -4536,72 +4792,206 @@ var Ft = 0, It = class e {
 		return console.error("TODO: textureGatherCompare"), null;
 	}
 	TextureLoad(e, t) {
-		let n = e.args[0], r = this.exec.evalExpression(e.args[1], t), i = e.args.length > 2 ? this.exec.evalExpression(e.args[2], t).value : 0;
-		if (!(r instanceof G) || r.data.length !== 2) return console.error(`Invalid UV argument for textureLoad. Line ${e.line}`), null;
-		if (n instanceof L) {
-			let a = n.name, o = t.getVariableValue(a);
-			if (o instanceof J) {
-				let t = Math.floor(r.data[0]), n = Math.floor(r.data[1]);
-				if (t < 0 || t >= o.width || n < 0 || n >= o.height) return console.error(`Texture ${a} out of bounds. Line ${e.line}`), null;
-				let s = o.getPixel(t, n, 0, i);
-				return s === null ? (console.error(`Invalid texture format for textureLoad. Line ${e.line}`), null) : new G(s, this.getTypeInfo("vec4f"));
+		let n = e.args[0], r = this.exec.evalExpression(e.args[1], t);
+		if (!(r instanceof W) || r.data.length !== 2) return console.error(`Invalid UV argument for textureLoad. Line ${e.line}`), null;
+		if (n instanceof R) {
+			let i = n.name, a = t.getVariableValue(i);
+			if (a instanceof q) {
+				let n = 0, o = 0;
+				[
+					"texture_storage_2d_array",
+					"texture_2d_array",
+					"texture_depth_2d_array"
+				].indexOf(a.typeInfo.name) > -1 && (n = this.exec.evalExpression(e.args[2], t).value), [
+					"texture_1d",
+					"texture_2d",
+					"texture_depth_2d",
+					"texture_3d"
+				].indexOf(a.typeInfo.name) > -1 && (o = this.exec.evalExpression(e.args[2], t).value), ["texture_2d_array", "texture_depth_2d_array"].indexOf(a.typeInfo.name) > -1 && (o = this.exec.evalExpression(e.args[3], t).value);
+				let s = Math.floor(r.data[0]), c = Math.floor(r.data[1]), l = Math.floor(n), u = Math.floor(o);
+				if (s < 0 || s >= a.width || c < 0 || c >= a.height) return console.error(`Texture ${i} out of bounds. Line ${e.line}`), null;
+				let d = a.getPixel(s, c, l, u);
+				return d === null ? (console.error(`Invalid texture format for textureLoad. Line ${e.line}`), null) : new W(d, this.getTypeInfo("vec4f"));
 			}
-			return console.error(`Texture ${a} not found. Line ${e.line}`), null;
+			return console.error(`Texture ${i} not found. Line ${e.line}`), null;
 		}
 		return console.error(`Invalid texture argument for textureLoad. Line ${e.line}`), null;
 	}
 	TextureNumLayers(e, t) {
 		let n = e.args[0];
-		if (n instanceof L) {
+		if (n instanceof R) {
 			let r = n.name, i = t.getVariableValue(r);
-			return i instanceof J ? new W(i.depthOrArrayLayers, this.getTypeInfo("u32")) : (console.error(`Texture ${r} not found. Line ${e.line}`), null);
+			return i instanceof q ? new U(i.depthOrArrayLayers, this.getTypeInfo("u32")) : (console.error(`Texture ${r} not found. Line ${e.line}`), null);
 		}
 		return console.error(`Invalid texture argument for textureNumLayers. Line ${e.line}`), null;
 	}
 	TextureNumLevels(e, t) {
 		let n = e.args[0];
-		if (n instanceof L) {
+		if (n instanceof R) {
 			let r = n.name, i = t.getVariableValue(r);
-			return i instanceof J ? new W(i.mipLevelCount, this.getTypeInfo("u32")) : (console.error(`Texture ${r} not found. Line ${e.line}`), null);
+			return i instanceof q ? new U(i.mipLevelCount, this.getTypeInfo("u32")) : (console.error(`Texture ${r} not found. Line ${e.line}`), null);
 		}
 		return console.error(`Invalid texture argument for textureNumLevels. Line ${e.line}`), null;
 	}
 	TextureNumSamples(e, t) {
 		let n = e.args[0];
-		if (n instanceof L) {
+		if (n instanceof R) {
 			let r = n.name, i = t.getVariableValue(r);
-			return i instanceof J ? new W(i.sampleCount, this.getTypeInfo("u32")) : (console.error(`Texture ${r} not found. Line ${e.line}`), null);
+			return i instanceof q ? new U(i.sampleCount, this.getTypeInfo("u32")) : (console.error(`Texture ${r} not found. Line ${e.line}`), null);
 		}
 		return console.error(`Invalid texture argument for textureNumSamples. Line ${e.line}`), null;
 	}
+	_resolveTexture(e, t) {
+		if (e instanceof R) {
+			let n = t.getVariableValue(e.name);
+			return n instanceof q ? n : null;
+		}
+		let n = this.exec.evalExpression(e, t);
+		return n instanceof q ? n : null;
+	}
+	_resolveSampler(e, t) {
+		if (e instanceof R) {
+			let n = t.getVariableValue(e.name);
+			return n instanceof St ? n : null;
+		}
+		return null;
+	}
+	_wrap(e, t, n) {
+		if (n === "repeat") return (e % t + t) % t;
+		if (n === "mirror-repeat") {
+			let n = 2 * t, r = (e % n + n) % n;
+			return r < t ? r : n - 1 - r;
+		}
+		return Math.max(0, Math.min(e, t - 1));
+	}
+	_texel(e, t, n, r, i, a, o) {
+		let s = e.getMipLevelSize(i), c = Math.max(1, s[0]), l = Math.max(1, s[1]), u = e.getPixel(this._wrap(t, c, a), this._wrap(n, l, o), r, i) ?? [
+			0,
+			0,
+			0,
+			0
+		];
+		return [
+			u[0] ?? 0,
+			u[1] ?? 0,
+			u[2] ?? 0,
+			u[3] ?? 1
+		];
+	}
+	_filterMip(e, t, n, r, i, a) {
+		let o = a?.descriptor ?? {}, s = o.addressModeU ?? "clamp-to-edge", c = o.addressModeV ?? "clamp-to-edge", l = e.getMipLevelSize(i), u = Math.max(1, l[0]), d = Math.max(1, l[1]);
+		if (o.magFilter === "nearest") return this._texel(e, Math.floor(t * u), Math.floor(n * d), r, i, s, c);
+		let f = t * u - .5, p = n * d - .5, m = Math.floor(f), h = Math.floor(p), g = f - m, _ = p - h, ee = this._texel(e, m, h, r, i, s, c), v = this._texel(e, m + 1, h, r, i, s, c), y = this._texel(e, m, h + 1, r, i, s, c), b = this._texel(e, m + 1, h + 1, r, i, s, c), x = [
+			0,
+			0,
+			0,
+			0
+		];
+		for (let e = 0; e < 4; ++e) {
+			let t = ee[e] + (v[e] - ee[e]) * g, n = y[e] + (b[e] - y[e]) * g;
+			x[e] = t + (n - t) * _;
+		}
+		return x;
+	}
+	_sampleTexture(e, t, n, r, i, a) {
+		let o = e.mipLevelCount - 1;
+		if (i = Math.max(0, Math.min(i, o)), a?.descriptor.mipmapFilter === "nearest") return this._filterMip(e, t, n, r, Math.round(i), a);
+		let s = Math.floor(i), c = i - s, l = this._filterMip(e, t, n, r, s, a);
+		if (c === 0 || s >= o) return l;
+		let u = this._filterMip(e, t, n, r, s + 1, a);
+		return l.map((e, t) => e + (u[t] - e) * c);
+	}
+	_compareFn(e) {
+		switch (e) {
+			case "less": return (e, t) => e < t;
+			case "greater": return (e, t) => e > t;
+			case "less-equal":
+			default: return (e, t) => e <= t;
+			case "greater-equal": return (e, t) => e >= t;
+			case "equal": return (e, t) => e === t;
+			case "not-equal": return (e, t) => e !== t;
+			case "always": return () => !0;
+			case "never": return () => !1;
+		}
+	}
+	_sampleCompareValue(e, t) {
+		let n = this._sampleArgs(e, t, 2);
+		if (n === null) return null;
+		let r = this._resolveSampler(e.args[1], t)?.descriptor ?? {}, i = n.texture.typeInfo.name.includes("_array") ? 4 : 3, a = this.exec.evalExpression(e.args[i], t), o = a instanceof U ? a.value : 0, s = this._compareFn(r.compare ?? "less-equal"), c = r.addressModeU ?? "clamp-to-edge", l = r.addressModeV ?? "clamp-to-edge", u = n.texture.getMipLevelSize(0), d = Math.max(1, u[0]), f = Math.max(1, u[1]), p = (e, t) => +!!s(o, this._texel(n.texture, e, t, n.layer, 0, c, l)[0]);
+		if (r.magFilter === "nearest") return new U(p(Math.floor(n.u * d), Math.floor(n.v * f)), this.getTypeInfo("f32"));
+		let m = n.u * d - .5, h = n.v * f - .5, g = Math.floor(m), _ = Math.floor(h), ee = m - g, v = h - _, y = p(g, _) + (p(g + 1, _) - p(g, _)) * ee;
+		return new U(y + (p(g, _ + 1) + (p(g + 1, _ + 1) - p(g, _ + 1)) * ee - y) * v, this.getTypeInfo("f32"));
+	}
+	_sampleResult(e, t) {
+		return e.typeInfo.name.includes("depth") ? new U(t[0], this.getTypeInfo("f32")) : new W(t, this.getTypeInfo("vec4f"));
+	}
+	_sampleArgs(e, t, n) {
+		let r = this._resolveTexture(e.args[0], t);
+		if (r === null) return console.error(`Invalid texture argument for ${e.name}. Line ${e.line}`), null;
+		let i = this.exec.evalExpression(e.args[n], t);
+		if (!(i instanceof W) || i.data.length < 2) return console.error(`${e.name} only supports 2d texture coordinates. Line ${e.line}`), null;
+		let a = 0;
+		if (r.typeInfo.name.includes("_array")) {
+			let r = this.exec.evalExpression(e.args[n + 1], t);
+			r instanceof U && (a = Math.floor(r.value));
+		}
+		return {
+			texture: r,
+			u: i.data[0],
+			v: i.data[1],
+			layer: a
+		};
+	}
 	TextureSample(e, t) {
-		return console.error("TODO: textureSample"), null;
+		let n = this._sampleArgs(e, t, 2);
+		if (n === null) return null;
+		let r = 0, i = t.getDerivative(e);
+		i instanceof U && (r = i.value, t.clearDerivative(e));
+		let a = this._resolveSampler(e.args[1], t);
+		return this._sampleResult(n.texture, this._sampleTexture(n.texture, n.u, n.v, n.layer, r, a));
 	}
 	TextureSampleBias(e, t) {
-		return console.error("TODO: textureSampleBias"), null;
-	}
-	TextureSampleCompare(e, t) {
-		return console.error("TODO: textureSampleCompare"), null;
-	}
-	TextureSampleCompareLevel(e, t) {
-		return console.error("TODO: textureSampleCompareLevel"), null;
-	}
-	TextureSampleGrad(e, t) {
-		return console.error("TODO: textureSampleGrad"), null;
+		let n = this._sampleArgs(e, t, 2);
+		if (n === null) return null;
+		let r = 0, i = t.getDerivative(e);
+		i instanceof U && (r = i.value, t.clearDerivative(e));
+		let a = this._resolveSampler(e.args[1], t);
+		return this._sampleResult(n.texture, this._sampleTexture(n.texture, n.u, n.v, n.layer, r, a));
 	}
 	TextureSampleLevel(e, t) {
-		return console.error("TODO: textureSampleLevel"), null;
+		let n = this._sampleArgs(e, t, 2);
+		if (n === null) return null;
+		let r = n.texture.typeInfo.name.includes("_array") ? 4 : 3, i = this.exec.evalExpression(e.args[r], t), a = i instanceof U ? i.value : 0, o = this._resolveSampler(e.args[1], t);
+		return this._sampleResult(n.texture, this._sampleTexture(n.texture, n.u, n.v, n.layer, a, o));
+	}
+	TextureSampleGrad(e, t) {
+		let n = this._sampleArgs(e, t, 2);
+		if (n === null) return null;
+		let r = n.texture.typeInfo.name.includes("_array") ? 4 : 3, i = this.exec.evalExpression(e.args[r], t), a = this.exec.evalExpression(e.args[r + 1], t), o = 0;
+		if (i instanceof W && a instanceof W) {
+			let e = n.texture.width, t = n.texture.height, r = Math.max(Math.hypot(i.data[0] * e, i.data[1] * t), Math.hypot(a.data[0] * e, a.data[1] * t));
+			o = r > 0 ? Math.log2(r) : 0;
+		}
+		let s = this._resolveSampler(e.args[1], t);
+		return this._sampleResult(n.texture, this._sampleTexture(n.texture, n.u, n.v, n.layer, o, s));
+	}
+	TextureSampleCompare(e, t) {
+		return this._sampleCompareValue(e, t);
+	}
+	TextureSampleCompareLevel(e, t) {
+		return this._sampleCompareValue(e, t);
 	}
 	TextureSampleBaseClampToEdge(e, t) {
-		return console.error("TODO: textureSampleBaseClampToEdge"), null;
+		let n = this._sampleArgs(e, t, 2);
+		return n === null ? null : this._sampleResult(n.texture, this._filterMip(n.texture, n.u, n.v, n.layer, 0, null));
 	}
 	TextureStore(e, t) {
 		let n = e.args[0], r = this.exec.evalExpression(e.args[1], t), i = e.args.length === 4 ? this.exec.evalExpression(e.args[2], t).value : 0, a = e.args.length === 4 ? this.exec.evalExpression(e.args[3], t).data : this.exec.evalExpression(e.args[2], t).data;
 		if (a.length !== 4) return console.error(`Invalid value argument for textureStore. Line ${e.line}`), null;
-		if (!(r instanceof G) || r.data.length !== 2) return console.error(`Invalid UV argument for textureStore. Line ${e.line}`), null;
-		if (n instanceof L) {
+		if (!(r instanceof W) || r.data.length !== 2) return console.error(`Invalid UV argument for textureStore. Line ${e.line}`), null;
+		if (n instanceof R) {
 			let o = n.name, s = t.getVariableValue(o);
-			if (s instanceof J) {
+			if (s instanceof q) {
 				let t = s.getMipLevelSize(0), n = Math.floor(r.data[0]), c = Math.floor(r.data[1]);
 				return n < 0 || n >= t[0] || c < 0 || c >= t[1] ? (console.error(`Texture ${o} out of bounds. Line ${e.line}`), null) : (s.setPixel(n, c, 0, i, Array.from(a)), null);
 			}
@@ -4619,106 +5009,214 @@ var Ft = 0, It = class e {
 		let n = e.args[0];
 		n instanceof B && (n = n.right);
 		let r = this.exec.getVariableName(n, t), i = t.getVariable(r), a = e.args[1], o = this.exec.evalExpression(a, t), s = i.value.getSubData(this.exec, n.postfix, t);
-		return s instanceof W && o instanceof W && (s.value = o.value), i.value instanceof q && i.value.setDataValue(this.exec, s, n.postfix, t), null;
+		return s instanceof U && o instanceof U && (s.value = o.value), i.value instanceof K && i.value.setDataValue(this.exec, s, n.postfix, t), null;
 	}
 	AtomicAdd(e, t) {
 		let n = e.args[0];
 		n instanceof B && (n = n.right);
-		let r = this.exec.getVariableName(n, t), i = t.getVariable(r), a = e.args[1], o = this.exec.evalExpression(a, t), s = i.value.getSubData(this.exec, n.postfix, t), c = new W(s.value, s.typeInfo);
-		return s instanceof W && o instanceof W && (s.value += o.value), i.value instanceof q && i.value.setDataValue(this.exec, s, n.postfix, t), c;
+		let r = this.exec.getVariableName(n, t), i = t.getVariable(r), a = e.args[1], o = this.exec.evalExpression(a, t), s = i.value.getSubData(this.exec, n.postfix, t), c = new U(s.value, s.typeInfo);
+		return s instanceof U && o instanceof U && (s.value += o.value), i.value instanceof K && i.value.setDataValue(this.exec, s, n.postfix, t), c;
 	}
 	AtomicSub(e, t) {
 		let n = e.args[0];
 		n instanceof B && (n = n.right);
-		let r = this.exec.getVariableName(n, t), i = t.getVariable(r), a = e.args[1], o = this.exec.evalExpression(a, t), s = i.value.getSubData(this.exec, n.postfix, t), c = new W(s.value, s.typeInfo);
-		return s instanceof W && o instanceof W && (s.value -= o.value), i.value instanceof q && i.value.setDataValue(this.exec, s, n.postfix, t), c;
+		let r = this.exec.getVariableName(n, t), i = t.getVariable(r), a = e.args[1], o = this.exec.evalExpression(a, t), s = i.value.getSubData(this.exec, n.postfix, t), c = new U(s.value, s.typeInfo);
+		return s instanceof U && o instanceof U && (s.value -= o.value), i.value instanceof K && i.value.setDataValue(this.exec, s, n.postfix, t), c;
 	}
 	AtomicMax(e, t) {
 		let n = e.args[0];
 		n instanceof B && (n = n.right);
-		let r = this.exec.getVariableName(n, t), i = t.getVariable(r), a = e.args[1], o = this.exec.evalExpression(a, t), s = i.value.getSubData(this.exec, n.postfix, t), c = new W(s.value, s.typeInfo);
-		return s instanceof W && o instanceof W && (s.value = Math.max(s.value, o.value)), i.value instanceof q && i.value.setDataValue(this.exec, s, n.postfix, t), c;
+		let r = this.exec.getVariableName(n, t), i = t.getVariable(r), a = e.args[1], o = this.exec.evalExpression(a, t), s = i.value.getSubData(this.exec, n.postfix, t), c = new U(s.value, s.typeInfo);
+		return s instanceof U && o instanceof U && (s.value = Math.max(s.value, o.value)), i.value instanceof K && i.value.setDataValue(this.exec, s, n.postfix, t), c;
 	}
 	AtomicMin(e, t) {
 		let n = e.args[0];
 		n instanceof B && (n = n.right);
-		let r = this.exec.getVariableName(n, t), i = t.getVariable(r), a = e.args[1], o = this.exec.evalExpression(a, t), s = i.value.getSubData(this.exec, n.postfix, t), c = new W(s.value, s.typeInfo);
-		return s instanceof W && o instanceof W && (s.value = Math.min(s.value, o.value)), i.value instanceof q && i.value.setDataValue(this.exec, s, n.postfix, t), c;
+		let r = this.exec.getVariableName(n, t), i = t.getVariable(r), a = e.args[1], o = this.exec.evalExpression(a, t), s = i.value.getSubData(this.exec, n.postfix, t), c = new U(s.value, s.typeInfo);
+		return s instanceof U && o instanceof U && (s.value = Math.min(s.value, o.value)), i.value instanceof K && i.value.setDataValue(this.exec, s, n.postfix, t), c;
 	}
 	AtomicAnd(e, t) {
 		let n = e.args[0];
 		n instanceof B && (n = n.right);
-		let r = this.exec.getVariableName(n, t), i = t.getVariable(r), a = e.args[1], o = this.exec.evalExpression(a, t), s = i.value.getSubData(this.exec, n.postfix, t), c = new W(s.value, s.typeInfo);
-		return s instanceof W && o instanceof W && (s.value &= o.value), i.value instanceof q && i.value.setDataValue(this.exec, s, n.postfix, t), c;
+		let r = this.exec.getVariableName(n, t), i = t.getVariable(r), a = e.args[1], o = this.exec.evalExpression(a, t), s = i.value.getSubData(this.exec, n.postfix, t), c = new U(s.value, s.typeInfo);
+		return s instanceof U && o instanceof U && (s.value &= o.value), i.value instanceof K && i.value.setDataValue(this.exec, s, n.postfix, t), c;
 	}
 	AtomicOr(e, t) {
 		let n = e.args[0];
 		n instanceof B && (n = n.right);
-		let r = this.exec.getVariableName(n, t), i = t.getVariable(r), a = e.args[1], o = this.exec.evalExpression(a, t), s = i.value.getSubData(this.exec, n.postfix, t), c = new W(s.value, s.typeInfo);
-		return s instanceof W && o instanceof W && (s.value |= o.value), i.value instanceof q && i.value.setDataValue(this.exec, s, n.postfix, t), c;
+		let r = this.exec.getVariableName(n, t), i = t.getVariable(r), a = e.args[1], o = this.exec.evalExpression(a, t), s = i.value.getSubData(this.exec, n.postfix, t), c = new U(s.value, s.typeInfo);
+		return s instanceof U && o instanceof U && (s.value |= o.value), i.value instanceof K && i.value.setDataValue(this.exec, s, n.postfix, t), c;
 	}
 	AtomicXor(e, t) {
 		let n = e.args[0];
 		n instanceof B && (n = n.right);
-		let r = this.exec.getVariableName(n, t), i = t.getVariable(r), a = e.args[1], o = this.exec.evalExpression(a, t), s = i.value.getSubData(this.exec, n.postfix, t), c = new W(s.value, s.typeInfo);
-		return s instanceof W && o instanceof W && (s.value ^= o.value), i.value instanceof q && i.value.setDataValue(this.exec, s, n.postfix, t), c;
+		let r = this.exec.getVariableName(n, t), i = t.getVariable(r), a = e.args[1], o = this.exec.evalExpression(a, t), s = i.value.getSubData(this.exec, n.postfix, t), c = new U(s.value, s.typeInfo);
+		return s instanceof U && o instanceof U && (s.value ^= o.value), i.value instanceof K && i.value.setDataValue(this.exec, s, n.postfix, t), c;
 	}
 	AtomicExchange(e, t) {
 		let n = e.args[0];
 		n instanceof B && (n = n.right);
-		let r = this.exec.getVariableName(n, t), i = t.getVariable(r), a = e.args[1], o = this.exec.evalExpression(a, t), s = i.value.getSubData(this.exec, n.postfix, t), c = new W(s.value, s.typeInfo);
-		return s instanceof W && o instanceof W && (s.value = o.value), i.value instanceof q && i.value.setDataValue(this.exec, s, n.postfix, t), c;
+		let r = this.exec.getVariableName(n, t), i = t.getVariable(r), a = e.args[1], o = this.exec.evalExpression(a, t), s = i.value.getSubData(this.exec, n.postfix, t), c = new U(s.value, s.typeInfo);
+		return s instanceof U && o instanceof U && (s.value = o.value), i.value instanceof K && i.value.setDataValue(this.exec, s, n.postfix, t), c;
 	}
 	AtomicCompareExchangeWeak(e, t) {
-		return console.error("TODO: atomicCompareExchangeWeak"), null;
+		let n = e.args[0];
+		n instanceof B && (n = n.right);
+		let r = this.exec.getVariableName(n, t), i = t.getVariable(r), a = this.exec.evalExpression(e.args[1], t), o = this.exec.evalExpression(e.args[2], t), s = i.value.getSubData(this.exec, n.postfix, t), c = new U(s.value, s.typeInfo);
+		return s instanceof U && a instanceof U && o instanceof U && s.value === a.value && (s.value = o.value, i.value instanceof K && i.value.setDataValue(this.exec, s, n.postfix, t)), c;
+	}
+	_packSnormByte(e) {
+		let t = Math.round(127 * e);
+		return 255 & (t < -128 ? -128 : t > 127 ? 127 : t);
+	}
+	_packUnormByte(e) {
+		let t = Math.round(255 * e);
+		return 255 & (t < 0 ? 0 : t > 255 ? 255 : t);
 	}
 	Pack4x8snorm(e, t) {
-		return console.error("TODO: pack4x8snorm"), null;
+		let n = this.exec.evalExpression(e.args[0], t);
+		if (!(n instanceof W)) return console.error(`Pack4x8snorm() expects a vec4<f32> argument. Line ${e.line}`), null;
+		let r = n.data;
+		return new U((this._packSnormByte(r[0]) | this._packSnormByte(r[1]) << 8 | this._packSnormByte(r[2]) << 16 | this._packSnormByte(r[3]) << 24) >>> 0, this.getTypeInfo("u32"));
 	}
 	Pack4x8unorm(e, t) {
-		return console.error("TODO: pack4x8unorm"), null;
+		let n = this.exec.evalExpression(e.args[0], t);
+		if (!(n instanceof W)) return console.error(`Pack4x8unorm() expects a vec4<f32> argument. Line ${e.line}`), null;
+		let r = n.data;
+		return new U((this._packUnormByte(r[0]) | this._packUnormByte(r[1]) << 8 | this._packUnormByte(r[2]) << 16 | this._packUnormByte(r[3]) << 24) >>> 0, this.getTypeInfo("u32"));
 	}
 	Pack4xI8(e, t) {
-		return console.error("TODO: pack4xI8"), null;
+		let n = this.exec.evalExpression(e.args[0], t);
+		if (!(n instanceof W)) return console.error(`Pack4xI8() expects a vec4<i32> argument. Line ${e.line}`), null;
+		let r = n.data;
+		return new U((255 & r[0] | (255 & r[1]) << 8 | (255 & r[2]) << 16 | (255 & r[3]) << 24) >>> 0, this.getTypeInfo("u32"));
 	}
 	Pack4xU8(e, t) {
-		return console.error("TODO: pack4xU8"), null;
+		let n = this.exec.evalExpression(e.args[0], t);
+		if (!(n instanceof W)) return console.error(`Pack4xU8() expects a vec4<u32> argument. Line ${e.line}`), null;
+		let r = n.data;
+		return new U((255 & r[0] | (255 & r[1]) << 8 | (255 & r[2]) << 16 | (255 & r[3]) << 24) >>> 0, this.getTypeInfo("u32"));
 	}
 	Pack4x8Clamp(e, t) {
-		return console.error("TODO: pack4x8Clamp"), null;
+		let n = this.exec.evalExpression(e.args[0], t);
+		if (!(n instanceof W)) return console.error(`Pack4x8Clamp() expects a vec4<i32> argument. Line ${e.line}`), null;
+		let r = n.data, i = (e) => 255 & (e < -128 ? -128 : e > 127 ? 127 : e);
+		return new U((i(r[0]) | i(r[1]) << 8 | i(r[2]) << 16 | i(r[3]) << 24) >>> 0, this.getTypeInfo("u32"));
 	}
 	Pack4xU8Clamp(e, t) {
-		return console.error("TODO: pack4xU8Clamp"), null;
+		let n = this.exec.evalExpression(e.args[0], t);
+		if (!(n instanceof W)) return console.error(`Pack4xU8Clamp() expects a vec4<u32> argument. Line ${e.line}`), null;
+		let r = n.data, i = (e) => 255 & (e < 0 ? 0 : e > 255 ? 255 : e);
+		return new U((i(r[0]) | i(r[1]) << 8 | i(r[2]) << 16 | i(r[3]) << 24) >>> 0, this.getTypeInfo("u32"));
 	}
 	Pack2x16snorm(e, t) {
-		return console.error("TODO: pack2x16snorm"), null;
+		let n = this.exec.evalExpression(e.args[0], t);
+		if (!(n instanceof W)) return console.error(`Pack2x16snorm() expects a vec2<f32> argument. Line ${e.line}`), null;
+		let r = n.data, i = (e) => {
+			let t = Math.round(32767 * e);
+			return 65535 & (t < -32768 ? -32768 : t > 32767 ? 32767 : t);
+		};
+		return new U((i(r[0]) | i(r[1]) << 16) >>> 0, this.getTypeInfo("u32"));
 	}
 	Pack2x16unorm(e, t) {
-		return console.error("TODO: pack2x16unorm"), null;
+		let n = this.exec.evalExpression(e.args[0], t);
+		if (!(n instanceof W)) return console.error(`Pack2x16unorm() expects a vec2<f32> argument. Line ${e.line}`), null;
+		let r = n.data, i = (e) => {
+			let t = Math.round(65535 * e);
+			return 65535 & (t < 0 ? 0 : t > 65535 ? 65535 : t);
+		};
+		return new U((i(r[0]) | i(r[1]) << 16) >>> 0, this.getTypeInfo("u32"));
 	}
-	Pack2x16float(e, t) {
-		return console.error("TODO: pack2x16float"), null;
+	Pack2x16float(t, n) {
+		let r = this.exec.evalExpression(t.args[0], n);
+		if (!(r instanceof W)) return console.error(`Pack2x16float() expects a vec2<f32> argument. Line ${t.line}`), null;
+		let i = r.data;
+		return new U((e._f32ToF16Bits(i[0]) | e._f32ToF16Bits(i[1]) << 16) >>> 0, this.getTypeInfo("u32"));
 	}
 	Unpack4x8snorm(e, t) {
-		return console.error("TODO: unpack4x8snorm"), null;
+		let n = this.exec.evalExpression(e.args[0], t);
+		if (!(n instanceof U)) return console.error(`Unpack4x8snorm() expects a u32 argument. Line ${e.line}`), null;
+		let r = n.value >>> 0, i = (e) => {
+			let t = (128 & e ? e - 256 : e) / 127;
+			return t < -1 ? -1 : t > 1 ? 1 : t;
+		};
+		return new W([
+			i(255 & r),
+			i(r >>> 8 & 255),
+			i(r >>> 16 & 255),
+			i(r >>> 24 & 255)
+		], this.getTypeInfo("vec4f"));
 	}
 	Unpack4x8unorm(e, t) {
-		return console.error("TODO: unpack4x8unorm"), null;
+		let n = this.exec.evalExpression(e.args[0], t);
+		if (!(n instanceof U)) return console.error(`Unpack4x8unorm() expects a u32 argument. Line ${e.line}`), null;
+		let r = n.value >>> 0;
+		return new W([
+			(255 & r) / 255,
+			(r >>> 8 & 255) / 255,
+			(r >>> 16 & 255) / 255,
+			(r >>> 24 & 255) / 255
+		], this.getTypeInfo("vec4f"));
 	}
 	Unpack4xI8(e, t) {
-		return console.error("TODO: unpack4xI8"), null;
+		let n = this.exec.evalExpression(e.args[0], t);
+		if (!(n instanceof U)) return console.error(`Unpack4xI8() expects a u32 argument. Line ${e.line}`), null;
+		let r = n.value >>> 0, i = (e) => 128 & e ? e - 256 : e;
+		return new W([
+			i(255 & r),
+			i(r >>> 8 & 255),
+			i(r >>> 16 & 255),
+			i(r >>> 24 & 255)
+		], this.getTypeInfo("vec4i"));
 	}
 	Unpack4xU8(e, t) {
-		return console.error("TODO: unpack4xU8"), null;
+		let n = this.exec.evalExpression(e.args[0], t);
+		if (!(n instanceof U)) return console.error(`Unpack4xU8() expects a u32 argument. Line ${e.line}`), null;
+		let r = n.value >>> 0;
+		return new W([
+			255 & r,
+			r >>> 8 & 255,
+			r >>> 16 & 255,
+			r >>> 24 & 255
+		], this.getTypeInfo("vec4u"));
 	}
 	Unpack2x16snorm(e, t) {
-		return console.error("TODO: unpack2x16snorm"), null;
+		let n = this.exec.evalExpression(e.args[0], t);
+		if (!(n instanceof U)) return console.error(`Unpack2x16snorm() expects a u32 argument. Line ${e.line}`), null;
+		let r = n.value >>> 0, i = (e) => {
+			let t = (32768 & e ? e - 65536 : e) / 32767;
+			return t < -1 ? -1 : t > 1 ? 1 : t;
+		};
+		return new W([i(65535 & r), i(r >>> 16 & 65535)], this.getTypeInfo("vec2f"));
 	}
 	Unpack2x16unorm(e, t) {
-		return console.error("TODO: unpack2x16unorm"), null;
+		let n = this.exec.evalExpression(e.args[0], t);
+		if (!(n instanceof U)) return console.error(`Unpack2x16unorm() expects a u32 argument. Line ${e.line}`), null;
+		let r = n.value >>> 0;
+		return new W([(65535 & r) / 65535, (r >>> 16 & 65535) / 65535], this.getTypeInfo("vec2f"));
 	}
-	Unpack2x16float(e, t) {
-		return console.error("TODO: unpack2x16float"), null;
+	Unpack2x16float(t, n) {
+		let r = this.exec.evalExpression(t.args[0], n);
+		if (!(r instanceof U)) return console.error(`Unpack2x16float() expects a u32 argument. Line ${t.line}`), null;
+		let i = r.value >>> 0;
+		return new W([e._f16BitsToF32(65535 & i), e._f16BitsToF32(i >>> 16 & 65535)], this.getTypeInfo("vec2f"));
+	}
+	static _f32ToF16Bits(t) {
+		e._f32Convert[0] = t;
+		let n = e._u32View[0], r = n >>> 16 & 32768, i = (n >>> 23 & 255) - 127 + 15, a = 8388607 & n;
+		return 255 & ~(n >>> 23) ? i >= 31 ? 31744 | r : i <= 0 ? i < -10 ? r : r | (8388608 | a) >>> 14 - i : r | i << 10 | a >>> 13 : 31744 | r | (a ? 512 : 0);
+	}
+	static _f16BitsToF32(t) {
+		let n = (32768 & t) << 16, r = t >>> 10 & 31, i = 1023 & t, a = 0;
+		if (r === 0) {
+			if (i === 0) a = n;
+			else {
+				let e = i, t = -14;
+				for (; !(1024 & e);) e <<= 1, t--;
+				e &= 1023, a = n | t + 127 << 23 | e << 13;
+			}
+		} else a = r === 31 ? 2139095040 | n | i << 13 : n | r - 15 + 127 << 23 | i << 13;
+		return e._u32View[0] = a, e._f32Convert[0];
 	}
 	StorageBarrier(e, t) {
 		return null;
@@ -4733,81 +5231,90 @@ var Ft = 0, It = class e {
 		return null;
 	}
 	SubgroupAdd(e, t) {
-		return console.error("TODO: subgroupAdd"), null;
+		return this.exec.evalExpression(e.args[0], t);
 	}
 	SubgroupExclusiveAdd(e, t) {
-		return console.error("TODO: subgroupExclusiveAdd"), null;
+		let n = this.exec.evalExpression(e.args[0], t);
+		return n instanceof W ? new W(n.data.map(() => 0), n.typeInfo) : new U(0, n.typeInfo);
 	}
 	SubgroupInclusiveAdd(e, t) {
-		return console.error("TODO: subgroupInclusiveAdd"), null;
+		return this.exec.evalExpression(e.args[0], t);
 	}
 	SubgroupAll(e, t) {
-		return console.error("TODO: subgroupAll"), null;
+		return new U(+!!this.exec.evalExpression(e.args[0], t).value, this.getTypeInfo("bool"));
 	}
 	SubgroupAnd(e, t) {
-		return console.error("TODO: subgroupAnd"), null;
+		return this.exec.evalExpression(e.args[0], t);
 	}
 	SubgroupAny(e, t) {
-		return console.error("TODO: subgroupAny"), null;
+		return new U(+!!this.exec.evalExpression(e.args[0], t).value, this.getTypeInfo("bool"));
 	}
 	SubgroupBallot(e, t) {
-		return console.error("TODO: subgroupBallot"), null;
+		return new W([
+			+!!this.exec.evalExpression(e.args[0], t).value,
+			0,
+			0,
+			0
+		], this.getTypeInfo("vec4u"));
 	}
 	SubgroupBroadcast(e, t) {
-		return console.error("TODO: subgroupBroadcast"), null;
+		return this.exec.evalExpression(e.args[0], t);
 	}
 	SubgroupBroadcastFirst(e, t) {
-		return console.error("TODO: subgroupBroadcastFirst"), null;
+		return this.exec.evalExpression(e.args[0], t);
 	}
 	SubgroupElect(e, t) {
-		return console.error("TODO: subgroupElect"), null;
+		return new U(1, this.getTypeInfo("bool"));
 	}
 	SubgroupMax(e, t) {
-		return console.error("TODO: subgroupMax"), null;
+		return this.exec.evalExpression(e.args[0], t);
 	}
 	SubgroupMin(e, t) {
-		return console.error("TODO: subgroupMin"), null;
+		return this.exec.evalExpression(e.args[0], t);
 	}
 	SubgroupMul(e, t) {
-		return console.error("TODO: subgroupMul"), null;
+		return this.exec.evalExpression(e.args[0], t);
 	}
 	SubgroupExclusiveMul(e, t) {
-		return console.error("TODO: subgroupExclusiveMul"), null;
+		let n = this.exec.evalExpression(e.args[0], t);
+		return n instanceof W ? new W(n.data.map(() => 1), n.typeInfo) : new U(1, n.typeInfo);
 	}
 	SubgroupInclusiveMul(e, t) {
-		return console.error("TODO: subgroupInclusiveMul"), null;
+		return this.exec.evalExpression(e.args[0], t);
 	}
 	SubgroupOr(e, t) {
-		return console.error("TODO: subgroupOr"), null;
+		return this.exec.evalExpression(e.args[0], t);
 	}
 	SubgroupShuffle(e, t) {
-		return console.error("TODO: subgroupShuffle"), null;
+		return this.exec.evalExpression(e.args[0], t);
 	}
 	SubgroupShuffleDown(e, t) {
-		return console.error("TODO: subgroupShuffleDown"), null;
+		return this.exec.evalExpression(e.args[0], t);
 	}
 	SubgroupShuffleUp(e, t) {
-		return console.error("TODO: subgroupShuffleUp"), null;
+		return this.exec.evalExpression(e.args[0], t);
 	}
 	SubgroupShuffleXor(e, t) {
-		return console.error("TODO: subgroupShuffleXor"), null;
+		return this.exec.evalExpression(e.args[0], t);
 	}
 	SubgroupXor(e, t) {
-		return console.error("TODO: subgroupXor"), null;
+		return this.exec.evalExpression(e.args[0], t);
 	}
 	QuadBroadcast(e, t) {
-		return console.error("TODO: quadBroadcast"), null;
+		return this.exec.evalExpression(e.args[0], t);
 	}
 	QuadSwapDiagonal(e, t) {
-		return console.error("TODO: quadSwapDiagonal"), null;
+		return this.exec.evalExpression(e.args[0], t);
 	}
 	QuadSwapX(e, t) {
-		return console.error("TODO: quadSwapX"), null;
+		return this.exec.evalExpression(e.args[0], t);
 	}
 	QuadSwapY(e, t) {
-		return console.error("TODO: quadSwapY"), null;
+		return this.exec.evalExpression(e.args[0], t);
 	}
-}, Vt = {
+};
+Ut._f32Convert = /* @__PURE__ */ new Float32Array(1), Ut._u32View = new Uint32Array(Ut._f32Convert.buffer);
+var Wt = {
 	vec2: 2,
 	vec2f: 2,
 	vec2i: 2,
@@ -4826,7 +5333,7 @@ var Ft = 0, It = class e {
 	vec4u: 4,
 	vec4b: 4,
 	vec4h: 4
-}, Q = {
+}, Z = {
 	mat2x2: [
 		2,
 		2,
@@ -4962,46 +5469,47 @@ var Ft = 0, It = class e {
 		4,
 		16
 	]
-}, Ht = class e extends zt {
+}, Q = class e extends Ht {
 	constructor(e, t) {
-		super(), this.ast = e ?? [], this.reflection = new Pt(), this.reflection.updateAST(this.ast), this.context = t?.clone() ?? new Rt(), this.builtins = new Bt(this), this.typeInfo = {
-			bool: this.getTypeInfo(A.bool),
-			i32: this.getTypeInfo(A.i32),
-			u32: this.getTypeInfo(A.u32),
-			f32: this.getTypeInfo(A.f32),
-			f16: this.getTypeInfo(A.f16),
-			vec2f: this.getTypeInfo(M.vec2f),
-			vec2u: this.getTypeInfo(M.vec2u),
-			vec2i: this.getTypeInfo(M.vec2i),
-			vec2h: this.getTypeInfo(M.vec2h),
-			vec3f: this.getTypeInfo(M.vec3f),
-			vec3u: this.getTypeInfo(M.vec3u),
-			vec3i: this.getTypeInfo(M.vec3i),
-			vec3h: this.getTypeInfo(M.vec3h),
-			vec4f: this.getTypeInfo(M.vec4f),
-			vec4u: this.getTypeInfo(M.vec4u),
-			vec4i: this.getTypeInfo(M.vec4i),
-			vec4h: this.getTypeInfo(M.vec4h),
-			mat2x2f: this.getTypeInfo(M.mat2x2f),
-			mat2x3f: this.getTypeInfo(M.mat2x3f),
-			mat2x4f: this.getTypeInfo(M.mat2x4f),
-			mat3x2f: this.getTypeInfo(M.mat3x2f),
-			mat3x3f: this.getTypeInfo(M.mat3x3f),
-			mat3x4f: this.getTypeInfo(M.mat3x4f),
-			mat4x2f: this.getTypeInfo(M.mat4x2f),
-			mat4x3f: this.getTypeInfo(M.mat4x3f),
-			mat4x4f: this.getTypeInfo(M.mat4x4f)
+		super(), this.ast = e ?? [], this.reflection = new Lt(), this.reflection.updateAST(this.ast), this.context = t?.clone() ?? new Vt(), this.builtins = new Ut(this), this.typeInfo = {
+			bool: this.getTypeInfo(N.bool),
+			i32: this.getTypeInfo(N.i32),
+			u32: this.getTypeInfo(N.u32),
+			f32: this.getTypeInfo(N.f32),
+			f16: this.getTypeInfo(N.f16),
+			vec2f: this.getTypeInfo(F.vec2f),
+			vec2u: this.getTypeInfo(F.vec2u),
+			vec2i: this.getTypeInfo(F.vec2i),
+			vec2h: this.getTypeInfo(F.vec2h),
+			vec3f: this.getTypeInfo(F.vec3f),
+			vec3u: this.getTypeInfo(F.vec3u),
+			vec3i: this.getTypeInfo(F.vec3i),
+			vec3h: this.getTypeInfo(F.vec3h),
+			vec4f: this.getTypeInfo(F.vec4f),
+			vec4u: this.getTypeInfo(F.vec4u),
+			vec4i: this.getTypeInfo(F.vec4i),
+			vec4h: this.getTypeInfo(F.vec4h),
+			mat2x2f: this.getTypeInfo(F.mat2x2f),
+			mat2x3f: this.getTypeInfo(F.mat2x3f),
+			mat2x4f: this.getTypeInfo(F.mat2x4f),
+			mat3x2f: this.getTypeInfo(F.mat3x2f),
+			mat3x3f: this.getTypeInfo(F.mat3x3f),
+			mat3x4f: this.getTypeInfo(F.mat3x4f),
+			mat4x2f: this.getTypeInfo(F.mat4x2f),
+			mat4x3f: this.getTypeInfo(F.mat4x3f),
+			mat4x4f: this.getTypeInfo(F.mat4x4f)
 		};
 	}
 	getVariableValue(e) {
 		let t = this.context.getVariable(e)?.value ?? null;
 		if (t === null) return null;
-		if (t instanceof W) return t.value;
-		if (t instanceof G || t instanceof K) return Array.from(t.data);
-		if (t instanceof q && t.typeInfo instanceof y) {
-			if (t.typeInfo.format.name === "u32") return Array.from(new Uint32Array(t.buffer, t.offset, t.typeInfo.count));
-			if (t.typeInfo.format.name === "i32") return Array.from(new Int32Array(t.buffer, t.offset, t.typeInfo.count));
-			if (t.typeInfo.format.name === "f32") return Array.from(new Float32Array(t.buffer, t.offset, t.typeInfo.count));
+		if (t instanceof U) return t.value;
+		if (t instanceof W || t instanceof G) return Array.from(t.data);
+		if (t instanceof K && t.typeInfo instanceof ce) {
+			let e = this._resolveAtomicType(t.typeInfo.format).name;
+			if (e === "u32") return Array.from(new Uint32Array(t.buffer, t.offset, t.typeInfo.count));
+			if (e === "i32") return Array.from(new Int32Array(t.buffer, t.offset, t.typeInfo.count));
+			if (e === "f32") return Array.from(new Float32Array(t.buffer, t.offset, t.typeInfo.count));
 		}
 		return console.error(`Unsupported return variable type ${t.typeInfo.name}`), null;
 	}
@@ -5035,7 +5543,7 @@ var Ft = 0, It = class e {
 			]);
 		}
 		let o = t[0], s = t[1], c = t[2], l = this.getTypeInfo("vec3u");
-		i.setVariable("@num_workgroups", new G(t, l));
+		i.setVariable("@num_workgroups", new W(t, l));
 		let u = this.reflection.getFunctionInfo(e);
 		u === null && console.error(`Function ${e} not found in reflection data`);
 		for (let e in n) for (let t in n[e]) {
@@ -5045,62 +5553,62 @@ var Ft = 0, It = class e {
 				if (i?.attributes) {
 					let a = null, o = null;
 					for (let e of i.attributes) e.name === "binding" ? a = e.value : e.name === "group" && (o = e.value);
-					if (t == a && e == o) {
+					if (t === a && e === o) {
 						let a = !1;
 						for (let r of u.resources) if (r.name === n.name && r.group === parseInt(e) && r.binding === parseInt(t)) {
 							a = !0;
 							break;
 						}
-						a && (r.texture !== void 0 && r.descriptor !== void 0 ? n.value = new J(r.texture, this.getTypeInfo(i.type), r.descriptor, r.texture.view ?? null) : r.uniform === void 0 ? n.value = new q(r, this.getTypeInfo(i.type)) : n.value = new q(r.uniform, this.getTypeInfo(i.type)));
+						a && (n.value = r.texture !== void 0 && r.descriptor !== void 0 ? new q(r.texture, this.getTypeInfo(i.type), r.descriptor, r.texture.view ?? null) : r.uniform === void 0 ? new K(r, this.getTypeInfo(i.type)) : new K(r.uniform, this.getTypeInfo(i.type)));
 					}
 				}
 			});
 		}
-		for (let e = 0; e < c; ++e) for (let t = 0; t < s; ++t) for (let n = 0; n < o; ++n) i.setVariable("@workgroup_id", new G([
-			n,
-			t,
-			e
-		], this.getTypeInfo("vec3u"))), this._dispatchWorkgroup(a, [
+		let d = new W([
+			0,
+			0,
+			0
+		], l);
+		i.setVariable("@workgroup_id", d);
+		for (let e = 0; e < c; ++e) for (let t = 0; t < s; ++t) for (let n = 0; n < o; ++n) d.data[0] = n, d.data[1] = t, d.data[2] = e, this._dispatchWorkgroup(a, [
 			n,
 			t,
 			e
 		], i);
 	}
 	execStatement(t, n) {
-		if (t instanceof Ye) return this.evalExpression(t.value, n);
-		if (t instanceof tt) {
+		if (t instanceof Ke) return this.evalExpression(t.value, n);
+		if (t instanceof Qe) {
 			if (t.condition) {
 				let e = this.evalExpression(t.condition, n);
-				if (!(e instanceof W)) throw Error("Invalid break-if condition");
+				if (!(e instanceof U)) throw Error("Invalid break-if condition");
 				if (!e.value) return null;
 			}
 			return e._breakObj;
 		}
-		if (t instanceof nt) return e._continueObj;
-		if (t instanceof ze) this._let(t, n);
-		else if (t instanceof D) this._var(t, n);
-		else if (t instanceof Be) this._const(t, n);
-		else if (t instanceof Ne) this._function(t, n);
+		if (t instanceof $e) return e._continueObj;
+		if (t instanceof Ie) this._let(t, n);
+		else if (t instanceof A) this._var(t, n);
+		else if (t instanceof Le) this._const(t, n);
+		else if (t instanceof Fe) this._override(t, n);
+		else if (t instanceof Ae) this._function(t, n);
 		else {
-			if (t instanceof Je) return this._if(t, n);
-			if (t instanceof qe) return this._switch(t, n);
-			if (t instanceof Le) return this._for(t, n);
-			if (t instanceof Fe) return this._while(t, n);
-			if (t instanceof Ke) return this._loop(t, n);
-			if (t instanceof Ie) {
+			if (t instanceof Ge) return this._if(t, n);
+			if (t instanceof We) return this._switch(t, n);
+			if (t instanceof Pe) return this._for(t, n);
+			if (t instanceof Me) return this._while(t, n);
+			if (t instanceof Ue) return this._loop(t, n);
+			if (t instanceof Ne) {
 				let e = n.clone();
 				return e.currentFunctionName = n.currentFunctionName, this._execStatements(t.body, e);
 			}
-			if (t instanceof We) this._assign(t, n);
-			else if (t instanceof Ue) this._increment(t, n);
+			if (t instanceof Ve) this._assign(t, n);
+			else if (t instanceof Be) this._increment(t, n);
 			else {
-				if (t instanceof j) return null;
-				if (t instanceof Re) {
-					let e = t.name;
-					n.getVariable(e) === null && n.setVariable(e, new W(0, this.getTypeInfo("u32")));
-				} else if (t instanceof Ge) this._call(t, n);
+				if (t instanceof P) return null;
+				if (t instanceof He) this._call(t, n);
 				else {
-					if (t instanceof Qe || t instanceof $e) return null;
+					if (t instanceof Ye || t instanceof Xe) return null;
 					console.error("Invalid statement type.", t, `Line ${t.line}`);
 				}
 			}
@@ -5108,20 +5616,20 @@ var Ft = 0, It = class e {
 		return null;
 	}
 	evalExpression(e, t) {
-		return e instanceof V ? this._evalBinaryOp(e, t) : e instanceof R ? this._evalLiteral(e, t) : e instanceof L ? this._evalVariable(e, t) : e instanceof ot ? this._evalCall(e, t) : e instanceof I ? this._evalCreate(e, t) : e instanceof st ? this._evalConst(e, t) : e instanceof ct ? this._evalBitcast(e, t) : e instanceof B ? this._evalUnaryOp(e, t) : (console.error("Invalid expression type", e, `Line ${e.line}`), null);
+		return e instanceof V ? this._evalBinaryOp(e, t) : e instanceof z ? this._evalLiteral(e, t) : e instanceof R ? this._evalVariable(e, t) : e instanceof at ? this._evalCall(e, t) : e instanceof L ? this._evalCreate(e, t) : e instanceof ot ? this._evalConst(e, t) : e instanceof st ? this._evalBitcast(e, t) : e instanceof B ? this._evalUnaryOp(e, t) : (console.error("Invalid expression type", e, `Line ${e.line}`), null);
 	}
 	getTypeInfo(e) {
-		if (e instanceof A) {
+		if (e instanceof N) {
 			let t = this.reflection.getTypeInfo(e);
 			if (t !== null) return t;
 		}
 		let t = this.typeInfo[e] ?? null;
 		return t !== null || (t = this.reflection.getTypeInfoByName(e)), t;
 	}
-	_setOverrides(e, t) {
-		for (let n in e) {
-			let r = e[n], i = this.reflection.getOverrideInfo(n);
-			i === null ? console.error(`Override ${n} does not exist in the shader.`) : (i.type === null && (i.type = this.getTypeInfo("u32")), i.type.name === "u32" || i.type.name === "i32" || i.type.name === "f32" || i.type.name === "f16" ? t.setVariable(n, new W(r, i.type)) : i.type.name === "bool" ? t.setVariable(n, new W(+!!r, i.type)) : i.type.name === "vec2" || i.type.name === "vec3" || i.type.name === "vec4" || i.type.name === "vec2f" || i.type.name === "vec3f" || i.type.name === "vec4f" || i.type.name === "vec2i" || i.type.name === "vec3i" || i.type.name === "vec4i" || i.type.name === "vec2u" || i.type.name === "vec3u" || i.type.name === "vec4u" || i.type.name === "vec2h" || i.type.name === "vec3h" || i.type.name === "vec4h" ? t.setVariable(n, new G(r, i.type)) : console.error(`Invalid constant type for ${n}`));
+	_setOverrides(t, n) {
+		for (let r in t) {
+			let i = t[r], a = this.reflection.getOverrideInfo(r);
+			a === null ? console.error(`Override ${r} does not exist in the shader.`) : (a.type === null && (a.type = this.getTypeInfo("u32")), e._numericScalarTypes.has(a.type.name) ? n.setVariable(r, new U(i, a.type)) : e._vectorTypes.has(a.type.name) ? n.setVariable(r, new W(i, a.type)) : console.error(`Invalid constant type for ${r}`));
 		}
 	}
 	_dispatchWorkgroup(e, t, n) {
@@ -5133,32 +5641,30 @@ var Ft = 0, It = class e {
 		for (let t of e.node.attributes) if (t.name === "workgroup_size") {
 			if (t.value.length > 0) {
 				let e = n.getVariableValue(t.value[0]);
-				r[0] = e instanceof W ? e.value : parseInt(t.value[0]);
+				r[0] = e instanceof U ? e.value : parseInt(t.value[0]);
 			}
 			if (t.value.length > 1) {
 				let e = n.getVariableValue(t.value[1]);
-				r[1] = e instanceof W ? e.value : parseInt(t.value[1]);
+				r[1] = e instanceof U ? e.value : parseInt(t.value[1]);
 			}
 			if (t.value.length > 2) {
 				let e = n.getVariableValue(t.value[2]);
-				r[2] = e instanceof W ? e.value : parseInt(t.value[2]);
+				r[2] = e instanceof U ? e.value : parseInt(t.value[2]);
 			}
 		}
 		let i = this.getTypeInfo("vec3u"), a = this.getTypeInfo("u32");
-		n.setVariable("@workgroup_size", new G(r, i));
-		let o = r[0], s = r[1], c = r[2];
-		for (let l = 0, u = 0; l < c; ++l) for (let c = 0; c < s; ++c) for (let s = 0; s < o; ++s, ++u) {
-			let o = [
-				s,
-				c,
-				l
-			], ee = [
-				s + t[0] * r[0],
-				c + t[1] * r[1],
-				l + t[2] * r[2]
-			];
-			n.setVariable("@local_invocation_id", new G(o, i)), n.setVariable("@global_invocation_id", new G(ee, i)), n.setVariable("@local_invocation_index", new W(u, a)), this._dispatchExec(e, n);
-		}
+		n.setVariable("@workgroup_size", new W(r, i));
+		let o = r[0], s = r[1], c = r[2], l = new W([
+			0,
+			0,
+			0
+		], i), u = new W([
+			0,
+			0,
+			0
+		], i), d = new U(0, a);
+		n.setVariable("@local_invocation_id", l), n.setVariable("@global_invocation_id", u), n.setVariable("@local_invocation_index", d);
+		for (let i = 0, a = 0; i < c; ++i) for (let c = 0; c < s; ++c) for (let s = 0; s < o; ++s, ++a) l.data[0] = s, l.data[1] = c, l.data[2] = i, u.data[0] = s + t[0] * r[0], u.data[1] = c + t[1] * r[1], u.data[2] = i + t[2] * r[2], d.value = a, this._dispatchExec(e, n);
 	}
 	_dispatchExec(e, t) {
 		for (let n of e.node.args) for (let e of n.attributes) if (e.name === "builtin") {
@@ -5169,11 +5675,11 @@ var Ft = 0, It = class e {
 	}
 	getVariableName(e, t) {
 		for (; e instanceof B;) e = e.right;
-		return e instanceof L ? e.name : (console.error("Unknown variable type", e, "Line", e.line), null);
+		return e instanceof R ? e.name : (console.error("Unknown variable type", e, "Line", e.line), null);
 	}
 	_execStatements(e, t) {
 		for (let n of e) {
-			if (n instanceof Array) {
+			if (Array.isArray(n)) {
 				let e = t.clone(), r = this._execStatements(n, e);
 				if (r) return r;
 				continue;
@@ -5197,19 +5703,19 @@ var Ft = 0, It = class e {
 	}
 	_increment(e, t) {
 		let n = this.getVariableName(e.variable, t), r = t.getVariable(n);
-		r ? e.operator === "++" ? r.value instanceof W ? r.value.value++ : console.error(`Variable ${n} is not a scalar. Line ${e.line}`) : e.operator === "--" ? r.value instanceof W ? r.value.value-- : console.error(`Variable ${n} is not a scalar. Line ${e.line}`) : console.error(`Unknown increment operator ${e.operator}. Line ${e.line}`) : console.error(`Variable ${n} not found. Line ${e.line}`);
+		r ? e.operator === "++" ? r.value instanceof U ? r.value.value++ : console.error(`Variable ${n} is not a scalar. Line ${e.line}`) : e.operator === "--" ? r.value instanceof U ? r.value.value-- : console.error(`Variable ${n} is not a scalar. Line ${e.line}`) : console.error(`Unknown increment operator ${e.operator}. Line ${e.line}`) : console.error(`Variable ${n} not found. Line ${e.line}`);
 	}
 	_getVariableData(e, t) {
-		if (e instanceof L) {
+		if (e instanceof R) {
 			let n = this.getVariableName(e, t), r = t.getVariable(n);
 			return r === null ? (console.error(`Variable ${n} not found. Line ${e.line}`), null) : r.value.getSubData(this, e.postfix, t);
 		}
 		if (e instanceof B) {
 			if (e.operator === "*") {
 				let n = this._getVariableData(e.right, t);
-				return n instanceof U ? n.reference.getSubData(this, e.postfix, t) : (console.error(`Variable ${e.right} is not a pointer. Line ${e.line}`), null);
+				return n instanceof bt ? n.reference.getSubData(this, e.postfix, t) : (console.error(`Variable ${e.right} is not a pointer. Line ${e.line}`), null);
 			}
-			if (e.operator === "&") return new U(this._getVariableData(e.right, t));
+			if (e.operator === "&") return new bt(this._getVariableData(e.right, t));
 		}
 		return null;
 	}
@@ -5218,20 +5724,20 @@ var Ft = 0, It = class e {
 		if (e.variable instanceof B) {
 			let n = this._getVariableData(e.variable, t), r = this.evalExpression(e.value, t), i = e.operator;
 			if (i === "=") {
-				if (n instanceof W || n instanceof G || n instanceof K) {
-					if (r instanceof W || r instanceof G || r instanceof K && n.data.length === r.data.length) return void n.data.set(r.data);
+				if (n instanceof U || n instanceof W || n instanceof G) {
+					if (r instanceof U || r instanceof W || r instanceof G && n.data.length === r.data.length) return void n.data.set(r.data);
 					console.error(`Invalid assignment. Line ${e.line}`);
-				} else if (n instanceof q && r instanceof q && n.buffer.byteLength - n.offset >= r.buffer.byteLength - r.offset) return void (n.buffer.byteLength % 4 == 0 ? new Uint32Array(n.buffer, n.offset, n.typeInfo.size / 4).set(new Uint32Array(r.buffer, r.offset, r.typeInfo.size / 4)) : new Uint8Array(n.buffer, n.offset, n.typeInfo.size).set(new Uint8Array(r.buffer, r.offset, r.typeInfo.size)));
+				} else if (n instanceof K && r instanceof K && n.buffer.byteLength - n.offset >= r.buffer.byteLength - r.offset) return void (n.buffer.byteLength % 4 == 0 ? new Uint32Array(n.buffer, n.offset, n.typeInfo.size / 4).set(new Uint32Array(r.buffer, r.offset, r.typeInfo.size / 4)) : new Uint8Array(n.buffer, n.offset, n.typeInfo.size).set(new Uint8Array(r.buffer, r.offset, r.typeInfo.size)));
 				return console.error(`Invalid assignment. Line ${e.line}`), null;
 			}
-			if (i === "+=") return n instanceof W || n instanceof G || n instanceof K ? r instanceof W || r instanceof G || r instanceof K ? void n.data.set(r.data.map((e, t) => n.data[t] + e)) : void console.error(`Invalid assignment . Line ${e.line}`) : void console.error(`Invalid assignment. Line ${e.line}`);
-			if (i === "-=") return (n instanceof W || n instanceof G || n instanceof K) && (r instanceof W || r instanceof G || r instanceof K) ? void n.data.set(r.data.map((e, t) => n.data[t] - e)) : void console.error(`Invalid assignment. Line ${e.line}`);
+			if (i === "+=") return n instanceof U || n instanceof W || n instanceof G ? r instanceof U || r instanceof W || r instanceof G ? void n.data.set(r.data.map((e, t) => n.data[t] + e)) : void console.error(`Invalid assignment . Line ${e.line}`) : void console.error(`Invalid assignment. Line ${e.line}`);
+			if (i === "-=") return (n instanceof U || n instanceof W || n instanceof G) && (r instanceof U || r instanceof W || r instanceof G) ? void n.data.set(r.data.map((e, t) => n.data[t] - e)) : void console.error(`Invalid assignment. Line ${e.line}`);
 		}
 		if (e.variable instanceof B) {
 			if (e.variable.operator === "*") {
 				r = this.getVariableName(e.variable.right, t);
 				let i = t.getVariable(r);
-				if (!(i && i.value instanceof U)) return void console.error(`Variable ${r} is not a pointer. Line ${e.line}`);
+				if (!(i && i.value instanceof bt)) return void console.error(`Variable ${r} is not a pointer. Line ${e.line}`);
 				n = i.value.reference;
 				let a = e.variable.postfix;
 				if (!a) {
@@ -5252,11 +5758,11 @@ var Ft = 0, It = class e {
 			if (a === null) return void console.error(`Variable ${r} not found. Line ${e.line}`);
 			n = a.value;
 		}
-		if (n instanceof U && (n = n.reference), n === null) return void console.error(`Variable ${r} not found. Line ${e.line}`);
+		if (n instanceof bt && (n = n.reference), n === null) return void console.error(`Variable ${r} not found. Line ${e.line}`);
 		let a = this.evalExpression(e.value, t), o = e.operator;
 		if (o !== "=") {
 			let r = n.getSubData(this, i, t);
-			if (r instanceof G && a instanceof W) {
+			if (r instanceof W && a instanceof U) {
 				let t = r.data, n = a.value;
 				if (o === "+=") for (let e = 0; e < t.length; ++e) t[e] += n;
 				else if (o === "-=") for (let e = 0; e < t.length; ++e) t[e] -= n;
@@ -5269,9 +5775,9 @@ var Ft = 0, It = class e {
 				else if (o === "<<=") for (let e = 0; e < t.length; ++e) t[e] <<= n;
 				else if (o === ">>=") for (let e = 0; e < t.length; ++e) t[e] >>= n;
 				else console.error(`Invalid operator ${o}. Line ${e.line}`);
-			} else if (r instanceof G && a instanceof G) {
+			} else if (r instanceof W && a instanceof W) {
 				let t = r.data, n = a.data;
-				if (t.length !== n.length) return void console.error(`Vector length mismatch. Line ${e.line}`);
+				if (t.length !== n.length) return void console.error(`Vector length mismatch: ${r.typeInfo.getTypeName()}[${t.length}] '${o}' ${a.typeInfo.getTypeName()}[${n.length}]. Line ${e.line}`);
 				if (o === "+=") for (let e = 0; e < t.length; ++e) t[e] += n[e];
 				else if (o === "-=") for (let e = 0; e < t.length; ++e) t[e] -= n[e];
 				else if (o === "*=") for (let e = 0; e < t.length; ++e) t[e] *= n[e];
@@ -5284,25 +5790,25 @@ var Ft = 0, It = class e {
 				else if (o === ">>=") for (let e = 0; e < t.length; ++e) t[e] >>= n[e];
 				else console.error(`Invalid operator ${o}. Line ${e.line}`);
 			} else {
-				if (!(r instanceof W && a instanceof W)) return void console.error(`Invalid type for ${e.operator} operator. Line ${e.line}`);
+				if (!(r instanceof U && a instanceof U)) return void console.error(`Invalid type for ${e.operator} operator. Line ${e.line}`);
 				o === "+=" ? r.value += a.value : o === "-=" ? r.value -= a.value : o === "*=" ? r.value *= a.value : o === "/=" ? r.value /= a.value : o === "%=" ? r.value %= a.value : o === "&=" ? r.value &= a.value : o === "|=" ? r.value |= a.value : o === "^=" ? r.value ^= a.value : o === "<<=" ? r.value <<= a.value : o === ">>=" ? r.value >>= a.value : console.error(`Invalid operator ${o}. Line ${e.line}`);
 			}
-			n instanceof q && n.setDataValue(this, r, i, t);
+			n instanceof K && n.setDataValue(this, r, i, t);
 			return;
 		}
-		if (n instanceof q) n.setDataValue(this, a, i, t);
+		if (n instanceof K) n.setDataValue(this, a, i, t);
 		else if (i) {
-			if (!(n instanceof G || n instanceof K)) return void console.error(`Variable ${r} is not a vector or matrix. Line ${e.line}`);
-			if (i instanceof z) {
+			if (!(n instanceof W || n instanceof G)) return void console.error(`Variable ${r} is not a vector or matrix. Line ${e.line}`);
+			if (i instanceof ct) {
 				let o = this.evalExpression(i.index, t).value;
-				if (n instanceof G) {
-					if (!(a instanceof W)) return void console.error(`Invalid assignment to ${r}. Line ${e.line}`);
+				if (n instanceof W) {
+					if (!(a instanceof U)) return void console.error(`Invalid assignment to ${r}. Line ${e.line}`);
 					n.data[o] = a.value;
 				} else {
-					if (!(n instanceof K)) return void console.error(`Invalid assignment to ${r}. Line ${e.line}`);
+					if (!(n instanceof G)) return void console.error(`Invalid assignment to ${r}. Line ${e.line}`);
 					{
 						let o = this.evalExpression(i.index, t).value;
-						if (o < 0 || !(a instanceof G)) return void console.error(`Invalid assignment to ${r}. Line ${e.line}`);
+						if (o < 0 || !(a instanceof W)) return void console.error(`Invalid assignment to ${r}. Line ${e.line}`);
 						{
 							let t = n.typeInfo.getTypeName();
 							if (t === "mat2x2" || t === "mat2x2f" || t === "mat2x2h") {
@@ -5336,10 +5842,10 @@ var Ft = 0, It = class e {
 						}
 					}
 				}
-			} else if (i instanceof F) {
+			} else if (i instanceof it) {
 				let t = i.value;
-				if (!(n instanceof G)) return void console.error(`Invalid assignment to ${t}. Variable ${r} is not a vector. Line ${e.line}`);
-				if (a instanceof W) {
+				if (!(n instanceof W)) return void console.error(`Invalid assignment to ${t}. Variable ${r} is not a vector. Line ${e.line}`);
+				if (a instanceof U) {
 					if (t.length > 1) return void console.error(`Invalid assignment to ${t} for variable ${r}. Line ${e.line}`);
 					if (t === "x") n.data[0] = a.value;
 					else if (t === "y") {
@@ -5353,7 +5859,7 @@ var Ft = 0, It = class e {
 						n.data[3] = a.value;
 					}
 				} else {
-					if (!(a instanceof G)) return void console.error(`Invalid assignment to ${r}. Line ${e.line}`);
+					if (!(a instanceof W)) return void console.error(`Invalid assignment to ${r}. Line ${e.line}`);
 					if (t.length !== a.data.length) return void console.error(`Invalid assignment to ${t} for variable ${r}. Line ${e.line}`);
 					for (let i = 0; i < t.length; ++i) {
 						let o = t[i];
@@ -5371,49 +5877,60 @@ var Ft = 0, It = class e {
 					}
 				}
 			}
-		} else n instanceof W && a instanceof W ? n.value = a.value : n instanceof G && a instanceof G || n instanceof K && a instanceof K ? n.data.set(a.data) : console.error(`Invalid assignment to ${r}. Line ${e.line}`);
+		} else n instanceof U && a instanceof U ? n.value = a.value : n instanceof W && a instanceof W || n instanceof G && a instanceof G ? n.data.set(a.data) : console.error(`Invalid assignment to ${r}. Line ${e.line}`);
 	}
 	_function(e, t) {
-		let n = new Lt(e);
+		let n = new Bt(e);
 		t.functions.set(e.name, n);
 	}
 	_const(e, t) {
 		let n = null;
 		e.value !== null && (n = this.evalExpression(e.value, t)), t.createVariable(e.name, n, e);
 	}
-	_let(e, t) {
-		let n = null;
-		if (e.value !== null) {
-			if (n = this.evalExpression(e.value, t), n === null) return void console.error(`Invalid value for variable ${e.name}. Line ${e.line}`);
-			e.value instanceof B || (n = n.clone());
-		} else {
-			let r = e.type.name;
-			if (r === "f32" || r === "i32" || r === "u32" || r === "bool" || r === "f16" || r === "vec2" || r === "vec3" || r === "vec4" || r === "vec2f" || r === "vec3f" || r === "vec4f" || r === "vec2i" || r === "vec3i" || r === "vec4i" || r === "vec2u" || r === "vec3u" || r === "vec4u" || r === "vec2h" || r === "vec3h" || r === "vec4h" || r === "vec2b" || r === "vec3b" || r === "vec4b" || r === "mat2x2" || r === "mat2x3" || r === "mat2x4" || r === "mat3x2" || r === "mat3x3" || r === "mat3x4" || r === "mat4x2" || r === "mat4x3" || r === "mat4x4" || r === "mat2x2f" || r === "mat2x3f" || r === "mat2x4f" || r === "mat3x2f" || r === "mat3x3f" || r === "mat3x4f" || r === "mat4x2f" || r === "mat4x3f" || r === "mat4x4f" || r === "mat2x2h" || r === "mat2x3h" || r === "mat2x4h" || r === "mat3x2h" || r === "mat3x3h" || r === "mat3x4h" || r === "mat4x2h" || r === "mat4x3h" || r === "mat4x4h" || r === "array") {
-				let r = new I(e.type, []);
-				n = this._evalCreate(r, t);
-			}
+	_override(e, t) {
+		let n = t.getVariable(e.name);
+		if (n === null || n.value === null) {
+			let n = null;
+			e.value !== null && (n = this.evalExpression(e.value, t)), t.createVariable(e.name, n, e);
 		}
-		t.createVariable(e.name, n, e);
 	}
-	_var(e, t) {
-		let n = null;
-		if (e.value !== null) {
-			if (n = this.evalExpression(e.value, t), n === null) return void console.error(`Invalid value for variable ${e.name}. Line ${e.line}`);
-			e.value instanceof B || (n = n.clone());
+	_let(t, n) {
+		let r = null;
+		if (t.value !== null) {
+			if (r = this.evalExpression(t.value, n), r === null) return void console.error(`Invalid value for variable ${t.name}. Line ${t.line}`);
+			t.value instanceof B || (r = r.clone());
 		} else {
-			if (e.type === null) return void console.error(`Variable ${e.name} has no type. Line ${e.line}`);
-			let r = e.type.name;
-			if (r === "f32" || r === "i32" || r === "u32" || r === "bool" || r === "f16" || r === "vec2" || r === "vec3" || r === "vec4" || r === "vec2f" || r === "vec3f" || r === "vec4f" || r === "vec2i" || r === "vec3i" || r === "vec4i" || r === "vec2u" || r === "vec3u" || r === "vec4u" || r === "vec2h" || r === "vec3h" || r === "vec4h" || r === "vec2b" || r === "vec3b" || r === "vec4b" || r === "mat2x2" || r === "mat2x3" || r === "mat2x4" || r === "mat3x2" || r === "mat3x3" || r === "mat3x4" || r === "mat4x2" || r === "mat4x3" || r === "mat4x4" || r === "mat2x2f" || r === "mat2x3f" || r === "mat2x4f" || r === "mat3x2f" || r === "mat3x3f" || r === "mat3x4f" || r === "mat4x2f" || r === "mat4x3f" || r === "mat4x4f" || r === "mat2x2h" || r === "mat2x3h" || r === "mat2x4h" || r === "mat3x2h" || r === "mat3x3h" || r === "mat3x4h" || r === "mat4x2h" || r === "mat4x3h" || r === "mat4x4h" || e.type instanceof N || e.type instanceof j || e.type instanceof M) {
-				let r = new I(e.type, []);
-				n = this._evalCreate(r, t);
+			let i = t.type.name;
+			if (e._defaultableTypes.has(i)) {
+				let e = new L(t.type, []);
+				r = this._evalCreate(e, n);
 			}
 		}
-		t.createVariable(e.name, n, e);
+		n.createVariable(t.name, r, t);
+	}
+	_var(t, n) {
+		let r = null;
+		if (t.value !== null) {
+			if (r = this.evalExpression(t.value, n), r === null) return void console.error(`Invalid value for variable ${t.name}. Line ${t.line}`);
+			t.value instanceof B || (r = r.clone());
+		} else {
+			if (t.type === null) return void console.error(`Variable ${t.name} has no type. Line ${t.line}`);
+			let i = t.type.name;
+			if (e._defaultableTypes.has(i) || t.type instanceof nt || t.type instanceof P || t.type instanceof F) {
+				let e = new L(t.type, []);
+				r = this._evalCreate(e, n);
+			}
+			if (r === null) {
+				let e = this.getTypeInfo(t.type);
+				e !== null && (r = new K(/* @__PURE__ */ new ArrayBuffer(0), e, 0));
+			}
+		}
+		n.createVariable(t.name, r, t);
 	}
 	_switch(e, t) {
 		t = t.clone();
 		let n = this.evalExpression(e.condition, t);
-		if (!(n instanceof W)) return console.error(`Invalid if condition. Line ${e.line}`), null;
+		if (!(n instanceof U)) return console.error(`Invalid if condition. Line ${e.line}`), null;
 		let r = null;
 		for (let i of e.cases) if (i instanceof ft) for (let a of i.selectors) {
 			if (a instanceof dt) {
@@ -5421,7 +5938,7 @@ var Ft = 0, It = class e {
 				continue;
 			}
 			let o = this.evalExpression(a, t);
-			if (!(o instanceof W)) return console.error(`Invalid case selector. Line ${e.line}`), null;
+			if (!(o instanceof U)) return console.error(`Invalid case selector. Line ${e.line}`), null;
 			if (o.value === n.value) return this._execStatements(i.body, t);
 		}
 		else i instanceof pt && (r = i);
@@ -5430,17 +5947,17 @@ var Ft = 0, It = class e {
 	_if(e, t) {
 		t = t.clone();
 		let n = this.evalExpression(e.condition, t);
-		if (!(n instanceof W)) return console.error(`Invalid if condition. Line ${e.line}`), null;
+		if (!(n instanceof U)) return console.error(`Invalid if condition. Line ${e.line}`), null;
 		if (n.value) return this._execStatements(e.body, t);
 		for (let n of e.elseif) {
 			let r = this.evalExpression(n.condition, t);
-			if (!(r instanceof W)) return console.error(`Invalid if condition. Line ${e.line}`), null;
+			if (!(r instanceof U)) return console.error(`Invalid if condition. Line ${e.line}`), null;
 			if (r.value) return this._execStatements(n.body, t);
 		}
 		return e.else ? this._execStatements(e.else, t) : null;
 	}
 	_getScalarValue(e) {
-		return e instanceof W ? e.value : (console.error("Expected scalar value.", e), 0);
+		return e instanceof U ? e.value : (console.error("Expected scalar value.", e), 0);
 	}
 	_for(t, n) {
 		for (n = n.clone(), this.execStatement(t.init, n); this._getScalarValue(this.evalExpression(t.condition, n));) {
@@ -5471,8 +5988,8 @@ var Ft = 0, It = class e {
 	}
 	_evalBitcast(e, t) {
 		let n = this.evalExpression(e.value, t), r = e.type;
-		if (n instanceof W) return new W(jt(n.value, n.typeInfo.name, r.name), this.getTypeInfo(r));
-		if (n instanceof G) {
+		if (n instanceof U) return new U(Pt(n.value, n.typeInfo.name, r.name), this.getTypeInfo(r));
+		if (n instanceof W) {
 			let t = n.typeInfo.getTypeName(), i = "";
 			if (t.endsWith("f")) i = "f32";
 			else if (t.endsWith("i")) i = "i32";
@@ -5491,10 +6008,10 @@ var Ft = 0, It = class e {
 				if (!a.endsWith("h")) return console.error(`Unknown vector type ${o}. Line ${e.line}`), null;
 				o = "f16";
 			}
-			return new G(function(e, t, n) {
+			return new W(function(e, t, n) {
 				if (t === n) return e;
 				let r = Array(e.length);
-				for (let i = 0; i < e.length; i++) r[i] = jt(e[i], t, n);
+				for (let i = 0; i < e.length; i++) r[i] = Pt(e[i], t, n);
 				return r;
 			}(Array.from(n.data), i, o), this.getTypeInfo(r));
 		}
@@ -5504,14 +6021,16 @@ var Ft = 0, It = class e {
 		return t.getVariableValue(e.name).clone().getSubData(this, e.postfix, t);
 	}
 	_evalCreate(e, t) {
-		if (e instanceof I) {
-			if (e.type === null) return vt.void;
+		if (e instanceof L) {
+			if (e.type === null) return yt.void;
 			switch (e.type.getTypeName()) {
 				case "bool":
 				case "i32":
 				case "u32":
 				case "f32":
 				case "f16": return this._callConstructorValue(e, t);
+				case "atomic<u32>": return new U(0, this.getTypeInfo("u32"));
+				case "atomic<i32>": return new U(0, this.getTypeInfo("i32"));
 				case "vec2":
 				case "vec3":
 				case "vec4":
@@ -5559,34 +6078,39 @@ var Ft = 0, It = class e {
 				case "mat4x4h": return this._callConstructorMatrix(e, t);
 			}
 		}
-		let n = e instanceof I ? e.type.name : e.name, r = e instanceof I ? this.getTypeInfo(e.type) : this.getTypeInfo(e.name);
+		let n = e instanceof L ? e.type.name : e.name, r = e instanceof L ? this.getTypeInfo(e.type) : this.getTypeInfo(e.name);
 		if (r === null) return console.error(`Unknown type ${n}. Line ${e.line}`), null;
 		if (r.size === 0) return null;
-		let i = new q(new ArrayBuffer(r.size), r, 0);
-		if (r instanceof v) {
+		let i = new K(new ArrayBuffer(r.size), r, 0);
+		if (r instanceof se) {
 			if (e.args) for (let n = 0; n < e.args.length; ++n) {
 				let a = r.members[n], o = e.args[n], s = this.evalExpression(o, t);
 				i.setData(this, s, a.type, a.offset, t);
 			}
-		} else if (r instanceof y) {
+		} else if (r instanceof ce) {
 			let n = 0;
 			if (e.args) for (let a = 0; a < e.args.length; ++a) {
 				let o = e.args[a], s = this.evalExpression(o, t);
-				r.format === null && (s.typeInfo?.name === "x32" ? r.format = this.getTypeInfo("i32") : r.format = s.typeInfo), i.setData(this, s, r.format, n, t), n += r.stride;
+				r.format === null && (r.format = s.typeInfo?.name === "x32" ? this.getTypeInfo("i32") : s.typeInfo), i.setData(this, s, r.format, n, t), n += r.stride;
 			}
 		} else console.error(`Unknown type "${n}". Line ${e.line}`);
-		return e instanceof I ? i.getSubData(this, e.postfix, t) : i;
+		return e instanceof L ? i.getSubData(this, e.postfix, t) : i;
 	}
 	_evalLiteral(e, t) {
 		let n = this.getTypeInfo(e.type), r = n.name;
-		return r === "x32" || r === "u32" || r === "f32" || r === "f16" || r === "i32" || r === "bool" ? new W(e.scalarValue, n) : r === "vec2" || r === "vec3" || r === "vec4" || r === "vec2f" || r === "vec3f" || r === "vec4f" || r === "vec2h" || r === "vec3h" || r === "vec4h" || r === "vec2i" || r === "vec3i" || r === "vec4i" || r === "vec2u" || r === "vec3u" || r === "vec4u" ? this._callConstructorVec(e, t) : r === "mat2x2" || r === "mat2x3" || r === "mat2x4" || r === "mat3x2" || r === "mat3x3" || r === "mat3x4" || r === "mat4x2" || r === "mat4x3" || r === "mat4x4" || r === "mat2x2f" || r === "mat2x3f" || r === "mat2x4f" || r === "mat3x2f" || r === "mat3x3f" || r === "mat3x4f" || r === "mat4x2f" || r === "mat4x3f" || r === "mat4x4f" || r === "mat2x2h" || r === "mat2x3h" || r === "mat2x4h" || r === "mat3x2h" || r === "mat3x3h" || r === "mat3x4h" || r === "mat4x2h" || r === "mat4x3h" || r === "mat4x4h" ? this._callConstructorMatrix(e, t) : e.value;
+		return r === "x32" || r === "u32" || r === "f32" || r === "f16" || r === "i32" || r === "bool" ? new U(e.scalarValue, n) : r === "vec2" || r === "vec3" || r === "vec4" || r === "vec2f" || r === "vec3f" || r === "vec4f" || r === "vec2h" || r === "vec3h" || r === "vec4h" || r === "vec2i" || r === "vec3i" || r === "vec4i" || r === "vec2u" || r === "vec3u" || r === "vec4u" ? this._callConstructorVec(e, t) : r === "mat2x2" || r === "mat2x3" || r === "mat2x4" || r === "mat3x2" || r === "mat3x3" || r === "mat3x4" || r === "mat4x2" || r === "mat4x3" || r === "mat4x4" || r === "mat2x2f" || r === "mat2x3f" || r === "mat2x4f" || r === "mat3x2f" || r === "mat3x3f" || r === "mat3x4f" || r === "mat4x2f" || r === "mat4x3f" || r === "mat4x4f" || r === "mat2x2h" || r === "mat2x3h" || r === "mat2x4h" || r === "mat3x2h" || r === "mat3x3h" || r === "mat3x4h" || r === "mat4x2h" || r === "mat4x3h" || r === "mat4x4h" ? this._callConstructorMatrix(e, t) : e.value;
 	}
 	_evalVariable(e, t) {
 		let n = t.getVariableValue(e.name);
 		return n === null ? n : n.getSubData(this, e.postfix, t);
 	}
+	_resolveAtomicType(e) {
+		return e instanceof C && e.name === "atomic" && e.format ? e.format : e;
+	}
 	_maxFormatTypeInfo(t) {
+		t = t.map((e) => this._resolveAtomicType(e));
 		let n = t[0];
+		if (n == null) return null;
 		if (n.name === "f32") return n;
 		for (let r = 1; r < t.length; ++r) {
 			let i = e._priority.get(n.name);
@@ -5595,77 +6119,110 @@ var Ft = 0, It = class e {
 		return n.name === "x32" ? this.getTypeInfo("i32") : n;
 	}
 	_evalUnaryOp(e, t) {
+		let n = this._evalUnaryOpValue(e, t);
+		return n !== null && e.postfix && e.operator !== "*" ? n.getSubData(this, e.postfix, t) : n;
+	}
+	_evalUnaryOpValue(e, t) {
 		let n = this.evalExpression(e.right, t);
-		if (e.operator === "&") return new U(n);
-		if (e.operator === "*") return n instanceof U ? n.reference.getSubData(this, e.postfix, t) : (console.error(`Invalid dereference. Line ${e.line}`), null);
-		let r = n instanceof W ? n.value : n instanceof G ? Array.from(n.data) : null;
+		if (e.operator === "&") return new bt(n);
+		if (e.operator === "*") return n instanceof bt ? n.reference.getSubData(this, e.postfix, t) : (console.error(`Invalid dereference. Line ${e.line}`), null);
+		let r = n instanceof U ? n.value : n instanceof W || n instanceof G ? Array.from(n.data) : n instanceof K ? n.toArray() : null;
 		switch (e.operator) {
 			case "+": {
-				if (Z(r)) return new G(r.map((e, t) => +e), n.typeInfo);
+				if (X(r)) {
+					let e = r.map((e, t) => +e);
+					return this._makeCwiseData(e, n.typeInfo);
+				}
 				let e = r, t = this._maxFormatTypeInfo([n.typeInfo, n.typeInfo]);
-				return new W(+e, t);
+				return new U(+e, t);
 			}
 			case "-": {
-				if (Z(r)) return new G(r.map((e, t) => -e), n.typeInfo);
+				if (X(r)) {
+					let e = r.map((e, t) => -e);
+					return this._makeCwiseData(e, n.typeInfo);
+				}
 				let e = r, t = this._maxFormatTypeInfo([n.typeInfo, n.typeInfo]);
-				return new W(-e, t);
+				return new U(-e, t);
 			}
 			case "!": {
-				if (Z(r)) return new G(r.map((e, t) => +!e), n.typeInfo);
+				if (X(r)) {
+					let e = r.map((e, t) => +!e);
+					return this._makeCwiseData(e, n.typeInfo);
+				}
 				let e = r, t = this._maxFormatTypeInfo([n.typeInfo, n.typeInfo]);
-				return new W(+!e, t);
+				return new U(+!e, t);
 			}
 			case "~": {
-				if (Z(r)) return new G(r.map((e, t) => ~e), n.typeInfo);
+				if (X(r)) {
+					let e = r.map((e, t) => ~e);
+					return this._makeCwiseData(e, n.typeInfo);
+				}
 				let e = r, t = this._maxFormatTypeInfo([n.typeInfo, n.typeInfo]);
-				return new W(~e, t);
+				return new U(~e, t);
 			}
 		}
 		return console.error(`Invalid unary operator ${e.operator}. Line ${e.line}`), null;
 	}
+	_isMatrixType(e) {
+		return e.typeInfo.getTypeName().startsWith("mat");
+	}
+	_isVectorType(e) {
+		return e.typeInfo.getTypeName().startsWith("vec");
+	}
+	_makeCwiseData(e, t) {
+		return t.getTypeName().startsWith("mat") ? new G(e, t) : new W(e, t);
+	}
 	_evalBinaryOp(e, t) {
-		let n = this.evalExpression(e.left, t), r = this.evalExpression(e.right, t), i = n instanceof W ? n.value : n instanceof G || n instanceof K ? Array.from(n.data) : null, a = r instanceof W ? r.value : r instanceof G || r instanceof K ? Array.from(r.data) : null;
+		let n = this._evalBinaryOpValue(e, t);
+		return n !== null && e.postfix ? n.getSubData(this, e.postfix, t) : n;
+	}
+	_evalBinaryOpValue(e, t) {
+		let n = this.evalExpression(e.left, t), r = this.evalExpression(e.right, t), i = n instanceof U ? n.value : n instanceof W || n instanceof G ? Array.from(n.data) : n instanceof K ? n.toArray() : null, a = r instanceof U ? r.value : r instanceof W || r instanceof G ? Array.from(r.data) : r instanceof K ? r.toArray() : null;
 		switch (e.operator) {
 			case "+": {
-				if (Z(i) && Z(a)) {
-					let t = i, r = a;
-					return t.length === r.length ? new G(t.map((e, t) => e + r[t]), n.typeInfo) : (console.error(`Vector length mismatch. Line ${e.line}.`), null);
+				if (X(i) && X(a)) {
+					let t = i, o = a;
+					if (t.length !== o.length) return console.error(`Vector length mismatch: ${n.typeInfo.getTypeName()}[${t.length}] '${e.operator}' ${r.typeInfo.getTypeName()}[${o.length}]. Line ${e.line}.`), null;
+					let s = t.map((e, t) => e + o[t]);
+					return this._makeCwiseData(s, n.typeInfo);
 				}
-				if (Z(i)) {
-					let e = a;
-					return new G(i.map((t, n) => t + e), n.typeInfo);
+				if (X(i)) {
+					let e = a, t = i.map((t, n) => t + e);
+					return this._makeCwiseData(t, n.typeInfo);
 				}
-				if (Z(a)) {
-					let e = i;
-					return new G(a.map((t, n) => e + t), r.typeInfo);
+				if (X(a)) {
+					let e = i, t = a.map((t, n) => e + t);
+					return this._makeCwiseData(t, r.typeInfo);
 				}
 				let t = i, o = a, s = this._maxFormatTypeInfo([n.typeInfo, r.typeInfo]);
-				return new W(t + o, s);
+				return new U(t + o, s);
 			}
 			case "-": {
-				if (Z(i) && Z(a)) {
-					let t = i, r = a;
-					return t.length === r.length ? new G(t.map((e, t) => e - r[t]), n.typeInfo) : (console.error(`Vector length mismatch. Line ${e.line}.`), null);
+				if (X(i) && X(a)) {
+					let t = i, o = a;
+					if (t.length !== o.length) return console.error(`Vector length mismatch: ${n.typeInfo.getTypeName()}[${t.length}] '${e.operator}' ${r.typeInfo.getTypeName()}[${o.length}]. Line ${e.line}.`), null;
+					let s = t.map((e, t) => e - o[t]);
+					return this._makeCwiseData(s, n.typeInfo);
 				}
-				if (Z(i)) {
-					let e = a;
-					return new G(i.map((t, n) => t - e), n.typeInfo);
+				if (X(i)) {
+					let e = a, t = i.map((t, n) => t - e);
+					return this._makeCwiseData(t, n.typeInfo);
 				}
-				if (Z(a)) {
-					let e = i;
-					return new G(a.map((t, n) => e - t), r.typeInfo);
+				if (X(a)) {
+					let e = i, t = a.map((t, n) => e - t);
+					return this._makeCwiseData(t, r.typeInfo);
 				}
 				let t = i, o = a, s = this._maxFormatTypeInfo([n.typeInfo, r.typeInfo]);
-				return new W(t - o, s);
+				return new U(t - o, s);
 			}
 			case "*": {
-				if (Z(i) && Z(a)) {
+				if (X(i) && X(a)) {
 					let t = i, o = a;
-					if (n instanceof K && r instanceof K) {
+					if (this._isMatrixType(n) && this._isMatrixType(r)) {
 						let i = function(e, t, n, r) {
-							if (Q[t.name] === void 0 || Q[r.name] === void 0) return null;
-							let i = Q[t.name][0], a = Q[t.name][1], o = Q[r.name][0];
-							if (i !== Q[r.name][1]) return null;
+							if (Z[t.name] === void 0 || Z[r.name] === void 0) return null;
+							let i = Z[t.name][0], a = Z[t.name][1], o = Z[r.name][0];
+							if (i !== Z[r.name][1]) return null;
 							let s = Array(o * a);
 							for (let t = 0; t < a; t++) for (let r = 0; r < o; r++) {
 								let c = 0;
@@ -5675,13 +6232,13 @@ var Ft = 0, It = class e {
 							return s;
 						}(t, n.typeInfo, o, r.typeInfo);
 						if (i === null) return console.error(`Matrix multiplication failed. Line ${e.line}.`), null;
-						let a = Q[r.typeInfo.name][0], s = Q[n.typeInfo.name][1];
-						return new K(i, this.getTypeInfo(`mat${a}x${s}f`));
+						let a = Z[r.typeInfo.name][0], s = Z[n.typeInfo.name][1];
+						return new G(i, this.getTypeInfo(`mat${a}x${s}f`));
 					}
-					if (n instanceof K && r instanceof G) {
+					if (this._isMatrixType(n) && this._isVectorType(r)) {
 						let i = function(e, t, n, r) {
-							if (Q[t.name] === void 0 || Vt[r.name] === void 0) return null;
-							let i = Q[t.name][0], a = Q[t.name][1];
+							if (Z[t.name] === void 0 || Wt[r.name] === void 0) return null;
+							let i = Z[t.name][0], a = Z[t.name][1];
 							if (i !== n.length) return null;
 							let o = Array(a);
 							for (let t = 0; t < a; t++) {
@@ -5691,12 +6248,12 @@ var Ft = 0, It = class e {
 							}
 							return o;
 						}(t, n.typeInfo, o, r.typeInfo);
-						return i === null ? (console.error(`Matrix vector multiplication failed. Line ${e.line}.`), null) : new G(i, r.typeInfo);
+						return i === null ? (console.error(`Matrix vector multiplication failed. Line ${e.line}.`), null) : this._makeCwiseData(i, r.typeInfo);
 					}
-					if (n instanceof G && r instanceof K) {
+					if (this._isVectorType(n) && this._isMatrixType(r)) {
 						let i = function(e, t, n, r) {
-							if (Vt[t.name] === void 0 || Q[r.name] === void 0) return null;
-							let i = Q[r.name][0], a = Q[r.name][1];
+							if (Wt[t.name] === void 0 || Z[r.name] === void 0) return null;
+							let i = Z[r.name][0], a = Z[r.name][1];
 							if (a !== e.length) return null;
 							let o = [];
 							for (let t = 0; t < i; t++) {
@@ -5706,249 +6263,287 @@ var Ft = 0, It = class e {
 							}
 							return o;
 						}(t, n.typeInfo, o, r.typeInfo);
-						return i === null ? (console.error(`Matrix vector multiplication failed. Line ${e.line}.`), null) : new G(i, n.typeInfo);
+						return i === null ? (console.error(`Matrix vector multiplication failed. Line ${e.line}.`), null) : this._makeCwiseData(i, n.typeInfo);
 					}
-					return t.length === o.length ? new G(t.map((e, t) => e * o[t]), n.typeInfo) : (console.error(`Vector length mismatch. Line ${e.line}.`), null);
+					{
+						if (t.length !== o.length) return console.error(`Vector length mismatch: ${n.typeInfo.getTypeName()}[${t.length}] '${e.operator}' ${r.typeInfo.getTypeName()}[${o.length}]. Line ${e.line}.`), null;
+						let i = t.map((e, t) => e * o[t]);
+						return this._makeCwiseData(i, n.typeInfo);
+					}
 				}
-				if (Z(i)) {
+				if (X(i)) {
 					let e = a, t = i.map((t, n) => t * e);
-					return n instanceof K ? new K(t, n.typeInfo) : new G(t, n.typeInfo);
+					return this._isMatrixType(n) ? new G(t, n.typeInfo) : this._makeCwiseData(t, n.typeInfo);
 				}
-				if (Z(a)) {
+				if (X(a)) {
 					let e = i, t = a.map((t, n) => e * t);
-					return r instanceof K ? new K(t, r.typeInfo) : new G(t, r.typeInfo);
+					return r instanceof G ? new G(t, r.typeInfo) : this._makeCwiseData(t, r.typeInfo);
 				}
 				let t = i, o = a, s = this._maxFormatTypeInfo([n.typeInfo, r.typeInfo]);
-				return new W(t * o, s);
+				return new U(t * o, s);
 			}
 			case "%": {
-				if (Z(i) && Z(a)) {
-					let t = i, r = a;
-					return t.length === r.length ? new G(t.map((e, t) => e % r[t]), n.typeInfo) : (console.error(`Vector length mismatch. Line ${e.line}.`), null);
+				if (X(i) && X(a)) {
+					let t = i, o = a;
+					if (t.length !== o.length) return console.error(`Vector length mismatch: ${n.typeInfo.getTypeName()}[${t.length}] '${e.operator}' ${r.typeInfo.getTypeName()}[${o.length}]. Line ${e.line}.`), null;
+					let s = t.map((e, t) => e % o[t]);
+					return this._makeCwiseData(s, n.typeInfo);
 				}
-				if (Z(i)) {
-					let e = a;
-					return new G(i.map((t, n) => t % e), n.typeInfo);
+				if (X(i)) {
+					let e = a, t = i.map((t, n) => t % e);
+					return this._makeCwiseData(t, n.typeInfo);
 				}
-				if (Z(a)) {
-					let e = i;
-					return new G(a.map((t, n) => e % t), r.typeInfo);
+				if (X(a)) {
+					let e = i, t = a.map((t, n) => e % t);
+					return this._makeCwiseData(t, r.typeInfo);
 				}
 				let t = i, o = a, s = this._maxFormatTypeInfo([n.typeInfo, r.typeInfo]);
-				return new W(t % o, s);
+				return new U(t % o, s);
 			}
 			case "/": {
-				if (Z(i) && Z(a)) {
-					let t = i, r = a;
-					return t.length === r.length ? new G(t.map((e, t) => e / r[t]), n.typeInfo) : (console.error(`Vector length mismatch. Line ${e.line}.`), null);
+				if (X(i) && X(a)) {
+					let t = i, o = a;
+					if (t.length !== o.length) return console.error(`Vector length mismatch: ${n.typeInfo.getTypeName()}[${t.length}] '${e.operator}' ${r.typeInfo.getTypeName()}[${o.length}]. Line ${e.line}.`), null;
+					let s = t.map((e, t) => e / o[t]);
+					return this._makeCwiseData(s, n.typeInfo);
 				}
-				if (Z(i)) {
-					let e = a;
-					return new G(i.map((t, n) => t / e), n.typeInfo);
+				if (X(i)) {
+					let e = a, t = i.map((t, n) => t / e);
+					return this._makeCwiseData(t, n.typeInfo);
 				}
-				if (Z(a)) {
-					let e = i;
-					return new G(a.map((t, n) => e / t), r.typeInfo);
+				if (X(a)) {
+					let e = i, t = a.map((t, n) => e / t);
+					return this._makeCwiseData(t, r.typeInfo);
 				}
 				let t = i, o = a, s = this._maxFormatTypeInfo([n.typeInfo, r.typeInfo]);
-				return new W(t / o, s);
+				return new U(t / o, s);
 			}
 			case "&": {
-				if (Z(i) && Z(a)) {
-					let t = i, r = a;
-					return t.length === r.length ? new G(t.map((e, t) => e & r[t]), n.typeInfo) : (console.error(`Vector length mismatch. Line ${e.line}.`), null);
+				if (X(i) && X(a)) {
+					let t = i, o = a;
+					if (t.length !== o.length) return console.error(`Vector length mismatch: ${n.typeInfo.getTypeName()}[${t.length}] '${e.operator}' ${r.typeInfo.getTypeName()}[${o.length}]. Line ${e.line}.`), null;
+					let s = t.map((e, t) => e & o[t]);
+					return this._makeCwiseData(s, n.typeInfo);
 				}
-				if (Z(i)) {
-					let e = a;
-					return new G(i.map((t, n) => t & e), n.typeInfo);
+				if (X(i)) {
+					let e = a, t = i.map((t, n) => t & e);
+					return this._makeCwiseData(t, n.typeInfo);
 				}
-				if (Z(a)) {
-					let e = i;
-					return new G(a.map((t, n) => e & t), r.typeInfo);
+				if (X(a)) {
+					let e = i, t = a.map((t, n) => e & t);
+					return this._makeCwiseData(t, r.typeInfo);
 				}
 				let t = i, o = a, s = this._maxFormatTypeInfo([n.typeInfo, r.typeInfo]);
-				return new W(t & o, s);
+				return new U(t & o, s);
 			}
 			case "|": {
-				if (Z(i) && Z(a)) {
-					let t = i, r = a;
-					return t.length === r.length ? new G(t.map((e, t) => e | r[t]), n.typeInfo) : (console.error(`Vector length mismatch. Line ${e.line}.`), null);
+				if (X(i) && X(a)) {
+					let t = i, o = a;
+					if (t.length !== o.length) return console.error(`Vector length mismatch: ${n.typeInfo.getTypeName()}[${t.length}] '${e.operator}' ${r.typeInfo.getTypeName()}[${o.length}]. Line ${e.line}.`), null;
+					let s = t.map((e, t) => e | o[t]);
+					return this._makeCwiseData(s, n.typeInfo);
 				}
-				if (Z(i)) {
-					let e = a;
-					return new G(i.map((t, n) => t | e), n.typeInfo);
+				if (X(i)) {
+					let e = a, t = i.map((t, n) => t | e);
+					return this._makeCwiseData(t, n.typeInfo);
 				}
-				if (Z(a)) {
-					let e = i;
-					return new G(a.map((t, n) => e | t), r.typeInfo);
+				if (X(a)) {
+					let e = i, t = a.map((t, n) => e | t);
+					return this._makeCwiseData(t, r.typeInfo);
 				}
 				let t = i, o = a, s = this._maxFormatTypeInfo([n.typeInfo, r.typeInfo]);
-				return new W(t | o, s);
+				return new U(t | o, s);
 			}
 			case "^": {
-				if (Z(i) && Z(a)) {
-					let t = i, r = a;
-					return t.length === r.length ? new G(t.map((e, t) => e ^ r[t]), n.typeInfo) : (console.error(`Vector length mismatch. Line ${e.line}.`), null);
+				if (X(i) && X(a)) {
+					let t = i, o = a;
+					if (t.length !== o.length) return console.error(`Vector length mismatch: ${n.typeInfo.getTypeName()}[${t.length}] '${e.operator}' ${r.typeInfo.getTypeName()}[${o.length}]. Line ${e.line}.`), null;
+					let s = t.map((e, t) => e ^ o[t]);
+					return this._makeCwiseData(s, n.typeInfo);
 				}
-				if (Z(i)) {
-					let e = a;
-					return new G(i.map((t, n) => t ^ e), n.typeInfo);
+				if (X(i)) {
+					let e = a, t = i.map((t, n) => t ^ e);
+					return this._makeCwiseData(t, n.typeInfo);
 				}
-				if (Z(a)) {
-					let e = i;
-					return new G(a.map((t, n) => e ^ t), r.typeInfo);
+				if (X(a)) {
+					let e = i, t = a.map((t, n) => e ^ t);
+					return this._makeCwiseData(t, r.typeInfo);
 				}
 				let t = i, o = a, s = this._maxFormatTypeInfo([n.typeInfo, r.typeInfo]);
-				return new W(t ^ o, s);
+				return new U(t ^ o, s);
 			}
 			case "<<": {
-				if (Z(i) && Z(a)) {
-					let t = i, r = a;
-					return t.length === r.length ? new G(t.map((e, t) => e << r[t]), n.typeInfo) : (console.error(`Vector length mismatch. Line ${e.line}.`), null);
+				if (X(i) && X(a)) {
+					let t = i, o = a;
+					if (t.length !== o.length) return console.error(`Vector length mismatch: ${n.typeInfo.getTypeName()}[${t.length}] '${e.operator}' ${r.typeInfo.getTypeName()}[${o.length}]. Line ${e.line}.`), null;
+					let s = t.map((e, t) => e << o[t]);
+					return this._makeCwiseData(s, n.typeInfo);
 				}
-				if (Z(i)) {
-					let e = a;
-					return new G(i.map((t, n) => t << e), n.typeInfo);
+				if (X(i)) {
+					let e = a, t = i.map((t, n) => t << e);
+					return this._makeCwiseData(t, n.typeInfo);
 				}
-				if (Z(a)) {
-					let e = i;
-					return new G(a.map((t, n) => e << t), r.typeInfo);
+				if (X(a)) {
+					let e = i, t = a.map((t, n) => e << t);
+					return this._makeCwiseData(t, r.typeInfo);
 				}
 				let t = i, o = a, s = this._maxFormatTypeInfo([n.typeInfo, r.typeInfo]);
-				return new W(t << o, s);
+				return new U(t << o, s);
 			}
 			case ">>": {
-				if (Z(i) && Z(a)) {
-					let t = i, r = a;
-					return t.length === r.length ? new G(t.map((e, t) => e >> r[t]), n.typeInfo) : (console.error(`Vector length mismatch. Line ${e.line}.`), null);
+				if (X(i) && X(a)) {
+					let t = i, o = a;
+					if (t.length !== o.length) return console.error(`Vector length mismatch: ${n.typeInfo.getTypeName()}[${t.length}] '${e.operator}' ${r.typeInfo.getTypeName()}[${o.length}]. Line ${e.line}.`), null;
+					let s = t.map((e, t) => e >> o[t]);
+					return this._makeCwiseData(s, n.typeInfo);
 				}
-				if (Z(i)) {
-					let e = a;
-					return new G(i.map((t, n) => t >> e), n.typeInfo);
+				if (X(i)) {
+					let e = a, t = i.map((t, n) => t >> e);
+					return this._makeCwiseData(t, n.typeInfo);
 				}
-				if (Z(a)) {
-					let e = i;
-					return new G(a.map((t, n) => e >> t), r.typeInfo);
+				if (X(a)) {
+					let e = i, t = a.map((t, n) => e >> t);
+					return this._makeCwiseData(t, r.typeInfo);
 				}
 				let t = i, o = a, s = this._maxFormatTypeInfo([n.typeInfo, r.typeInfo]);
-				return new W(t >> o, s);
+				return new U(t >> o, s);
 			}
 			case ">":
-				if (Z(i) && Z(a)) {
-					let t = i, r = a;
-					return t.length === r.length ? new G(t.map((e, t) => +(e > r[t])), n.typeInfo) : (console.error(`Vector length mismatch. Line ${e.line}.`), null);
+				if (X(i) && X(a)) {
+					let t = i, o = a;
+					if (t.length !== o.length) return console.error(`Vector length mismatch: ${n.typeInfo.getTypeName()}[${t.length}] '${e.operator}' ${r.typeInfo.getTypeName()}[${o.length}]. Line ${e.line}.`), null;
+					let s = t.map((e, t) => +(e > o[t]));
+					return this._makeCwiseData(s, n.typeInfo);
 				}
-				if (Z(i)) {
-					let e = a;
-					return new G(i.map((t, n) => +(t > e)), n.typeInfo);
+				if (X(i)) {
+					let e = a, t = i.map((t, n) => +(t > e));
+					return this._makeCwiseData(t, n.typeInfo);
 				}
-				if (Z(a)) {
-					let e = i;
-					return new G(a.map((t, n) => +(e > t)), r.typeInfo);
+				if (X(a)) {
+					let e = i, t = a.map((t, n) => +(e > t));
+					return this._makeCwiseData(t, r.typeInfo);
 				}
-				return new W(+(i > a), this.getTypeInfo("bool"));
+				return new U(+(i > a), this.getTypeInfo("bool"));
 			case "<":
-				if (Z(i) && Z(a)) {
-					let t = i, r = a;
-					return t.length === r.length ? new G(t.map((e, t) => +(e < r[t])), n.typeInfo) : (console.error(`Vector length mismatch. Line ${e.line}.`), null);
+				if (X(i) && X(a)) {
+					let t = i, o = a;
+					if (t.length !== o.length) return console.error(`Vector length mismatch: ${n.typeInfo.getTypeName()}[${t.length}] '${e.operator}' ${r.typeInfo.getTypeName()}[${o.length}]. Line ${e.line}.`), null;
+					let s = t.map((e, t) => +(e < o[t]));
+					return this._makeCwiseData(s, n.typeInfo);
 				}
-				if (Z(i)) {
-					let e = a;
-					return new G(i.map((t, n) => +(t < e)), n.typeInfo);
+				if (X(i)) {
+					let e = a, t = i.map((t, n) => +(t < e));
+					return this._makeCwiseData(t, n.typeInfo);
 				}
-				if (Z(a)) {
-					let e = i;
-					return new G(a.map((t, n) => +(e < t)), r.typeInfo);
+				if (X(a)) {
+					let e = i, t = a.map((t, n) => +(e < t));
+					return this._makeCwiseData(t, r.typeInfo);
 				}
-				return new W(+(i < a), this.getTypeInfo("bool"));
+				return new U(+(i < a), this.getTypeInfo("bool"));
 			case "==":
-				if (Z(i) && Z(a)) {
-					let t = i, r = a;
-					return t.length === r.length ? new G(t.map((e, t) => +(e === r[t])), n.typeInfo) : (console.error(`Vector length mismatch. Line ${e.line}.`), null);
+				if (X(i) && X(a)) {
+					let t = i, o = a;
+					if (t.length !== o.length) return console.error(`Vector length mismatch: ${n.typeInfo.getTypeName()}[${t.length}] '${e.operator}' ${r.typeInfo.getTypeName()}[${o.length}]. Line ${e.line}.`), null;
+					let s = t.map((e, t) => +(e === o[t]));
+					return this._makeCwiseData(s, n.typeInfo);
 				}
-				if (Z(i)) {
-					let e = a;
-					return new G(i.map((t, n) => +(t == e)), n.typeInfo);
+				if (X(i)) {
+					let e = a, t = i.map((t, n) => +(t === e));
+					return this._makeCwiseData(t, n.typeInfo);
 				}
-				if (Z(a)) {
-					let e = i;
-					return new G(a.map((t, n) => +(e == t)), r.typeInfo);
+				if (X(a)) {
+					let e = i, t = a.map((t, n) => +(e === t));
+					return this._makeCwiseData(t, r.typeInfo);
 				}
-				return new W(+(i === a), this.getTypeInfo("bool"));
+				return new U(+(i === a), this.getTypeInfo("bool"));
 			case "!=":
-				if (Z(i) && Z(a)) {
-					let t = i, r = a;
-					return t.length === r.length ? new G(t.map((e, t) => e === r[t] ? 0 : 1), n.typeInfo) : (console.error(`Vector length mismatch. Line ${e.line}.`), null);
+				if (X(i) && X(a)) {
+					let t = i, o = a;
+					if (t.length !== o.length) return console.error(`Vector length mismatch: ${n.typeInfo.getTypeName()}[${t.length}] '${e.operator}' ${r.typeInfo.getTypeName()}[${o.length}]. Line ${e.line}.`), null;
+					let s = t.map((e, t) => e === o[t] ? 0 : 1);
+					return this._makeCwiseData(s, n.typeInfo);
 				}
-				if (Z(i)) {
-					let e = a;
-					return new G(i.map((t, n) => t === e ? 0 : 1), n.typeInfo);
+				if (X(i)) {
+					let e = a, t = i.map((t, n) => t === e ? 0 : 1);
+					return this._makeCwiseData(t, n.typeInfo);
 				}
-				if (Z(a)) {
-					let e = i;
-					return new G(a.map((t, n) => e === t ? 0 : 1), r.typeInfo);
+				if (X(a)) {
+					let e = i, t = a.map((t, n) => e === t ? 0 : 1);
+					return this._makeCwiseData(t, r.typeInfo);
 				}
-				return new W(i === a ? 0 : 1, this.getTypeInfo("bool"));
+				return new U(i === a ? 0 : 1, this.getTypeInfo("bool"));
 			case ">=":
-				if (Z(i) && Z(a)) {
-					let t = i, r = a;
-					return t.length === r.length ? new G(t.map((e, t) => +(e >= r[t])), n.typeInfo) : (console.error(`Vector length mismatch. Line ${e.line}.`), null);
+				if (X(i) && X(a)) {
+					let t = i, o = a;
+					if (t.length !== o.length) return console.error(`Vector length mismatch: ${n.typeInfo.getTypeName()}[${t.length}] '${e.operator}' ${r.typeInfo.getTypeName()}[${o.length}]. Line ${e.line}.`), null;
+					let s = t.map((e, t) => +(e >= o[t]));
+					return this._makeCwiseData(s, n.typeInfo);
 				}
-				if (Z(i)) {
-					let e = a;
-					return new G(i.map((t, n) => +(t >= e)), n.typeInfo);
+				if (X(i)) {
+					let e = a, t = i.map((t, n) => +(t >= e));
+					return this._makeCwiseData(t, n.typeInfo);
 				}
-				if (Z(a)) {
-					let e = i;
-					return new G(a.map((t, n) => +(e >= t)), r.typeInfo);
+				if (X(a)) {
+					let e = i, t = a.map((t, n) => +(e >= t));
+					return this._makeCwiseData(t, r.typeInfo);
 				}
-				return new W(+(i >= a), this.getTypeInfo("bool"));
+				return new U(+(i >= a), this.getTypeInfo("bool"));
 			case "<=":
-				if (Z(i) && Z(a)) {
-					let t = i, r = a;
-					return t.length === r.length ? new G(t.map((e, t) => +(e <= r[t])), n.typeInfo) : (console.error(`Vector length mismatch. Line ${e.line}.`), null);
+				if (X(i) && X(a)) {
+					let t = i, o = a;
+					if (t.length !== o.length) return console.error(`Vector length mismatch: ${n.typeInfo.getTypeName()}[${t.length}] '${e.operator}' ${r.typeInfo.getTypeName()}[${o.length}]. Line ${e.line}.`), null;
+					let s = t.map((e, t) => +(e <= o[t]));
+					return this._makeCwiseData(s, n.typeInfo);
 				}
-				if (Z(i)) {
-					let e = a;
-					return new G(i.map((t, n) => +(t <= e)), n.typeInfo);
+				if (X(i)) {
+					let e = a, t = i.map((t, n) => +(t <= e));
+					return this._makeCwiseData(t, n.typeInfo);
 				}
-				if (Z(a)) {
-					let e = i;
-					return new G(a.map((t, n) => +(e <= t)), r.typeInfo);
+				if (X(a)) {
+					let e = i, t = a.map((t, n) => +(e <= t));
+					return this._makeCwiseData(t, r.typeInfo);
 				}
-				return new W(+(i <= a), this.getTypeInfo("bool"));
+				return new U(+(i <= a), this.getTypeInfo("bool"));
 			case "&&":
-				if (Z(i) && Z(a)) {
-					let t = i, r = a;
-					return t.length === r.length ? new G(t.map((e, t) => e && r[t] ? 1 : 0), n.typeInfo) : (console.error(`Vector length mismatch. Line ${e.line}.`), null);
+				if (X(i) && X(a)) {
+					let t = i, o = a;
+					if (t.length !== o.length) return console.error(`Vector length mismatch: ${n.typeInfo.getTypeName()}[${t.length}] '${e.operator}' ${r.typeInfo.getTypeName()}[${o.length}]. Line ${e.line}.`), null;
+					let s = t.map((e, t) => e && o[t] ? 1 : 0);
+					return this._makeCwiseData(s, n.typeInfo);
 				}
-				if (Z(i)) {
-					let e = a;
-					return new G(i.map((t, n) => t && e ? 1 : 0), n.typeInfo);
+				if (X(i)) {
+					let e = a, t = i.map((t, n) => t && e ? 1 : 0);
+					return this._makeCwiseData(t, n.typeInfo);
 				}
-				if (Z(a)) {
-					let e = i;
-					return new G(a.map((t, n) => e && t ? 1 : 0), r.typeInfo);
+				if (X(a)) {
+					let e = i, t = a.map((t, n) => e && t ? 1 : 0);
+					return this._makeCwiseData(t, r.typeInfo);
 				}
-				return new W(i && a ? 1 : 0, this.getTypeInfo("bool"));
+				return new U(i && a ? 1 : 0, this.getTypeInfo("bool"));
 			case "||":
-				if (Z(i) && Z(a)) {
-					let t = i, r = a;
-					return t.length === r.length ? new G(t.map((e, t) => e || r[t] ? 1 : 0), n.typeInfo) : (console.error(`Vector length mismatch. Line ${e.line}.`), null);
+				if (X(i) && X(a)) {
+					let t = i, o = a;
+					if (t.length !== o.length) return console.error(`Vector length mismatch: ${n.typeInfo.getTypeName()}[${t.length}] '${e.operator}' ${r.typeInfo.getTypeName()}[${o.length}]. Line ${e.line}.`), null;
+					let s = t.map((e, t) => e || o[t] ? 1 : 0);
+					return this._makeCwiseData(s, n.typeInfo);
 				}
-				if (Z(i)) {
-					let e = a;
-					return new G(i.map((t, n) => t || e ? 1 : 0), n.typeInfo);
+				if (X(i)) {
+					let e = a, t = i.map((t, n) => t || e ? 1 : 0);
+					return this._makeCwiseData(t, n.typeInfo);
 				}
-				if (Z(a)) {
-					let e = i;
-					return new G(a.map((t, n) => e || t ? 1 : 0), r.typeInfo);
+				if (X(a)) {
+					let e = i, t = a.map((t, n) => e || t ? 1 : 0);
+					return this._makeCwiseData(t, r.typeInfo);
 				}
-				return new W(i || a ? 1 : 0, this.getTypeInfo("bool"));
+				return new U(i || a ? 1 : 0, this.getTypeInfo("bool"));
 		}
 		return console.error(`Unknown operator ${e.operator}. Line ${e.line}`), null;
 	}
 	_evalCall(e, t) {
+		let n = this._evalCallValue(e, t);
+		return n !== null && e.postfix ? n.getSubData(this, e.postfix, t) : n;
+	}
+	_evalCallValue(e, t) {
 		if (e.cachedReturnValue !== null) return e.cachedReturnValue;
 		let n = t.clone();
 		n.currentFunctionName = e.name;
@@ -6120,64 +6715,99 @@ var Ft = 0, It = class e {
 		return null;
 	}
 	_callConstructorValue(e, t) {
-		if (!e.args || e.args.length === 0) return new W(0, this.getTypeInfo(e.type));
+		if (!e.args || e.args.length === 0) return new U(0, this.getTypeInfo(e.type));
 		let n = this.evalExpression(e.args[0], t);
 		return n.typeInfo = this.getTypeInfo(e.type), n.getSubData(this, e.postfix, t).clone();
 	}
 	_callConstructorVec(e, t) {
-		let n = this.getTypeInfo(e.type), r = e.type.getTypeName(), i = Vt[r];
+		let n = this.getTypeInfo(e.type), r = e.type.getTypeName(), i = Wt[r];
 		if (i === void 0) return console.error(`Invalid vec constructor ${r}. Line ${e.line}`), null;
 		let a = [];
-		if (e instanceof R) if (e.isVector) {
-			let t = e.vectorValue;
-			for (let e of t) a.push(e);
-		} else a.push(e.scalarValue);
-		else if (e.args) for (let n of e.args) {
+		if (e instanceof z) {
+			if (e.isVector) {
+				let t = e.vectorValue;
+				for (let e of t) a.push(e);
+			} else a.push(e.scalarValue);
+		} else if (e.args) for (let n of e.args) {
 			let e = this.evalExpression(n, t);
-			if (e instanceof G) {
+			if (e instanceof W) {
 				let t = e.data;
 				for (let e = 0; e < t.length; ++e) {
 					let n = t[e];
 					a.push(n);
 				}
-			} else if (e instanceof W) {
+			} else if (e instanceof U) {
 				let t = e.value;
 				a.push(t);
 			}
 		}
-		if (e.type instanceof M && e.type.format === null && (e.type.format = M.f32), a.length === 0) return new G(Array(i).fill(0), n).getSubData(this, e.postfix, t);
+		if (e.type instanceof F && e.type.format === null && (e.type.format = F.f32), a.length === 0) return new W(Array(i).fill(0), n).getSubData(this, e.postfix, t);
 		if (a.length === 1) for (; a.length < i;) a.push(a[0]);
-		return a.length < i ? (console.error(`Invalid vec constructor. Line ${e.line}`), null) : new G(a.length > i ? a.slice(0, i) : a, n).getSubData(this, e.postfix, t);
+		return a.length < i ? (console.error(`Invalid vec constructor. Line ${e.line}`), null) : new W(a.length > i ? a.slice(0, i) : a, n).getSubData(this, e.postfix, t);
 	}
 	_callConstructorMatrix(e, t) {
-		let n = this.getTypeInfo(e.type), r = e.type.getTypeName(), i = Q[r];
+		let n = this.getTypeInfo(e.type), r = e.type.getTypeName(), i = Z[r];
 		if (i === void 0) return console.error(`Invalid matrix constructor ${r}. Line ${e.line}`), null;
 		let a = [];
-		if (e instanceof R) if (e.isVector) {
-			let t = e.vectorValue;
-			for (let e of t) a.push(e);
-		} else a.push(e.scalarValue);
-		else if (e.args) for (let n of e.args) {
+		if (e instanceof z) {
+			if (e.isVector) {
+				let t = e.vectorValue;
+				for (let e of t) a.push(e);
+			} else a.push(e.scalarValue);
+		} else if (e.args) for (let n of e.args) {
 			let e = this.evalExpression(n, t);
-			e instanceof G ? a.push(...e.data) : e instanceof W ? a.push(e.value) : e instanceof K && a.push(...e.data);
+			e instanceof W ? a.push(...e.data) : e instanceof U ? a.push(e.value) : e instanceof G && a.push(...e.data);
 		}
-		return n instanceof b && n.format === null && (n.format = this.getTypeInfo("f32")), a.length === 0 ? new K(Array(i[2]).fill(0), n).getSubData(this, e.postfix, t) : a.length === i[2] ? new K(a, n).getSubData(this, e.postfix, t) : (console.error(`Invalid matrix constructor. Line ${e.line}`), null);
+		return n instanceof C && n.format === null && (n.format = this.getTypeInfo("f32")), a.length === 0 ? new G(Array(i[2]).fill(0), n).getSubData(this, e.postfix, t) : a.length === i[2] ? new G(a, n).getSubData(this, e.postfix, t) : (console.error(`Invalid matrix constructor. Line ${e.line}`), null);
 	}
 };
-Ht._breakObj = new H(new _("BREAK", null), null), Ht._continueObj = new H(new _("CONTINUE", null), null), Ht._priority = new Map([
+Q._numericScalarTypes = /* @__PURE__ */ new Set([
+	"f32",
+	"i32",
+	"u32",
+	"bool",
+	"f16"
+]), Q._vectorTypes = /* @__PURE__ */ new Set([
+	"vec2",
+	"vec3",
+	"vec4",
+	"vec2f",
+	"vec3f",
+	"vec4f",
+	"vec2i",
+	"vec3i",
+	"vec4i",
+	"vec2u",
+	"vec3u",
+	"vec4u",
+	"vec2h",
+	"vec3h",
+	"vec4h",
+	"vec2b",
+	"vec3b",
+	"vec4b"
+]), Q._matrixTypes = /* @__PURE__ */ new Set(/* @__PURE__ */ "mat2x2.mat2x3.mat2x4.mat3x2.mat3x3.mat3x4.mat4x2.mat4x3.mat4x4.mat2x2f.mat2x3f.mat2x4f.mat3x2f.mat3x3f.mat3x4f.mat4x2f.mat4x3f.mat4x4f.mat2x2h.mat2x3h.mat2x4h.mat3x2h.mat3x3h.mat3x4h.mat4x2h.mat4x3h.mat4x4h".split(".")), Q._defaultableTypes = /* @__PURE__ */ new Set([
+	...Q._numericScalarTypes,
+	...Q._vectorTypes,
+	...Q._matrixTypes,
+	"array"
+]), Q._breakObj = new vt(new S("BREAK", null), null), Q._continueObj = new vt(new S("CONTINUE", null), null), Q._priority = /* @__PURE__ */ new Map([
 	["f32", 0],
 	["f16", 1],
 	["u32", 2],
 	["i32", 3],
 	["x32", 3]
 ]);
-var Ut = class {
+var Gt = class {
 	constructor() {
 		this.constants = /* @__PURE__ */ new Map(), this.aliases = /* @__PURE__ */ new Map(), this.structs = /* @__PURE__ */ new Map();
 	}
-}, Wt = class {
+}, Kt = class e {
 	constructor() {
-		this._tokens = [], this._current = 0, this._currentLine = 1, this._deferArrayCountEval = [], this._currentLoop = [], this._context = new Ut(), this._exec = new Ht(), this._forwardTypeCount = 0;
+		this._tokens = [], this._current = 0, this._currentLine = 1, this._deferArrayCountEval = [], this._currentLoop = [], this._context = new Gt(), this._exec = new Q(), this._forwardTypeCount = 0;
+	}
+	static Parse(t) {
+		return new e().parse(t);
 	}
 	parse(e) {
 		this._initialize(e), this._deferArrayCountEval.length = 0;
@@ -6190,7 +6820,7 @@ var Ut = class {
 		if (this._deferArrayCountEval.length > 0) {
 			for (let e of this._deferArrayCountEval) {
 				let t = e.arrayType, n = e.countNode;
-				if (n instanceof L) {
+				if (n instanceof R) {
 					let e = n.name, r = this._context.constants.get(e);
 					if (r) try {
 						t.count = r.constEvaluate(this._exec);
@@ -6200,40 +6830,37 @@ var Ut = class {
 			this._deferArrayCountEval.length = 0;
 		}
 		if (this._forwardTypeCount > 0) for (let e of t) e.search((e) => {
-			e instanceof gt || e instanceof it ? e.type = this._forwardType(e.type) : e instanceof N ? e.format = this._forwardType(e.format) : e instanceof D || e instanceof ze || e instanceof Be ? e.type = this._forwardType(e.type) : e instanceof Ne ? e.returnType = this._forwardType(e.returnType) : e instanceof mt && (e.type = this._forwardType(e.type));
+			e instanceof gt || e instanceof tt ? e.type = this._forwardType(e.type) : e instanceof nt ? e.format = this._forwardType(e.format) : e instanceof A || e instanceof Ie || e instanceof Le ? e.type = this._forwardType(e.type) : e instanceof Ae ? e.returnType = this._forwardType(e.returnType) : e instanceof mt && (e.type = this._forwardType(e.type));
 		});
 		return t;
 	}
 	_forwardType(e) {
-		if (e instanceof rt) {
+		if (e instanceof et) {
 			let t = this._getType(e.name);
 			if (t) return t;
-		} else e instanceof it ? e.type = this._forwardType(e.type) : e instanceof N && (e.format = this._forwardType(e.format));
+		} else e instanceof tt ? e.type = this._forwardType(e.type) : e instanceof nt && (e.format = this._forwardType(e.format));
 		return e;
 	}
 	_initialize(e) {
-		if (e) if (typeof e == "string") {
-			let t = new xt(e);
-			this._tokens = t.scanTokens();
-		} else this._tokens = e;
-		else this._tokens = [];
+		if (e) {
+			if (typeof e == "string") {
+				let t = new wt(e);
+				this._tokens = t.scanTokens();
+			} else this._tokens = e;
+		} else this._tokens = [];
 		this._current = 0;
 	}
 	_updateNode(e, t) {
 		return e.line = t ?? this._currentLine, e;
 	}
 	_error(e, t) {
-		return {
-			token: e,
-			message: t,
-			toString: () => `${t}`
-		};
+		return /* @__PURE__ */ Error(`${t}. Line: ${e.line}`);
 	}
 	_isAtEnd() {
-		return this._current >= this._tokens.length || this._peek().type == X.eof;
+		return this._current >= this._tokens.length || this._peek().type === Y.eof;
 	}
 	_match(e) {
-		if (e instanceof Y) return !!this._check(e) && (this._advance(), !0);
+		if (e instanceof J) return !!this._check(e) && (this._advance(), !0);
 		for (let t = 0, n = e.length; t < n; ++t) {
 			let n = e[t];
 			if (this._check(n)) return this._advance(), !0;
@@ -6242,27 +6869,27 @@ var Ut = class {
 	}
 	_consume(e, t) {
 		if (this._check(e)) return this._advance();
-		throw this._error(this._peek(), `${t}. Line:${this._currentLine}`);
+		throw this._error(this._peek(), t);
 	}
 	_check(e) {
 		if (this._isAtEnd()) return !1;
 		let t = this._peek();
-		if (e instanceof Array) {
+		if (Array.isArray(e)) {
 			let n = t.type, r = !1;
 			for (let t of e) {
 				if (n === t) return !0;
-				t === X.tokens.name && (r = !0);
+				t === Y.tokens.name && (r = !0);
 			}
 			if (r) {
-				let e = X.tokens.name.rule.exec(t.lexeme);
-				if (e && e.index == 0 && e[0] == t.lexeme) return !0;
+				let e = Y.tokens.name.rule.exec(t.lexeme);
+				if (e && e.index === 0 && e[0] === t.lexeme) return !0;
 			}
 			return !1;
 		}
 		if (t.type === e) return !0;
-		if (e === X.tokens.name) {
-			let e = X.tokens.name.rule.exec(t.lexeme);
-			return e && e.index == 0 && e[0] == t.lexeme;
+		if (e === Y.tokens.name) {
+			let e = Y.tokens.name.rule.exec(t.lexeme);
+			return e && e.index === 0 && e[0] === t.lexeme;
 		}
 		return !1;
 	}
@@ -6276,128 +6903,136 @@ var Ut = class {
 		return this._tokens[this._current - 1];
 	}
 	_global_decl_or_directive() {
-		for (; this._match(X.tokens.semicolon) && !this._isAtEnd(););
-		if (this._match(X.keywords.alias)) {
+		for (; this._match(Y.tokens.semicolon) && !this._isAtEnd(););
+		if (this._match(Y.keywords.const_assert)) {
+			let e = this._global_assert();
+			return this._consume(Y.tokens.semicolon, "Expected ';'"), this._exec.reflection.updateAST([e]), e;
+		}
+		if (this._match(Y.keywords.alias)) {
 			let e = this._type_alias();
-			return this._consume(X.tokens.semicolon, "Expected ';'"), this._exec.reflection.updateAST([e]), e;
+			return this._consume(Y.tokens.semicolon, "Expected ';'"), this._exec.reflection.updateAST([e]), e;
 		}
-		if (this._match(X.keywords.diagnostic)) {
+		if (this._match(Y.keywords.diagnostic)) {
 			let e = this._diagnostic();
-			return this._consume(X.tokens.semicolon, "Expected ';'"), this._exec.reflection.updateAST([e]), e;
+			return this._consume(Y.tokens.semicolon, "Expected ';'"), this._exec.reflection.updateAST([e]), e;
 		}
-		if (this._match(X.keywords.requires)) {
+		if (this._match(Y.keywords.requires)) {
 			let e = this._requires_directive();
-			return this._consume(X.tokens.semicolon, "Expected ';'"), this._exec.reflection.updateAST([e]), e;
+			return this._consume(Y.tokens.semicolon, "Expected ';'"), this._exec.reflection.updateAST([e]), e;
 		}
-		if (this._match(X.keywords.enable)) {
+		if (this._match(Y.keywords.enable)) {
 			let e = this._enable_directive();
-			return this._consume(X.tokens.semicolon, "Expected ';'"), this._exec.reflection.updateAST([e]), e;
+			return this._consume(Y.tokens.semicolon, "Expected ';'"), this._exec.reflection.updateAST([e]), e;
 		}
 		let e = this._attribute();
-		if (this._check(X.keywords.var)) {
+		if (this._check(Y.keywords.var)) {
 			let t = this._global_variable_decl();
-			return t != null && (t.attributes = e), this._consume(X.tokens.semicolon, "Expected ';'."), this._exec.reflection.updateAST([t]), t;
+			return t != null && (t.attributes = e), this._consume(Y.tokens.semicolon, "Expected ';'."), this._exec.reflection.updateAST([t]), t;
 		}
-		if (this._check(X.keywords.override)) {
+		if (this._check(Y.keywords.override)) {
 			let t = this._override_variable_decl();
-			return t != null && (t.attributes = e), this._consume(X.tokens.semicolon, "Expected ';'."), this._exec.reflection.updateAST([t]), t;
+			return t != null && (t.attributes = e), this._consume(Y.tokens.semicolon, "Expected ';'."), this._exec.reflection.updateAST([t]), t;
 		}
-		if (this._check(X.keywords.let)) {
+		if (this._check(Y.keywords.let)) {
 			let t = this._global_let_decl();
-			return t != null && (t.attributes = e), this._consume(X.tokens.semicolon, "Expected ';'."), this._exec.reflection.updateAST([t]), t;
+			return t != null && (t.attributes = e), this._consume(Y.tokens.semicolon, "Expected ';'."), this._exec.reflection.updateAST([t]), t;
 		}
-		if (this._check(X.keywords.const)) {
+		if (this._check(Y.keywords.const)) {
 			let t = this._global_const_decl();
-			return t != null && (t.attributes = e), this._consume(X.tokens.semicolon, "Expected ';'."), this._exec.reflection.updateAST([t]), t;
+			return t != null && (t.attributes = e), this._consume(Y.tokens.semicolon, "Expected ';'."), this._exec.reflection.updateAST([t]), t;
 		}
-		if (this._check(X.keywords.struct)) {
+		if (this._check(Y.keywords.struct)) {
 			let t = this._struct_decl();
 			return t != null && (t.attributes = e), this._exec.reflection.updateAST([t]), t;
 		}
-		if (this._check(X.keywords.fn)) {
+		if (this._check(Y.keywords.fn)) {
 			let t = this._function_decl();
 			return t != null && (t.attributes = e), this._exec.reflection.updateAST([t]), t;
 		}
 		return null;
 	}
 	_function_decl() {
-		if (!this._match(X.keywords.fn)) return null;
-		let e = this._currentLine, t = this._consume(X.tokens.ident, "Expected function name.").toString();
-		this._consume(X.tokens.paren_left, "Expected '(' for function arguments.");
+		if (!this._match(Y.keywords.fn)) return null;
+		let e = this._currentLine, t = this._consume(Y.tokens.ident, "Expected function name.").toString();
+		this._consume(Y.tokens.paren_left, "Expected '(' for function arguments.");
 		let n = [];
-		if (!this._check(X.tokens.paren_right)) do {
-			if (this._check(X.tokens.paren_right)) break;
-			let e = this._attribute(), t = this._consume(X.tokens.name, "Expected argument name.").toString();
-			this._consume(X.tokens.colon, "Expected ':' for argument type.");
+		if (!this._check(Y.tokens.paren_right)) do {
+			if (this._check(Y.tokens.paren_right)) break;
+			let e = this._attribute(), t = this._consume(Y.tokens.name, "Expected argument name.").toString();
+			this._consume(Y.tokens.colon, "Expected ':' for argument type.");
 			let r = this._attribute(), i = this._type_decl();
 			i != null && (i.attributes = r, n.push(this._updateNode(new mt(t, i, e))));
-		} while (this._match(X.tokens.comma));
-		this._consume(X.tokens.paren_right, "Expected ')' after function arguments.");
+		} while (this._match(Y.tokens.comma));
+		this._consume(Y.tokens.paren_right, "Expected ')' after function arguments.");
 		let r = null;
-		if (this._match(X.tokens.arrow)) {
+		if (this._match(Y.tokens.arrow)) {
 			let e = this._attribute();
 			r = this._type_decl(), r != null && (r.attributes = e);
 		}
 		let i = this._compound_statement(), a = this._currentLine;
-		return this._updateNode(new Ne(t, n, r, i, e, a), e);
+		return this._updateNode(new Ae(t, n, r, i, e, a), e);
 	}
 	_compound_statement() {
 		let e = [];
-		for (this._consume(X.tokens.brace_left, "Expected '{' for block."); !this._check(X.tokens.brace_right);) {
+		for (this._consume(Y.tokens.brace_left, "Expected '{' for block."); !this._check(Y.tokens.brace_right);) {
 			let t = this._statement();
 			t !== null && e.push(t);
 		}
-		return this._consume(X.tokens.brace_right, "Expected '}' for block."), e;
+		return this._consume(Y.tokens.brace_right, "Expected '}' for block."), e;
 	}
 	_statement() {
-		for (; this._match(X.tokens.semicolon) && !this._isAtEnd(););
-		if (this._check(X.tokens.attr) && this._attribute(), this._check(X.keywords.if)) return this._if_statement();
-		if (this._check(X.keywords.switch)) return this._switch_statement();
-		if (this._check(X.keywords.loop)) return this._loop_statement();
-		if (this._check(X.keywords.for)) return this._for_statement();
-		if (this._check(X.keywords.while)) return this._while_statement();
-		if (this._check(X.keywords.continuing)) return this._continuing_statement();
-		if (this._check(X.keywords.static_assert)) return this._static_assert_statement();
-		if (this._check(X.tokens.brace_left)) return this._compound_statement();
+		for (; this._match(Y.tokens.semicolon) && !this._isAtEnd(););
+		if (this._check(Y.tokens.attr) && this._attribute(), this._check(Y.keywords.if)) return this._if_statement();
+		if (this._check(Y.keywords.switch)) return this._switch_statement();
+		if (this._check(Y.keywords.loop)) return this._loop_statement();
+		if (this._check(Y.keywords.for)) return this._for_statement();
+		if (this._check(Y.keywords.while)) return this._while_statement();
+		if (this._check(Y.keywords.continuing)) return this._continuing_statement();
+		if (this._check(Y.keywords.static_assert)) return this._static_assert_statement();
+		if (this._check(Y.tokens.brace_left)) return this._compound_statement();
 		let e = null;
-		if (this._check(X.keywords.return)) e = this._return_statement();
+		if (this._check(Y.keywords.return)) e = this._return_statement();
 		else if (this._check([
-			X.keywords.var,
-			X.keywords.let,
-			X.keywords.const
+			Y.keywords.var,
+			Y.keywords.let,
+			Y.keywords.const
 		])) e = this._variable_statement();
-		else if (this._match(X.keywords.discard)) e = this._updateNode(new et());
-		else if (this._match(X.keywords.break)) {
-			let t = this._updateNode(new tt());
-			this._currentLoop.length > 0 && (t.loopId = this._currentLoop[this._currentLoop.length - 1].id), e = t, this._check(X.keywords.if) && (this._advance(), t.condition = this._optional_paren_expression());
-		} else if (this._match(X.keywords.continue)) {
-			let t = this._updateNode(new nt());
-			if (!(this._currentLoop.length > 0)) throw this._error(this._peek(), `Continue statement must be inside a loop. Line: ${t.line}`);
+		else if (this._match(Y.keywords.discard)) e = this._updateNode(new Ze());
+		else if (this._match(Y.keywords.break)) {
+			let t = this._updateNode(new Qe());
+			this._currentLoop.length > 0 && (t.loopId = this._currentLoop[this._currentLoop.length - 1].id), e = t, this._check(Y.keywords.if) && (this._advance(), t.condition = this._optional_paren_expression());
+		} else if (this._match(Y.keywords.continue)) {
+			let t = this._updateNode(new $e());
+			if (!(this._currentLoop.length > 0)) throw this._error(this._peek(), "Continue statement must be inside a loop");
 			t.loopId = this._currentLoop[this._currentLoop.length - 1].id, e = t;
 		} else e = this._increment_decrement_statement() || this._func_call_statement() || this._assignment_statement();
-		return e != null && this._consume(X.tokens.semicolon, "Expected ';' after statement."), e;
+		return e != null && this._consume(Y.tokens.semicolon, "Expected ';' after statement."), e;
 	}
 	_static_assert_statement() {
-		if (!this._match(X.keywords.static_assert)) return null;
+		if (!this._match(Y.keywords.static_assert)) return null;
 		let e = this._currentLine, t = this._optional_paren_expression();
-		return this._updateNode(new Pe(t), e);
+		return this._updateNode(new je(t), e);
+	}
+	_global_assert() {
+		let e = this._currentLine, t = this._short_circuit_or_expression();
+		return this._updateNode(new je(t), e);
 	}
 	_while_statement() {
-		if (!this._match(X.keywords.while)) return null;
-		let e = this._updateNode(new Fe(null, null));
-		return this._currentLoop.push(e), e.condition = this._optional_paren_expression(), this._check(X.tokens.attr) && this._attribute(), e.body = this._compound_statement(), this._currentLoop.pop(), e;
+		if (!this._match(Y.keywords.while)) return null;
+		let e = this._updateNode(new Me(null, null));
+		return this._currentLoop.push(e), e.condition = this._optional_paren_expression(), this._check(Y.tokens.attr) && this._attribute(), e.body = this._compound_statement(), this._currentLoop.pop(), e;
 	}
 	_continuing_statement() {
 		let e = this._currentLoop.length > 0 ? this._currentLoop[this._currentLoop.length - 1].id : -1;
-		if (!this._match(X.keywords.continuing)) return null;
+		if (!this._match(Y.keywords.continuing)) return null;
 		let t = this._currentLine, n = this._compound_statement();
-		return this._updateNode(new Ie(n, e), t);
+		return this._updateNode(new Ne(n, e), t);
 	}
 	_for_statement() {
-		if (!this._match(X.keywords.for)) return null;
-		this._consume(X.tokens.paren_left, "Expected '('.");
-		let e = this._updateNode(new Le(null, null, null, null));
-		return this._currentLoop.push(e), e.init = this._check(X.tokens.semicolon) ? null : this._for_init(), this._consume(X.tokens.semicolon, "Expected ';'."), e.condition = this._check(X.tokens.semicolon) ? null : this._short_circuit_or_expression(), this._consume(X.tokens.semicolon, "Expected ';'."), e.increment = this._check(X.tokens.paren_right) ? null : this._for_increment(), this._consume(X.tokens.paren_right, "Expected ')'."), this._check(X.tokens.attr) && this._attribute(), e.body = this._compound_statement(), this._currentLoop.pop(), e;
+		if (!this._match(Y.keywords.for)) return null;
+		this._consume(Y.tokens.paren_left, "Expected '('.");
+		let e = this._updateNode(new Pe(null, null, null, null));
+		return this._currentLoop.push(e), e.init = this._check(Y.tokens.semicolon) ? null : this._for_init(), this._consume(Y.tokens.semicolon, "Expected ';'."), e.condition = this._check(Y.tokens.semicolon) ? null : this._short_circuit_or_expression(), this._consume(Y.tokens.semicolon, "Expected ';'."), e.increment = this._check(Y.tokens.paren_right) ? null : this._for_increment(), this._consume(Y.tokens.paren_right, "Expected ')'."), this._check(Y.tokens.attr) && this._attribute(), e.body = this._compound_statement(), this._currentLoop.pop(), e;
 	}
 	_for_init() {
 		return this._variable_statement() || this._func_call_statement() || this._assignment_statement();
@@ -6406,199 +7041,199 @@ var Ut = class {
 		return this._func_call_statement() || this._increment_decrement_statement() || this._assignment_statement();
 	}
 	_variable_statement() {
-		if (this._check(X.keywords.var)) {
+		if (this._check(Y.keywords.var)) {
 			let e = this._variable_decl();
 			if (e === null) throw this._error(this._peek(), "Variable declaration expected.");
 			let t = null;
-			return this._match(X.tokens.equal) && (t = this._short_circuit_or_expression()), this._updateNode(new D(e.name, e.type, e.storage, e.access, t), e.line);
+			return this._match(Y.tokens.equal) && (t = this._short_circuit_or_expression()), this._updateNode(new A(e.name, e.type, e.storage, e.access, t), e.line);
 		}
-		if (this._match(X.keywords.let)) {
-			let e = this._currentLine, t = this._consume(X.tokens.name, "Expected name for let.").toString(), n = null;
-			if (this._match(X.tokens.colon)) {
+		if (this._match(Y.keywords.let)) {
+			let e = this._currentLine, t = this._consume(Y.tokens.name, "Expected name for let.").toString(), n = null;
+			if (this._match(Y.tokens.colon)) {
 				let e = this._attribute();
 				n = this._type_decl(), n != null && (n.attributes = e);
 			}
-			this._consume(X.tokens.equal, "Expected '=' for let.");
+			this._consume(Y.tokens.equal, "Expected '=' for let.");
 			let r = this._short_circuit_or_expression();
-			return this._updateNode(new ze(t, n, null, null, r), e);
+			return this._updateNode(new Ie(t, n, null, null, r), e);
 		}
-		if (this._match(X.keywords.const)) {
-			let e = this._currentLine, t = this._consume(X.tokens.name, "Expected name for const.").toString(), n = null;
-			if (this._match(X.tokens.colon)) {
+		if (this._match(Y.keywords.const)) {
+			let e = this._currentLine, t = this._consume(Y.tokens.name, "Expected name for const.").toString(), n = null;
+			if (this._match(Y.tokens.colon)) {
 				let e = this._attribute();
 				n = this._type_decl(), n != null && (n.attributes = e);
 			}
-			this._consume(X.tokens.equal, "Expected '=' for const.");
+			this._consume(Y.tokens.equal, "Expected '=' for const.");
 			let r = this._short_circuit_or_expression();
-			return n === null && r instanceof R && (n = r.type), this._updateNode(new Be(t, n, null, null, r), e);
+			return n === null && r instanceof z && (n = r.type), this._updateNode(new Le(t, n, null, null, r), e);
 		}
 		return null;
 	}
 	_increment_decrement_statement() {
 		let e = this._current, t = this._unary_expression();
-		if (t == null) return null;
-		if (!this._check(X.increment_operators)) return this._current = e, null;
-		let n = this._consume(X.increment_operators, "Expected increment operator");
-		return this._updateNode(new Ue(n.type === X.tokens.plus_plus ? Ve.increment : Ve.decrement, t));
+		if (t === null) return null;
+		if (!this._check(Y.increment_operators)) return this._current = e, null;
+		let n = this._consume(Y.increment_operators, "Expected increment operator");
+		return this._updateNode(new Be(n.type === Y.tokens.plus_plus ? Re.increment : Re.decrement, t));
 	}
 	_assignment_statement() {
 		let e = null, t = this._currentLine;
-		if (this._check(X.tokens.brace_right)) return null;
-		let n = this._match(X.tokens.underscore);
-		if (n || (e = this._unary_expression()), !n && e == null) return null;
-		let r = this._consume(X.assignment_operators, "Expected assignment operator."), i = this._short_circuit_or_expression();
-		return this._updateNode(new We(He.parse(r.lexeme), e, i), t);
+		if (this._check(Y.tokens.brace_right)) return null;
+		let n = this._match(Y.tokens.underscore);
+		if (n || (e = this._unary_expression()), !n && e === null) return null;
+		let r = this._consume(Y.assignment_operators, "Expected assignment operator."), i = this._short_circuit_or_expression();
+		return this._updateNode(new Ve(ze.parse(r.lexeme), e, i), t);
 	}
 	_func_call_statement() {
-		if (!this._check(X.tokens.ident)) return null;
-		let e = this._currentLine, t = this._current, n = this._consume(X.tokens.ident, "Expected function name."), r = this._argument_expression_list();
-		return r === null ? (this._current = t, null) : this._updateNode(new Ge(n.lexeme, r), e);
+		if (!this._check(Y.tokens.ident)) return null;
+		let e = this._currentLine, t = this._current, n = this._consume(Y.tokens.ident, "Expected function name."), r = this._argument_expression_list();
+		return r === null ? (this._current = t, null) : this._updateNode(new He(n.lexeme, r), e);
 	}
 	_loop_statement() {
-		if (!this._match(X.keywords.loop)) return null;
-		this._check(X.tokens.attr) && this._attribute(), this._consume(X.tokens.brace_left, "Expected '{' for loop.");
-		let e = this._updateNode(new Ke([], null));
+		if (!this._match(Y.keywords.loop)) return null;
+		this._check(Y.tokens.attr) && this._attribute(), this._consume(Y.tokens.brace_left, "Expected '{' for loop.");
+		let e = this._updateNode(new Ue([], null));
 		this._currentLoop.push(e);
 		let t = this._statement();
 		for (; t !== null;) {
 			if (Array.isArray(t)) for (let n of t) e.body.push(n);
 			else e.body.push(t);
-			if (t instanceof Ie) {
+			if (t instanceof Ne) {
 				e.continuing = t;
 				break;
 			}
 			t = this._statement();
 		}
-		return this._currentLoop.pop(), this._consume(X.tokens.brace_right, "Expected '}' for loop."), e;
+		return this._currentLoop.pop(), this._consume(Y.tokens.brace_right, "Expected '}' for loop."), e;
 	}
 	_switch_statement() {
-		if (!this._match(X.keywords.switch)) return null;
-		let e = this._updateNode(new qe(null, []));
-		if (this._currentLoop.push(e), e.condition = this._optional_paren_expression(), this._check(X.tokens.attr) && this._attribute(), this._consume(X.tokens.brace_left, "Expected '{' for switch."), e.cases = this._switch_body(), e.cases == null || e.cases.length == 0) throw this._error(this._previous(), "Expected 'case' or 'default'.");
-		return this._consume(X.tokens.brace_right, "Expected '}' for switch."), this._currentLoop.pop(), e;
+		if (!this._match(Y.keywords.switch)) return null;
+		let e = this._updateNode(new We(null, []));
+		if (this._currentLoop.push(e), e.condition = this._optional_paren_expression(), this._check(Y.tokens.attr) && this._attribute(), this._consume(Y.tokens.brace_left, "Expected '{' for switch."), e.cases = this._switch_body(), e.cases === null || e.cases.length === 0) throw this._error(this._previous(), "Expected 'case' or 'default'.");
+		return this._consume(Y.tokens.brace_right, "Expected '}' for switch."), this._currentLoop.pop(), e;
 	}
 	_switch_body() {
 		let e = [], t = !1;
-		for (; this._check([X.keywords.default, X.keywords.case]);) {
-			if (this._match(X.keywords.case)) {
+		for (; this._check([Y.keywords.default, Y.keywords.case]);) {
+			if (this._match(Y.keywords.case)) {
 				let n = this._case_selectors();
 				for (let e of n) if (e instanceof dt) {
 					if (t) throw this._error(this._previous(), "Multiple default cases in switch statement.");
 					t = !0;
 					break;
 				}
-				this._match(X.tokens.colon), this._check(X.tokens.attr) && this._attribute(), this._consume(X.tokens.brace_left, "Exected '{' for switch case.");
+				this._match(Y.tokens.colon), this._check(Y.tokens.attr) && this._attribute(), this._consume(Y.tokens.brace_left, "Exected '{' for switch case.");
 				let r = this._case_body();
-				this._consume(X.tokens.brace_right, "Exected '}' for switch case."), e.push(this._updateNode(new ft(n, r)));
+				this._consume(Y.tokens.brace_right, "Exected '}' for switch case."), e.push(this._updateNode(new ft(n, r)));
 			}
-			if (this._match(X.keywords.default)) {
+			if (this._match(Y.keywords.default)) {
 				if (t) throw this._error(this._previous(), "Multiple default cases in switch statement.");
-				this._match(X.tokens.colon), this._check(X.tokens.attr) && this._attribute(), this._consume(X.tokens.brace_left, "Exected '{' for switch default.");
+				this._match(Y.tokens.colon), this._check(Y.tokens.attr) && this._attribute(), this._consume(Y.tokens.brace_left, "Exected '{' for switch default.");
 				let n = this._case_body();
-				this._consume(X.tokens.brace_right, "Exected '}' for switch default."), e.push(this._updateNode(new pt(n)));
+				this._consume(Y.tokens.brace_right, "Exected '}' for switch default."), e.push(this._updateNode(new pt(n)));
 			}
 		}
 		return e;
 	}
 	_case_selectors() {
 		let e = [];
-		for (this._match(X.keywords.default) ? e.push(this._updateNode(new dt())) : e.push(this._shift_expression()); this._match(X.tokens.comma);) this._match(X.keywords.default) ? e.push(this._updateNode(new dt())) : e.push(this._shift_expression());
+		for (this._match(Y.keywords.default) ? e.push(this._updateNode(new dt())) : e.push(this._shift_expression()); this._match(Y.tokens.comma);) this._match(Y.keywords.default) ? e.push(this._updateNode(new dt())) : e.push(this._shift_expression());
 		return e;
 	}
 	_case_body() {
-		if (this._match(X.keywords.fallthrough)) return this._consume(X.tokens.semicolon, "Expected ';'"), [];
+		if (this._match(Y.keywords.fallthrough)) return this._consume(Y.tokens.semicolon, "Expected ';'"), [];
 		let e = this._statement();
-		if (e == null) return [];
-		e instanceof Array || (e = [e]);
+		if (e === null) return [];
+		Array.isArray(e) || (e = [e]);
 		let t = this._case_body();
-		return t.length == 0 ? e : [...e, t[0]];
+		return t.length === 0 ? e : [...e, t[0]];
 	}
 	_if_statement() {
-		if (!this._match(X.keywords.if)) return null;
+		if (!this._match(Y.keywords.if)) return null;
 		let e = this._currentLine, t = this._optional_paren_expression();
-		this._check(X.tokens.attr) && this._attribute();
+		this._check(Y.tokens.attr) && this._attribute();
 		let n = this._compound_statement(), r = [];
-		this._match_elseif() && (this._check(X.tokens.attr) && this._attribute(), r = this._elseif_statement(r));
+		this._match_elseif() && (this._check(Y.tokens.attr) && this._attribute(), r = this._elseif_statement(r));
 		let i = null;
-		return this._match(X.keywords.else) && (this._check(X.tokens.attr) && this._attribute(), i = this._compound_statement()), this._updateNode(new Je(t, n, r, i), e);
+		return this._match(Y.keywords.else) && (this._check(Y.tokens.attr) && this._attribute(), i = this._compound_statement()), this._updateNode(new Ge(t, n, r, i), e);
 	}
 	_match_elseif() {
-		return this._tokens[this._current].type === X.keywords.else && this._tokens[this._current + 1].type === X.keywords.if && (this._advance(), this._advance(), !0);
+		return this._tokens[this._current].type === Y.keywords.else && this._tokens[this._current + 1].type === Y.keywords.if && (this._advance(), this._advance(), !0);
 	}
 	_elseif_statement(e = []) {
 		let t = this._optional_paren_expression(), n = this._compound_statement();
-		return e.push(this._updateNode(new ht(t, n))), this._match_elseif() && (this._check(X.tokens.attr) && this._attribute(), this._elseif_statement(e)), e;
+		return e.push(this._updateNode(new ht(t, n))), this._match_elseif() && (this._check(Y.tokens.attr) && this._attribute(), this._elseif_statement(e)), e;
 	}
 	_return_statement() {
-		if (!this._match(X.keywords.return)) return null;
+		if (!this._match(Y.keywords.return)) return null;
 		let e = this._short_circuit_or_expression();
-		return this._updateNode(new Ye(e));
+		return this._updateNode(new Ke(e));
 	}
 	_short_circuit_or_expression() {
 		let e = this._short_circuit_and_expr();
-		for (; this._match(X.tokens.or_or);) e = this._updateNode(new V(this._previous().toString(), e, this._short_circuit_and_expr()));
+		for (; this._match(Y.tokens.or_or);) e = this._updateNode(new V(this._previous().toString(), e, this._short_circuit_and_expr()));
 		return e;
 	}
 	_short_circuit_and_expr() {
 		let e = this._inclusive_or_expression();
-		for (; this._match(X.tokens.and_and);) e = this._updateNode(new V(this._previous().toString(), e, this._inclusive_or_expression()));
+		for (; this._match(Y.tokens.and_and);) e = this._updateNode(new V(this._previous().toString(), e, this._inclusive_or_expression()));
 		return e;
 	}
 	_inclusive_or_expression() {
 		let e = this._exclusive_or_expression();
-		for (; this._match(X.tokens.or);) e = this._updateNode(new V(this._previous().toString(), e, this._exclusive_or_expression()));
+		for (; this._match(Y.tokens.or);) e = this._updateNode(new V(this._previous().toString(), e, this._exclusive_or_expression()));
 		return e;
 	}
 	_exclusive_or_expression() {
 		let e = this._and_expression();
-		for (; this._match(X.tokens.xor);) e = this._updateNode(new V(this._previous().toString(), e, this._and_expression()));
+		for (; this._match(Y.tokens.xor);) e = this._updateNode(new V(this._previous().toString(), e, this._and_expression()));
 		return e;
 	}
 	_and_expression() {
 		let e = this._equality_expression();
-		for (; this._match(X.tokens.and);) e = this._updateNode(new V(this._previous().toString(), e, this._equality_expression()));
+		for (; this._match(Y.tokens.and);) e = this._updateNode(new V(this._previous().toString(), e, this._equality_expression()));
 		return e;
 	}
 	_equality_expression() {
 		let e = this._relational_expression();
-		return this._match([X.tokens.equal_equal, X.tokens.not_equal]) ? this._updateNode(new V(this._previous().toString(), e, this._relational_expression())) : e;
+		return this._match([Y.tokens.equal_equal, Y.tokens.not_equal]) ? this._updateNode(new V(this._previous().toString(), e, this._relational_expression())) : e;
 	}
 	_relational_expression() {
 		let e = this._shift_expression();
 		for (; this._match([
-			X.tokens.less_than,
-			X.tokens.greater_than,
-			X.tokens.less_than_equal,
-			X.tokens.greater_than_equal
+			Y.tokens.less_than,
+			Y.tokens.greater_than,
+			Y.tokens.less_than_equal,
+			Y.tokens.greater_than_equal
 		]);) e = this._updateNode(new V(this._previous().toString(), e, this._shift_expression()));
 		return e;
 	}
 	_shift_expression() {
 		let e = this._additive_expression();
-		for (; this._match([X.tokens.shift_left, X.tokens.shift_right]);) e = this._updateNode(new V(this._previous().toString(), e, this._additive_expression()));
+		for (; this._match([Y.tokens.shift_left, Y.tokens.shift_right]);) e = this._updateNode(new V(this._previous().toString(), e, this._additive_expression()));
 		return e;
 	}
 	_additive_expression() {
 		let e = this._multiplicative_expression();
-		for (; this._match([X.tokens.plus, X.tokens.minus]);) e = this._updateNode(new V(this._previous().toString(), e, this._multiplicative_expression()));
+		for (; this._match([Y.tokens.plus, Y.tokens.minus]);) e = this._updateNode(new V(this._previous().toString(), e, this._multiplicative_expression()));
 		return e;
 	}
 	_multiplicative_expression() {
 		let e = this._unary_expression();
 		for (; this._match([
-			X.tokens.star,
-			X.tokens.forward_slash,
-			X.tokens.modulo
+			Y.tokens.star,
+			Y.tokens.forward_slash,
+			Y.tokens.modulo
 		]);) e = this._updateNode(new V(this._previous().toString(), e, this._unary_expression()));
 		return e;
 	}
 	_unary_expression() {
 		return this._match([
-			X.tokens.minus,
-			X.tokens.bang,
-			X.tokens.tilde,
-			X.tokens.star,
-			X.tokens.and
+			Y.tokens.minus,
+			Y.tokens.bang,
+			Y.tokens.tilde,
+			Y.tokens.star,
+			Y.tokens.and
 		]) ? this._updateNode(new B(this._previous().toString(), this._unary_expression())) : this._singular_expression();
 	}
 	_singular_expression() {
@@ -6606,306 +7241,305 @@ var Ut = class {
 		return t && (e.postfix = t), e;
 	}
 	_postfix_expression() {
-		if (this._match(X.tokens.bracket_left)) {
+		if (this._match(Y.tokens.bracket_left)) {
 			let e = this._short_circuit_or_expression();
-			this._consume(X.tokens.bracket_right, "Expected ']'.");
-			let t = this._updateNode(new z(e)), n = this._postfix_expression();
+			this._consume(Y.tokens.bracket_right, "Expected ']'.");
+			let t = this._updateNode(new ct(e)), n = this._postfix_expression();
 			return n && (t.postfix = n), t;
 		}
-		if (this._match(X.tokens.period)) {
-			let e = this._consume(X.tokens.name, "Expected member name."), t = this._postfix_expression(), n = this._updateNode(new F(e.lexeme));
+		if (this._match(Y.tokens.period)) {
+			let e = this._consume(Y.tokens.name, "Expected member name."), t = this._postfix_expression(), n = this._updateNode(new it(e.lexeme));
 			return t && (n.postfix = t), n;
 		}
 		return null;
 	}
 	_getStruct(e) {
-		return this._context.aliases.has(e) ? this._context.aliases.get(e).type : this._context.structs.has(e) ? this._context.structs.get(e) : null;
+		return this._context.aliases.has(e) ? this._context.aliases.get(e)?.type ?? null : this._context.structs.has(e) ? this._context.structs.get(e) ?? null : null;
 	}
 	_getType(e) {
 		let t = this._getStruct(e);
 		if (t !== null) return t;
 		switch (e) {
-			case "void": return A.void;
-			case "bool": return A.bool;
-			case "i32": return A.i32;
-			case "u32": return A.u32;
-			case "f32": return A.f32;
-			case "f16": return A.f16;
-			case "vec2f": return M.vec2f;
-			case "vec3f": return M.vec3f;
-			case "vec4f": return M.vec4f;
-			case "vec2i": return M.vec2i;
-			case "vec3i": return M.vec3i;
-			case "vec4i": return M.vec4i;
-			case "vec2u": return M.vec2u;
-			case "vec3u": return M.vec3u;
-			case "vec4u": return M.vec4u;
-			case "vec2h": return M.vec2h;
-			case "vec3h": return M.vec3h;
-			case "vec4h": return M.vec4h;
-			case "mat2x2f": return M.mat2x2f;
-			case "mat2x3f": return M.mat2x3f;
-			case "mat2x4f": return M.mat2x4f;
-			case "mat3x2f": return M.mat3x2f;
-			case "mat3x3f": return M.mat3x3f;
-			case "mat3x4f": return M.mat3x4f;
-			case "mat4x2f": return M.mat4x2f;
-			case "mat4x3f": return M.mat4x3f;
-			case "mat4x4f": return M.mat4x4f;
-			case "mat2x2h": return M.mat2x2h;
-			case "mat2x3h": return M.mat2x3h;
-			case "mat2x4h": return M.mat2x4h;
-			case "mat3x2h": return M.mat3x2h;
-			case "mat3x3h": return M.mat3x3h;
-			case "mat3x4h": return M.mat3x4h;
-			case "mat4x2h": return M.mat4x2h;
-			case "mat4x3h": return M.mat4x3h;
-			case "mat4x4h": return M.mat4x4h;
-			case "mat2x2i": return M.mat2x2i;
-			case "mat2x3i": return M.mat2x3i;
-			case "mat2x4i": return M.mat2x4i;
-			case "mat3x2i": return M.mat3x2i;
-			case "mat3x3i": return M.mat3x3i;
-			case "mat3x4i": return M.mat3x4i;
-			case "mat4x2i": return M.mat4x2i;
-			case "mat4x3i": return M.mat4x3i;
-			case "mat4x4i": return M.mat4x4i;
-			case "mat2x2u": return M.mat2x2u;
-			case "mat2x3u": return M.mat2x3u;
-			case "mat2x4u": return M.mat2x4u;
-			case "mat3x2u": return M.mat3x2u;
-			case "mat3x3u": return M.mat3x3u;
-			case "mat3x4u": return M.mat3x4u;
-			case "mat4x2u": return M.mat4x2u;
-			case "mat4x3u": return M.mat4x3u;
-			case "mat4x4u": return M.mat4x4u;
+			case "void": return N.void;
+			case "bool": return N.bool;
+			case "i32": return N.i32;
+			case "u32": return N.u32;
+			case "f32": return N.f32;
+			case "f16": return N.f16;
+			case "vec2f": return F.vec2f;
+			case "vec3f": return F.vec3f;
+			case "vec4f": return F.vec4f;
+			case "vec2i": return F.vec2i;
+			case "vec3i": return F.vec3i;
+			case "vec4i": return F.vec4i;
+			case "vec2u": return F.vec2u;
+			case "vec3u": return F.vec3u;
+			case "vec4u": return F.vec4u;
+			case "vec2h": return F.vec2h;
+			case "vec3h": return F.vec3h;
+			case "vec4h": return F.vec4h;
+			case "mat2x2f": return F.mat2x2f;
+			case "mat2x3f": return F.mat2x3f;
+			case "mat2x4f": return F.mat2x4f;
+			case "mat3x2f": return F.mat3x2f;
+			case "mat3x3f": return F.mat3x3f;
+			case "mat3x4f": return F.mat3x4f;
+			case "mat4x2f": return F.mat4x2f;
+			case "mat4x3f": return F.mat4x3f;
+			case "mat4x4f": return F.mat4x4f;
+			case "mat2x2h": return F.mat2x2h;
+			case "mat2x3h": return F.mat2x3h;
+			case "mat2x4h": return F.mat2x4h;
+			case "mat3x2h": return F.mat3x2h;
+			case "mat3x3h": return F.mat3x3h;
+			case "mat3x4h": return F.mat3x4h;
+			case "mat4x2h": return F.mat4x2h;
+			case "mat4x3h": return F.mat4x3h;
+			case "mat4x4h": return F.mat4x4h;
+			case "mat2x2i": return F.mat2x2i;
+			case "mat2x3i": return F.mat2x3i;
+			case "mat2x4i": return F.mat2x4i;
+			case "mat3x2i": return F.mat3x2i;
+			case "mat3x3i": return F.mat3x3i;
+			case "mat3x4i": return F.mat3x4i;
+			case "mat4x2i": return F.mat4x2i;
+			case "mat4x3i": return F.mat4x3i;
+			case "mat4x4i": return F.mat4x4i;
+			case "mat2x2u": return F.mat2x2u;
+			case "mat2x3u": return F.mat2x3u;
+			case "mat2x4u": return F.mat2x4u;
+			case "mat3x2u": return F.mat3x2u;
+			case "mat3x3u": return F.mat3x3u;
+			case "mat3x4u": return F.mat3x4u;
+			case "mat4x2u": return F.mat4x2u;
+			case "mat4x3u": return F.mat4x3u;
+			case "mat4x4u": return F.mat4x4u;
 		}
 		return null;
 	}
 	_validateTypeRange(e, t) {
 		if (t.name === "i32") {
-			if (e < -2147483648 || e > 2147483647) throw this._error(this._previous(), `Value out of range for i32: ${e}. Line: ${this._currentLine}.`);
-		} else if (t.name === "u32" && (e < 0 || e > 4294967295)) throw this._error(this._previous(), `Value out of range for u32: ${e}. Line: ${this._currentLine}.`);
+			if (e < -2147483648 || e > 2147483647) throw this._error(this._previous(), `Value out of range for i32: ${e}`);
+		} else if (t.name === "u32" && (e < 0 || e > 4294967295)) throw this._error(this._previous(), `Value out of range for u32: ${e}`);
 	}
 	_primary_expression() {
-		if (this._match(X.tokens.ident)) {
+		if (this._match(Y.tokens.ident)) {
 			let e = this._previous().toString();
-			if (this._check(X.tokens.paren_left)) {
+			if (this._check(Y.tokens.paren_left)) {
 				let t = this._argument_expression_list(), n = this._getType(e);
-				return n === null ? this._updateNode(new ot(e, t)) : this._updateNode(new I(n, t));
+				return n === null ? this._updateNode(new at(e, t)) : this._updateNode(new L(n, t));
 			}
 			if (this._context.constants.has(e)) {
 				let t = this._context.constants.get(e);
-				return this._updateNode(new st(e, t.value));
+				if (t) return this._updateNode(new ot(e, t.value));
 			}
-			return this._updateNode(new L(e));
+			return this._updateNode(new R(e));
 		}
-		if (this._match(X.tokens.int_literal)) {
-			let e = this._previous().toString(), t = e.endsWith("i") || e.endsWith("i") ? A.i32 : e.endsWith("u") || e.endsWith("U") ? A.u32 : A.x32, n = parseInt(e);
-			return this._validateTypeRange(n, t), this._updateNode(new R(new W(n, this._exec.getTypeInfo(t)), t));
+		if (this._match(Y.tokens.int_literal)) {
+			let e = this._previous().toString(), t = e.endsWith("i") || e.endsWith("i") ? N.i32 : e.endsWith("u") || e.endsWith("U") ? N.u32 : N.x32, n = parseInt(e);
+			return this._validateTypeRange(n, t), this._updateNode(new z(new U(n, this._exec.getTypeInfo(t)), t));
 		}
-		if (this._match(X.tokens.uint_literal)) {
+		if (this._match(Y.tokens.uint_literal)) {
 			let e = parseInt(this._previous().toString());
-			return this._validateTypeRange(e, A.u32), this._updateNode(new R(new W(e, this._exec.getTypeInfo(A.u32)), A.u32));
+			return this._validateTypeRange(e, N.u32), this._updateNode(new z(new U(e, this._exec.getTypeInfo(N.u32)), N.u32));
 		}
-		if (this._match([X.tokens.decimal_float_literal, X.tokens.hex_float_literal])) {
+		if (this._match([Y.tokens.decimal_float_literal, Y.tokens.hex_float_literal])) {
 			let e = this._previous().toString(), t = e.endsWith("h");
 			t && (e = e.substring(0, e.length - 1));
 			let n = parseFloat(e);
-			this._validateTypeRange(n, t ? A.f16 : A.f32);
-			let r = t ? A.f16 : A.f32;
-			return this._updateNode(new R(new W(n, this._exec.getTypeInfo(r)), r));
+			this._validateTypeRange(n, t ? N.f16 : N.f32);
+			let r = t ? N.f16 : N.f32;
+			return this._updateNode(new z(new U(n, this._exec.getTypeInfo(r)), r));
 		}
-		if (this._match([X.keywords.true, X.keywords.false])) {
-			let e = this._previous().toString() === X.keywords.true.rule;
-			return this._updateNode(new R(new W(+!!e, this._exec.getTypeInfo(A.bool)), A.bool));
+		if (this._match([Y.keywords.true, Y.keywords.false])) {
+			let e = this._previous().toString() === Y.keywords.true.rule;
+			return this._updateNode(new z(new U(+!!e, this._exec.getTypeInfo(N.bool)), N.bool));
 		}
-		if (this._check(X.tokens.paren_left)) return this._paren_expression();
-		if (this._match(X.keywords.bitcast)) {
-			this._consume(X.tokens.less_than, "Expected '<'.");
+		if (this._check(Y.tokens.paren_left)) return this._paren_expression();
+		if (this._match(Y.keywords.bitcast)) {
+			this._consume(Y.tokens.less_than, "Expected '<'.");
 			let e = this._type_decl();
-			this._consume(X.tokens.greater_than, "Expected '>'.");
+			this._consume(Y.tokens.greater_than, "Expected '>'.");
 			let t = this._paren_expression();
-			return this._updateNode(new ct(e, t));
+			return this._updateNode(new st(e, t));
 		}
 		let e = this._type_decl(), t = this._argument_expression_list();
-		return this._updateNode(new I(e, t));
+		return this._updateNode(new L(e, t));
 	}
 	_argument_expression_list() {
-		if (!this._match(X.tokens.paren_left)) return null;
+		if (!this._match(Y.tokens.paren_left)) return null;
 		let e = [];
 		do {
-			if (this._check(X.tokens.paren_right)) break;
+			if (this._check(Y.tokens.paren_right)) break;
 			let t = this._short_circuit_or_expression();
 			e.push(t);
-		} while (this._match(X.tokens.comma));
-		return this._consume(X.tokens.paren_right, "Expected ')' for agument list"), e;
+		} while (this._match(Y.tokens.comma));
+		return this._consume(Y.tokens.paren_right, "Expected ')' for argument list"), e;
 	}
 	_optional_paren_expression() {
-		this._match(X.tokens.paren_left);
-		let e = this._short_circuit_or_expression();
-		return this._match(X.tokens.paren_right), e;
+		let e = this._match(Y.tokens.paren_left), t = this._short_circuit_or_expression();
+		return t.hasParen = e, e && this._consume(Y.tokens.paren_right, "Expected ')'."), t;
 	}
 	_paren_expression() {
-		this._consume(X.tokens.paren_left, "Expected '('.");
+		this._consume(Y.tokens.paren_left, "Expected '('.");
 		let e = this._short_circuit_or_expression();
-		return this._consume(X.tokens.paren_right, "Expected ')'."), e;
+		return this._consume(Y.tokens.paren_right, "Expected ')'."), e.hasParen = !0, e;
 	}
 	_struct_decl() {
-		if (!this._match(X.keywords.struct)) return null;
-		let e = this._currentLine, t = this._consume(X.tokens.ident, "Expected name for struct.").toString();
-		this._consume(X.tokens.brace_left, "Expected '{' for struct body.");
+		if (!this._match(Y.keywords.struct)) return null;
+		let e = this._currentLine, t = this._consume(Y.tokens.ident, "Expected name for struct.").toString();
+		this._consume(Y.tokens.brace_left, "Expected '{' for struct body.");
 		let n = [];
-		for (; !this._check(X.tokens.brace_right);) {
-			let e = this._attribute(), t = this._consume(X.tokens.name, "Expected variable name.").toString();
-			this._consume(X.tokens.colon, "Expected ':' for struct member type.");
+		for (; !this._check(Y.tokens.brace_right);) {
+			let e = this._attribute(), t = this._consume(Y.tokens.name, "Expected variable name.").toString();
+			this._consume(Y.tokens.colon, "Expected ':' for struct member type.");
 			let r = this._attribute(), i = this._type_decl();
-			i != null && (i.attributes = r), this._check(X.tokens.brace_right) ? this._match(X.tokens.comma) : this._consume(X.tokens.comma, "Expected ',' for struct member."), n.push(this._updateNode(new gt(t, i, e)));
+			i != null && (i.attributes = r), this._check(Y.tokens.brace_right) ? this._match(Y.tokens.comma) : this._consume(Y.tokens.comma, "Expected ',' for struct member."), n.push(this._updateNode(new gt(t, i, e)));
 		}
-		this._consume(X.tokens.brace_right, "Expected '}' after struct body.");
-		let r = this._currentLine, i = this._updateNode(new j(t, n, e, r), e);
+		this._consume(Y.tokens.brace_right, "Expected '}' after struct body.");
+		let r = this._currentLine, i = this._updateNode(new P(t, n, e, r), e);
 		return this._context.structs.set(t, i), i;
 	}
 	_global_variable_decl() {
 		let e = this._variable_decl();
 		if (!e) return null;
-		if (this._match(X.tokens.equal) && (e.value = this._const_expression()), e.type !== null && e.value instanceof R) {
-			if (e.value.type.name !== "x32" && e.type.getTypeName() !== e.value.type.getTypeName()) throw this._error(this._peek(), `Invalid cast from ${e.value.type.name} to ${e.type.name}. Line:${this._currentLine}`);
+		if (this._match(Y.tokens.equal) && (e.value = this._const_expression()), e.type !== null && e.value instanceof z) {
+			if (e.value.type.name !== "x32" && e.type.getTypeName() !== e.value.type.getTypeName()) throw this._error(this._peek(), `Invalid cast from ${e.value.type.name} to ${e.type.name}`);
 			e.value.isScalar && this._validateTypeRange(e.value.scalarValue, e.type), e.value.type = e.type;
-		} else e.type === null && e.value instanceof R && (e.type = e.value.type.name === "x32" ? A.i32 : e.value.type, e.value.isScalar && this._validateTypeRange(e.value.scalarValue, e.type));
+		} else e.type === null && e.value instanceof z && (e.type = e.value.type.name === "x32" ? N.i32 : e.value.type, e.value.isScalar && this._validateTypeRange(e.value.scalarValue, e.type));
 		return e;
 	}
 	_override_variable_decl() {
 		let e = this._override_decl();
-		return e && this._match(X.tokens.equal) && (e.value = this._const_expression()), e;
+		return e && this._match(Y.tokens.equal) && (e.value = this._const_expression()), e;
 	}
 	_global_const_decl() {
-		if (!this._match(X.keywords.const)) return null;
-		let e = this._consume(X.tokens.name, "Expected variable name"), t = this._currentLine, n = null;
-		if (this._match(X.tokens.colon)) {
+		if (!this._match(Y.keywords.const)) return null;
+		let e = this._consume(Y.tokens.name, "Expected variable name"), t = this._currentLine, n = null;
+		if (this._match(Y.tokens.colon)) {
 			let e = this._attribute();
 			n = this._type_decl(), n != null && (n.attributes = e);
 		}
 		let r = null;
-		this._consume(X.tokens.equal, "const declarations require an assignment");
+		this._consume(Y.tokens.equal, "const declarations require an assignment");
 		let i = this._short_circuit_or_expression();
 		try {
-			let t = [A.f32], n = i.constEvaluate(this._exec, t);
-			n instanceof W && this._validateTypeRange(n.value, t[0]), t[0] instanceof M && t[0].format === null && n.typeInfo instanceof b && n.typeInfo.format !== null && (n.typeInfo.format.name === "f16" ? t[0].format = A.f16 : n.typeInfo.format.name === "f32" ? t[0].format = A.f32 : n.typeInfo.format.name === "i32" ? t[0].format = A.i32 : n.typeInfo.format.name === "u32" ? t[0].format = A.u32 : n.typeInfo.format.name === "bool" ? t[0].format = A.bool : console.error(`TODO: impelement template format type ${n.typeInfo.format.name}`)), r = this._updateNode(new R(n, t[0])), this._exec.context.setVariable(e.toString(), n);
+			let t = [N.f32], n = i.constEvaluate(this._exec, t);
+			n instanceof U && this._validateTypeRange(n.value, t[0]), t[0] instanceof F && t[0].format === null && n.typeInfo instanceof C && n.typeInfo.format !== null && (n.typeInfo.format.name === "f16" ? t[0].format = N.f16 : n.typeInfo.format.name === "f32" ? t[0].format = N.f32 : n.typeInfo.format.name === "i32" ? t[0].format = N.i32 : n.typeInfo.format.name === "u32" ? t[0].format = N.u32 : n.typeInfo.format.name === "bool" ? t[0].format = N.bool : console.error(`TODO: implement template format type ${n.typeInfo.format.name}`)), r = this._updateNode(new z(n, t[0])), this._exec.context.setVariable(e.toString(), n);
 		} catch {
 			r = i;
 		}
-		if (n !== null && r instanceof R) {
-			if (r.type.name !== "x32" && n.getTypeName() !== r.type.getTypeName()) throw this._error(this._peek(), `Invalid cast from ${r.type.name} to ${n.name}. Line:${this._currentLine}`);
+		if (n !== null && r instanceof z) {
+			if (r.type.name !== "x32" && n.getTypeName() !== r.type.getTypeName()) throw this._error(this._peek(), `Invalid cast from ${r.type.name} to ${n.name}`);
 			r.type = n, r.isScalar && this._validateTypeRange(r.scalarValue, r.type);
-		} else n === null && r instanceof R && (n = r?.type ?? A.f32, n === A.x32 && (n = A.i32));
-		let a = this._updateNode(new Be(e.toString(), n, "", "", r), t);
+		} else n === null && r instanceof z && (n = r?.type ?? N.f32, n === N.x32 && (n = N.i32));
+		let a = this._updateNode(new Le(e.toString(), n, "", "", r), t);
 		return this._context.constants.set(a.name, a), a;
 	}
 	_global_let_decl() {
-		if (!this._match(X.keywords.let)) return null;
-		let e = this._currentLine, t = this._consume(X.tokens.name, "Expected variable name"), n = null;
-		if (this._match(X.tokens.colon)) {
+		if (!this._match(Y.keywords.let)) return null;
+		let e = this._currentLine, t = this._consume(Y.tokens.name, "Expected variable name"), n = null;
+		if (this._match(Y.tokens.colon)) {
 			let e = this._attribute();
 			n = this._type_decl(), n != null && (n.attributes = e);
 		}
 		let r = null;
-		if (this._match(X.tokens.equal) && (r = this._const_expression()), n !== null && r instanceof R) {
-			if (r.type.name !== "x32" && n.getTypeName() !== r.type.getTypeName()) throw this._error(this._peek(), `Invalid cast from ${r.type.name} to ${n.name}. Line:${this._currentLine}`);
+		if (this._match(Y.tokens.equal) && (r = this._const_expression()), n !== null && r instanceof z) {
+			if (r.type.name !== "x32" && n.getTypeName() !== r.type.getTypeName()) throw this._error(this._peek(), `Invalid cast from ${r.type.name} to ${n.name}`);
 			r.type = n;
-		} else n === null && r instanceof R && (n = r.type.name === "x32" ? A.i32 : r.type);
-		return r instanceof R && r.isScalar && this._validateTypeRange(r.scalarValue, n), this._updateNode(new ze(t.toString(), n, "", "", r), e);
+		} else n === null && r instanceof z && (n = r.type.name === "x32" ? N.i32 : r.type);
+		return r instanceof z && r.isScalar && this._validateTypeRange(r.scalarValue, n), this._updateNode(new Ie(t.toString(), n, "", "", r), e);
 	}
 	_const_expression() {
 		return this._short_circuit_or_expression();
 	}
 	_variable_decl() {
-		if (!this._match(X.keywords.var)) return null;
+		if (!this._match(Y.keywords.var)) return null;
 		let e = this._currentLine, t = "", n = "";
-		this._match(X.tokens.less_than) && (t = this._consume(X.storage_class, "Expected storage_class.").toString(), this._match(X.tokens.comma) && (n = this._consume(X.access_mode, "Expected access_mode.").toString()), this._consume(X.tokens.greater_than, "Expected '>'."));
-		let r = this._consume(X.tokens.name, "Expected variable name"), i = null;
-		if (this._match(X.tokens.colon)) {
+		this._match(Y.tokens.less_than) && (t = this._consume(Y.storage_class, "Expected storage_class.").toString(), this._match(Y.tokens.comma) && (n = this._consume(Y.access_mode, "Expected access_mode.").toString()), this._consume(Y.tokens.greater_than, "Expected '>'."));
+		let r = this._consume(Y.tokens.name, "Expected variable name"), i = null;
+		if (this._match(Y.tokens.colon)) {
 			let e = this._attribute();
 			i = this._type_decl(), i != null && (i.attributes = e);
 		}
-		return this._updateNode(new D(r.toString(), i, t, n, null), e);
+		return this._updateNode(new A(r.toString(), i, t, n, null), e);
 	}
 	_override_decl() {
-		if (!this._match(X.keywords.override)) return null;
-		let e = this._consume(X.tokens.name, "Expected variable name"), t = null;
-		if (this._match(X.tokens.colon)) {
+		if (!this._match(Y.keywords.override)) return null;
+		let e = this._consume(Y.tokens.name, "Expected variable name"), t = null;
+		if (this._match(Y.tokens.colon)) {
 			let e = this._attribute();
 			t = this._type_decl(), t != null && (t.attributes = e);
 		}
-		return this._updateNode(new Re(e.toString(), t, null));
+		return this._updateNode(new Fe(e.toString(), t, null));
 	}
 	_diagnostic() {
-		this._consume(X.tokens.paren_left, "Expected '('");
-		let e = this._consume(X.tokens.ident, "Expected severity control name.");
-		this._consume(X.tokens.comma, "Expected ','");
-		let t = this._consume(X.tokens.ident, "Expected diagnostic rule name.").toString();
-		return this._match(X.tokens.period) && (t += `.${this._consume(X.tokens.ident, "Expected diagnostic message.").toString()}`), this._consume(X.tokens.paren_right, "Expected ')'"), this._updateNode(new Qe(e.toString(), t));
+		this._consume(Y.tokens.paren_left, "Expected '('");
+		let e = this._consume(Y.tokens.ident, "Expected severity control name.");
+		this._consume(Y.tokens.comma, "Expected ','");
+		let t = this._consume(Y.tokens.ident, "Expected diagnostic rule name.").toString();
+		return this._match(Y.tokens.period) && (t += `.${this._consume(Y.tokens.ident, "Expected diagnostic message.").toString()}`), this._consume(Y.tokens.paren_right, "Expected ')'"), this._updateNode(new Ye(e.toString(), t));
 	}
 	_enable_directive() {
-		let e = this._consume(X.tokens.ident, "identity expected.");
-		return this._updateNode(new Xe(e.toString()));
+		let e = this._consume(Y.tokens.ident, "identity expected.");
+		return this._updateNode(new qe(e.toString()));
 	}
 	_requires_directive() {
-		let e = [this._consume(X.tokens.ident, "identity expected.").toString()];
-		for (; this._match(X.tokens.comma);) {
-			let t = this._consume(X.tokens.ident, "identity expected.");
+		let e = [this._consume(Y.tokens.ident, "identity expected.").toString()];
+		for (; this._match(Y.tokens.comma);) {
+			let t = this._consume(Y.tokens.ident, "identity expected.");
 			e.push(t.toString());
 		}
-		return this._updateNode(new Ze(e));
+		return this._updateNode(new Je(e));
 	}
 	_type_alias() {
-		let e = this._consume(X.tokens.ident, "identity expected.");
-		this._consume(X.tokens.equal, "Expected '=' for type alias.");
+		let e = this._consume(Y.tokens.ident, "identity expected.");
+		this._consume(Y.tokens.equal, "Expected '=' for type alias.");
 		let t = this._type_decl();
 		if (t === null) throw this._error(this._peek(), "Expected Type for Alias.");
 		this._context.aliases.has(t.name) && (t = this._context.aliases.get(t.name).type);
-		let n = this._updateNode(new $e(e.toString(), t));
+		let n = this._updateNode(new Xe(e.toString(), t));
 		return this._context.aliases.set(n.name, n), n;
 	}
 	_type_decl() {
 		if (this._check([
-			X.tokens.ident,
-			...X.texel_format,
-			X.keywords.bool,
-			X.keywords.f32,
-			X.keywords.i32,
-			X.keywords.u32
+			Y.tokens.ident,
+			...Y.texel_format,
+			Y.keywords.bool,
+			Y.keywords.f32,
+			Y.keywords.i32,
+			Y.keywords.u32
 		])) {
 			let e = this._advance().toString();
-			if (this._context.structs.has(e)) return this._context.structs.get(e);
-			if (this._context.aliases.has(e)) return this._context.aliases.get(e).type;
+			if (this._context.structs.has(e)) return this._context.structs.get(e) ?? null;
+			if (this._context.aliases.has(e)) return this._context.aliases.get(e)?.type ?? null;
 			if (!this._getType(e)) {
-				let t = this._updateNode(new rt(e));
+				let t = this._updateNode(new et(e));
 				return this._forwardTypeCount++, t;
 			}
-			return this._updateNode(new A(e));
+			return this._updateNode(new N(e));
 		}
 		let e = this._texture_sampler_types();
 		if (e) return e;
-		if (this._check(X.template_types)) {
+		if (this._check(Y.template_types)) {
 			let e = this._advance().toString(), t = null, n = null;
-			return this._match(X.tokens.less_than) && (t = this._type_decl(), n = null, this._match(X.tokens.comma) && (n = this._consume(X.access_mode, "Expected access_mode for pointer").toString()), this._consume(X.tokens.greater_than, "Expected '>' for type.")), this._updateNode(new M(e, t, n));
+			return this._match(Y.tokens.less_than) && (t = this._type_decl(), n = null, this._match(Y.tokens.comma) && (n = this._consume(Y.access_mode, "Expected access_mode for pointer").toString()), this._consume(Y.tokens.greater_than, "Expected '>' for type.")), this._updateNode(new F(e, t, n));
 		}
-		if (this._match(X.keywords.ptr)) {
+		if (this._match(Y.keywords.ptr)) {
 			let e = this._previous().toString();
-			this._consume(X.tokens.less_than, "Expected '<' for pointer.");
-			let t = this._consume(X.storage_class, "Expected storage_class for pointer");
-			this._consume(X.tokens.comma, "Expected ',' for pointer.");
+			this._consume(Y.tokens.less_than, "Expected '<' for pointer.");
+			let t = this._consume(Y.storage_class, "Expected storage_class for pointer");
+			this._consume(Y.tokens.comma, "Expected ',' for pointer.");
 			let n = this._type_decl(), r = null;
-			return this._match(X.tokens.comma) && (r = this._consume(X.access_mode, "Expected access_mode for pointer").toString()), this._consume(X.tokens.greater_than, "Expected '>' for pointer."), this._updateNode(new it(e, t.toString(), n, r));
+			return this._match(Y.tokens.comma) && (r = this._consume(Y.access_mode, "Expected access_mode for pointer").toString()), this._consume(Y.tokens.greater_than, "Expected '>' for pointer."), this._updateNode(new tt(e, t.toString(), n, r));
 		}
 		let t = this._attribute();
-		if (this._match(X.keywords.array)) {
+		if (this._match(Y.keywords.array)) {
 			let e = null, n = -1, r = this._previous(), i = null;
-			if (this._match(X.tokens.less_than)) {
+			if (this._match(Y.tokens.less_than)) {
 				e = this._type_decl(), this._context.aliases.has(e.name) && (e = this._context.aliases.get(e.name).type);
 				let t = "";
-				if (this._match(X.tokens.comma)) {
+				if (this._match(Y.tokens.comma)) {
 					i = this._shift_expression();
 					try {
 						t = i.constEvaluate(this._exec).toString(), i = null;
@@ -6913,9 +7547,9 @@ var Ut = class {
 						t = "1";
 					}
 				}
-				this._consume(X.tokens.greater_than, "Expected '>' for array."), n = t ? parseInt(t) : 0;
+				this._consume(Y.tokens.greater_than, "Expected '>' for array."), n = t ? parseInt(t) : 0;
 			}
-			let a = this._updateNode(new N(r.toString(), t, e, n));
+			let a = this._updateNode(new nt(r.toString(), t, e, n));
 			return i && this._deferArrayCountEval.push({
 				arrayType: a,
 				countNode: i
@@ -6924,55 +7558,97 @@ var Ut = class {
 		return null;
 	}
 	_texture_sampler_types() {
-		if (this._match(X.sampler_type) || this._match(X.depth_texture_type)) return this._updateNode(new at(this._previous().toString(), null, null));
-		if (this._match(X.sampled_texture_type) || this._match(X.multisampled_texture_type)) {
+		if (this._match(Y.sampler_type) || this._match(Y.depth_texture_type)) return this._updateNode(new rt(this._previous().toString(), null, null));
+		if (this._match(Y.sampled_texture_type) || this._match(Y.multisampled_texture_type)) {
 			let e = this._previous();
-			this._consume(X.tokens.less_than, "Expected '<' for sampler type.");
+			this._consume(Y.tokens.less_than, "Expected '<' for sampler type.");
 			let t = this._type_decl();
-			return this._consume(X.tokens.greater_than, "Expected '>' for sampler type."), this._updateNode(new at(e.toString(), t, null));
+			return this._consume(Y.tokens.greater_than, "Expected '>' for sampler type."), this._updateNode(new rt(e.toString(), t, null));
 		}
-		if (this._match(X.storage_texture_type)) {
+		if (this._match(Y.storage_texture_type)) {
 			let e = this._previous();
-			this._consume(X.tokens.less_than, "Expected '<' for sampler type.");
-			let t = this._consume(X.texel_format, "Invalid texel format.").toString();
-			this._consume(X.tokens.comma, "Expected ',' after texel format.");
-			let n = this._consume(X.access_mode, "Expected access mode for storage texture type.").toString();
-			return this._consume(X.tokens.greater_than, "Expected '>' for sampler type."), this._updateNode(new at(e.toString(), t, n));
+			this._consume(Y.tokens.less_than, "Expected '<' for sampler type.");
+			let t = this._consume(Y.texel_format, "Invalid texel format.").toString();
+			this._consume(Y.tokens.comma, "Expected ',' after texel format.");
+			let n = this._consume(Y.access_mode, "Expected access mode for storage texture type.").toString();
+			return this._consume(Y.tokens.greater_than, "Expected '>' for sampler type."), this._updateNode(new rt(e.toString(), t, n));
 		}
 		return null;
 	}
 	_attribute() {
 		let e = [];
-		for (; this._match(X.tokens.attr);) {
-			let t = this._consume(X.attribute_name, "Expected attribute name"), n = this._updateNode(new _t(t.toString(), null));
-			if (this._match(X.tokens.paren_left)) {
-				if (n.value = this._consume(X.literal_or_ident, "Expected attribute value").toString(), this._check(X.tokens.comma)) {
+		for (; this._match(Y.tokens.attr);) {
+			let t = this._consume(Y.attribute_name, "Expected attribute name"), n = this._updateNode(new _t(t.toString(), null));
+			if (this._match(Y.tokens.paren_left)) {
+				if (n.value = this._consume(Y.literal_or_ident, "Expected attribute value").toString(), this._check(Y.tokens.comma)) {
 					this._advance();
 					do {
-						let e = this._consume(X.literal_or_ident, "Expected attribute value").toString();
-						n.value instanceof Array || (n.value = [n.value]), n.value.push(e);
-					} while (this._match(X.tokens.comma));
+						let e = this._consume(Y.literal_or_ident, "Expected attribute value").toString();
+						Array.isArray(n.value) || (n.value = [n.value]), n.value.push(e);
+					} while (this._match(Y.tokens.comma));
 				}
-				this._consume(X.tokens.paren_right, "Expected ')'");
+				this._consume(Y.tokens.paren_right, "Expected ')'");
 			}
 			e.push(n);
 		}
-		return e.length == 0 ? null : e;
+		return e.length === 0 ? null : e;
 	}
-}, Gt = class extends Pt {
+}, qt = class extends Lt {
 	constructor(e) {
-		super(), e && this.update(e);
+		super(), e !== void 0 && this.update(e);
 	}
 	update(e) {
-		let t = new Wt().parse(e);
+		let t = new Kt().parse(e);
 		this.updateAST(t);
 	}
-}, Kt = (e) => {
-	if (e.resourceType === x.Uniform) return "uniform";
-	if (e.resourceType === x.Storage && e.access === "read") return "read-only-storage";
-	if (e.resourceType === x.Storage && e.access === "read_write") return "storage";
+}, Jt = /* @__PURE__ */ new Set([
+	"dpdx",
+	"dpdxCoarse",
+	"dpdxFine",
+	"dpdy",
+	"dpdyCoarse",
+	"dpdyFine",
+	"fwidth",
+	"fwidthCoarse",
+	"fwidthFine"
+]), Yt = /* @__PURE__ */ new Set(["textureSample", "textureSampleBias"]);
+[...Jt, ...Yt];
+var Xt, Zt;
+((e) => {
+	e[e.Running = 0] = "Running", e[e.AtBarrier = 1] = "AtBarrier", e[e.Done = 2] = "Done";
+})(Xt ||= {}), ((e) => {
+	e[e.Running = 0] = "Running", e[e.AtRendezvous = 1] = "AtRendezvous", e[e.Done = 2] = "Done";
+})(Zt ||= {});
+var Qt = /* @__PURE__ */ new Set([
+	"atomicAdd",
+	"atomicSub",
+	"atomicMax",
+	"atomicMin",
+	"atomicAnd",
+	"atomicOr",
+	"atomicXor",
+	"atomicExchange",
+	"atomicCompareExchangeWeak",
+	"atomicStore",
+	"atomicLoad"
+]), $t = /* @__PURE__ */ new Set([
+	"workgroupBarrier",
+	"storageBarrier",
+	"textureBarrier"
+]);
+[...Qt, ...$t];
+var $;
+((e) => {
+	e[e.ExpensiveBuiltinInLoop = 1] = "ExpensiveBuiltinInLoop", e[e.CostlyArithmeticInLoop = 2] = "CostlyArithmeticInLoop", e[e.LoopInvariantExpression = 3] = "LoopInvariantExpression", e[e.AtomicInLoop = 4] = "AtomicInLoop", e[e.BarrierInLoop = 5] = "BarrierInLoop", e[e.AtomicStorageRead = 6] = "AtomicStorageRead", e[e.WorkgroupArrayThreadPrivate = 7] = "WorkgroupArrayThreadPrivate", e[e.WorkgroupStorageOversized = 8] = "WorkgroupStorageOversized", e[e.SerialScanEmulation = 9] = "SerialScanEmulation";
+})($ ||= {}), $.ExpensiveBuiltinInLoop, $.CostlyArithmeticInLoop, $.LoopInvariantExpression, $.AtomicInLoop, $.BarrierInLoop, $.AtomicStorageRead, $.WorkgroupArrayThreadPrivate, $.WorkgroupStorageOversized, $.SerialScanEmulation;
+//#endregion
+//#region src/util/reflectShaderUniforms.ts
+var en = (e) => {
+	if (e.resourceType === w.Uniform) return "uniform";
+	if (e.resourceType === w.Storage && e.access === "read") return "read-only-storage";
+	if (e.resourceType === w.Storage && e.access === "read_write") return "storage";
 	throw Error(`[E][reflectShaderUniforms][getBufferBindingType] unsupported buffer binding type: ${e.resourceType}`);
-}, qt = (e) => {
+}, tn = (e) => {
 	switch (e.type.name) {
 		case "texture_1d":
 		case "texture_storage_1d": return "1d";
@@ -6992,11 +7668,11 @@ var Ut = class {
 		case "texture_storage_3d": return "3d";
 		default: throw Error(`[E][reflectShaderUniforms][getTextureViewDimension] unsupported binding texture type name: ${e.type.name}`);
 	}
-}, Jt = new Set(/* @__PURE__ */ "r8unorm.r8snorm.r8uint.r8sint.r16unorm.r16snorm.r16uint.r16sint.r16float.rg8unorm.rg8snorm.rg8uint.rg8sint.r32uint.r32sint.r32float.rg16unorm.rg16snorm.rg16uint.rg16sint.rg16float.rgba8unorm.rgba8unorm-srgb.rgba8snorm.rgba8uint.rgba8sint.bgra8unorm.bgra8unorm-srgb.rgb9e5ufloat.rgb10a2uint.rgb10a2unorm.rg11b10ufloat.rg32uint.rg32sint.rg32float.rgba16unorm.rgba16snorm.rgba16uint.rgba16sint.rgba16float.rgba32uint.rgba32sint.rgba32float.stencil8.depth16unorm.depth24plus.depth24plus-stencil8.depth32float.depth32float-stencil8.bc1-rgba-unorm.bc1-rgba-unorm-srgb.bc2-rgba-unorm.bc2-rgba-unorm-srgb.bc3-rgba-unorm.bc3-rgba-unorm-srgb.bc4-r-unorm.bc4-r-snorm.bc5-rg-unorm.bc5-rg-snorm.bc6h-rgb-ufloat.bc6h-rgb-float.bc7-rgba-unorm.bc7-rgba-unorm-srgb.etc2-rgb8unorm.etc2-rgb8unorm-srgb.etc2-rgb8a1unorm.etc2-rgb8a1unorm-srgb.etc2-rgba8unorm.etc2-rgba8unorm-srgb.eac-r11unorm.eac-r11snorm.eac-rg11unorm.eac-rg11snorm.astc-4x4-unorm.astc-4x4-unorm-srgb.astc-5x4-unorm.astc-5x4-unorm-srgb.astc-5x5-unorm.astc-5x5-unorm-srgb.astc-6x5-unorm.astc-6x5-unorm-srgb.astc-6x6-unorm.astc-6x6-unorm-srgb.astc-8x5-unorm.astc-8x5-unorm-srgb.astc-8x6-unorm.astc-8x6-unorm-srgb.astc-8x8-unorm.astc-8x8-unorm-srgb.astc-10x5-unorm.astc-10x5-unorm-srgb.astc-10x6-unorm.astc-10x6-unorm-srgb.astc-10x8-unorm.astc-10x8-unorm-srgb.astc-10x10-unorm.astc-10x10-unorm-srgb.astc-12x10-unorm.astc-12x10-unorm-srgb.astc-12x12-unorm.astc-12x12-unorm-srgb".split(".")), Yt = (e) => {
+}, nn = /* @__PURE__ */ new Set(/* @__PURE__ */ "r8unorm.r8snorm.r8uint.r8sint.r16unorm.r16snorm.r16uint.r16sint.r16float.rg8unorm.rg8snorm.rg8uint.rg8sint.r32uint.r32sint.r32float.rg16unorm.rg16snorm.rg16uint.rg16sint.rg16float.rgba8unorm.rgba8unorm-srgb.rgba8snorm.rgba8uint.rgba8sint.bgra8unorm.bgra8unorm-srgb.rgb9e5ufloat.rgb10a2uint.rgb10a2unorm.rg11b10ufloat.rg32uint.rg32sint.rg32float.rgba16unorm.rgba16snorm.rgba16uint.rgba16sint.rgba16float.rgba32uint.rgba32sint.rgba32float.stencil8.depth16unorm.depth24plus.depth24plus-stencil8.depth32float.depth32float-stencil8.bc1-rgba-unorm.bc1-rgba-unorm-srgb.bc2-rgba-unorm.bc2-rgba-unorm-srgb.bc3-rgba-unorm.bc3-rgba-unorm-srgb.bc4-r-unorm.bc4-r-snorm.bc5-rg-unorm.bc5-rg-snorm.bc6h-rgb-ufloat.bc6h-rgb-float.bc7-rgba-unorm.bc7-rgba-unorm-srgb.etc2-rgb8unorm.etc2-rgb8unorm-srgb.etc2-rgb8a1unorm.etc2-rgb8a1unorm-srgb.etc2-rgba8unorm.etc2-rgba8unorm-srgb.eac-r11unorm.eac-r11snorm.eac-rg11unorm.eac-rg11snorm.astc-4x4-unorm.astc-4x4-unorm-srgb.astc-5x4-unorm.astc-5x4-unorm-srgb.astc-5x5-unorm.astc-5x5-unorm-srgb.astc-6x5-unorm.astc-6x5-unorm-srgb.astc-6x6-unorm.astc-6x6-unorm-srgb.astc-8x5-unorm.astc-8x5-unorm-srgb.astc-8x6-unorm.astc-8x6-unorm-srgb.astc-8x8-unorm.astc-8x8-unorm-srgb.astc-10x5-unorm.astc-10x5-unorm-srgb.astc-10x6-unorm.astc-10x6-unorm-srgb.astc-10x8-unorm.astc-10x8-unorm-srgb.astc-10x10-unorm.astc-10x10-unorm-srgb.astc-12x10-unorm.astc-12x10-unorm-srgb.astc-12x12-unorm.astc-12x12-unorm-srgb".split(".")), rn = (e) => {
 	let t = e.type.format.name;
-	if (!Jt.has(t)) throw Error(`[E][getTextureFormatByTexelType] get texture format failed. wgsl given texel format error. type: ${t}`);
+	if (!nn.has(t)) throw Error(`[E][getTextureFormatByTexelType] get texture format failed. wgsl given texel format error. type: ${t}`);
 	return t;
-}, Xt = (e) => {
+}, an = (e) => {
 	let t = e.type.access;
 	switch (t) {
 		case "read": return "read-only";
@@ -7004,7 +7680,7 @@ var Ut = class {
 		case "read_write": return "read-write";
 		default: throw Error(`[E][getStorageTextureAccess] unspported texture acecessor type in valid storage texture access. type: ${t}`);
 	}
-}, Zt = (e) => {
+}, on = (e) => {
 	switch (e) {
 		case "depth16unorm":
 		case "depth24plus":
@@ -7106,8 +7782,8 @@ var Ut = class {
 		case "astc-12x12-unorm-srgb": return "float";
 		default: throw Error(`[E][reflectShaderUniforms][getTextureSampleType] unsupported analysis binding texturetype: ${e}`);
 	}
-}, Qt = (e, t, n, r, i) => {
-	let a = new Gt(e), o;
+}, sn = (e, t, n, r, i) => {
+	let a = new qt(e), o;
 	switch (n) {
 		case GPUShaderStage.VERTEX:
 			a.entry.vertex.forEach((e) => {
@@ -7134,21 +7810,21 @@ var Ut = class {
 			visibility: n
 		}, a = e.group, o = l(a), s = u(a);
 		switch (e.resourceType) {
-			case x.Uniform:
-			case x.Storage:
-				t.buffer = {}, t.buffer.type = Kt(e), t.buffer.minBindingSize = e.size, o.push(t), s.push(e);
+			case w.Uniform:
+			case w.Storage:
+				t.buffer = {}, t.buffer.type = en(e), t.buffer.minBindingSize = e.size, o.push(t), s.push(e);
 				break;
-			case x.Texture: {
+			case w.Texture: {
 				if (!r?.getPropertyMap().has(e.name)) throw Error(`[E][reflectShaderUniforms] ${i} input uniforms missing texture property, name: ${e.name}. please check holder descriptor uniforms.`);
-				t.texture = {}, t.texture.viewDimension = qt(e);
+				t.texture = {}, t.texture.viewDimension = tn(e);
 				let n = (r?.getPropertyMap().get(e.name)).getTexture().getTextureFormat();
-				t.texture.sampleType = Zt(n), o.push(t), s.push(e);
+				t.texture.sampleType = on(n), o.push(t), s.push(e);
 				break;
 			}
-			case x.StorageTexture:
-				t.storageTexture = { format: Yt(e) }, t.storageTexture.access = Xt(e), t.storageTexture.viewDimension = qt(e), o.push(t), s.push(e);
+			case w.StorageTexture:
+				t.storageTexture = { format: rn(e) }, t.storageTexture.access = an(e), t.storageTexture.viewDimension = tn(e), o.push(t), s.push(e);
 				break;
-			case x.Sampler: {
+			case w.Sampler: {
 				if (!r?.getPropertyMap().has(e.name)) throw Error(`[E][reflectShaderUniforms] ${i} input uniforms missing sampler property, name: ${e.name}. please check holder descriptor uniforms.`);
 				let n = (r?.getPropertyMap().get(e.name)).getTextureSampler();
 				t.sampler = {}, t.sampler.type = n.SamplerBindingType, o.push(t), s.push(e);
@@ -7161,7 +7837,7 @@ var Ut = class {
 		groupIDwithBindGroupLayoutEntriesMap: s,
 		groupIDwithResourceBindingsMap: c
 	};
-}, $t = class extends g {
+}, cn = class extends ae {
 	constructor(e) {
 		super({
 			context: e.context,
@@ -7171,9 +7847,9 @@ var Ut = class {
 		});
 	}
 	reflect = (e, t) => {
-		this.createGpuShader(`[ComputeShader] ${t} shader id: ${this.getID()}]`), this.reflectedUniforms = Qt(this.code, this.entryPoint, this.shaderStage, e, t);
+		this.createGpuShader(`[ComputeShader] ${t} shader id: ${this.getID()}]`), this.reflectedUniforms = sn(this.code, this.entryPoint, this.shaderStage, e, t);
 	};
-}, en = class extends g {
+}, ln = class extends ae {
 	constructor(e) {
 		super({
 			context: e.context,
@@ -7183,9 +7859,9 @@ var Ut = class {
 		});
 	}
 	reflect = (e, t) => {
-		this.createGpuShader(`[FragmentShader] holder name ${t}, shader id: ${this.getID()}`), this.reflectedUniforms = Qt(this.code, this.entryPoint, this.shaderStage, e, t);
+		this.createGpuShader(`[FragmentShader] holder name ${t}, shader id: ${this.getID()}`), this.reflectedUniforms = sn(this.code, this.entryPoint, this.shaderStage, e, t);
 	};
-}, tn = (e) => {
+}, un = (e) => {
 	switch (e.getTypeName()) {
 		case "u32": return "uint32";
 		case "vec2u":
@@ -7210,15 +7886,15 @@ var Ut = class {
 		case "vec4<f32>": return "float32x4";
 		default: throw Error(`[E][reflectShaderAttributes][getVertexFormat] unsupported vertex format. type: ${e.getTypeName()}`);
 	}
-}, nn = (e, t, n) => {
-	let r = new Gt(e), i;
+}, dn = (e, t, n) => {
+	let r = new qt(e), i;
 	if (r.entry.vertex.forEach((e) => {
 		e.name === t && (i = e);
 	}), !i) throw Error(`[E][reflectShaderAttributes] ${n} entry point "${t}" not found in the shader code.`);
 	let a = i, o = /* @__PURE__ */ new Map(), s = /* @__PURE__ */ new Map(), c = [], l = a.inputs.length;
 	for (let e = 0; e < l; e++) {
 		let t = a.inputs[e], n = {
-			format: tn(t.type),
+			format: un(t.type),
 			offset: 0,
 			shaderLocation: t.location
 		};
@@ -7230,7 +7906,7 @@ var Ut = class {
 		attributeOdered: c,
 		locationMap: o
 	};
-}, rn = class extends g {
+}, fn = class extends ae {
 	reflectedAttributes;
 	constructor(e) {
 		super({
@@ -7241,13 +7917,13 @@ var Ut = class {
 		});
 	}
 	reflect = (e, t) => {
-		this.createGpuShader(`[VertexShader] holder name:${t}, shader id: ${this.getID()}.`), this.reflectedAttributes = nn(this.code, this.entryPoint, t), this.reflectedUniforms = Qt(this.code, this.entryPoint, this.shaderStage, e, t);
+		this.createGpuShader(`[VertexShader] holder name:${t}, shader id: ${this.getID()}.`), this.reflectedAttributes = dn(this.code, this.entryPoint, t), this.reflectedUniforms = sn(this.code, this.entryPoint, this.shaderStage, e, t);
 	};
 	getVertexAttributeMap = () => this.reflectedAttributes?.attributeMap;
 	getOrderedAttribute = () => this.reflectedAttributes?.attributeOdered;
 	getAttributeNameByLocation = (e) => this.reflectedAttributes?.locationMap.get(e);
 	getAttributeCount = () => this.reflectedAttributes?.attributeCount;
-}, an = class e {
+}, pn = class e {
 	static CACHE = /* @__PURE__ */ new Map();
 	context;
 	constructor(e) {
@@ -7255,9 +7931,9 @@ var Ut = class {
 	}
 	hasKey = (t) => e.CACHE.has(t);
 	createVertexShader = (t) => {
-		let n = g.hash32aID(t.code, t.entryPoint);
+		let n = ae.hash32aID(t.code, t.entryPoint);
 		if (!e.CACHE.has(n)) {
-			let r = new rn({
+			let r = new fn({
 				context: this.context,
 				code: t.code,
 				entryPoint: t.entryPoint
@@ -7267,9 +7943,9 @@ var Ut = class {
 		return e.CACHE.get(n);
 	};
 	createFragmentShader = (t) => {
-		let n = g.hash32aID(t.code, t.entryPoint);
+		let n = ae.hash32aID(t.code, t.entryPoint);
 		if (!e.CACHE.has(n)) {
-			let r = new en({
+			let r = new ln({
 				context: this.context,
 				code: t.code,
 				entryPoint: t.entryPoint
@@ -7279,9 +7955,9 @@ var Ut = class {
 		return e.CACHE.get(n);
 	};
 	createComputeShader = (t) => {
-		let n = g.hash32aID(t.code, t.entryPoint);
+		let n = ae.hash32aID(t.code, t.entryPoint);
 		if (!e.CACHE.has(n)) {
-			let r = new $t({
+			let r = new cn({
 				context: this.context,
 				code: t.code,
 				entryPoint: t.entryPoint
@@ -7290,7 +7966,7 @@ var Ut = class {
 		}
 		return e.CACHE.get(n);
 	};
-}, on = (e) => {
+}, mn = (e) => {
 	switch (e) {
 		case "r8unorm":
 		case "r8snorm":
@@ -7344,7 +8020,7 @@ var Ut = class {
 		case "bc7-rgba-unorm-srgb": return 16;
 		default: throw Error(`Unsupported GPUTextureFormat: ${e}`);
 	}
-}, sn = (e) => {
+}, hn = (e) => {
 	switch (e) {
 		case "texture1D": return "1d";
 		case "texture2D": return "2d";
@@ -7355,7 +8031,7 @@ var Ut = class {
 		case "textureStorage2D": return "2d";
 		default: return console.warn(`[W][getTextureViewDimension] unspported texture property format: ${e}`), "2d";
 	}
-}, cn = (e) => {
+}, gn = (e) => {
 	switch (e) {
 		case "texture1D": return "1d";
 		case "texture2D": return "2d";
@@ -7366,7 +8042,7 @@ var Ut = class {
 		case "textureStorage2D": return "2d";
 		default: return console.warn(`[W][getTextureDimension] unspported texture property format: ${e}`), "2d";
 	}
-}, ln = (e, t, n) => {
+}, _n = (e, t, n) => {
 	let r = {};
 	switch (n) {
 		case "r8uint":
@@ -7473,7 +8149,7 @@ var Ut = class {
 		default: throw Error(`[E][getTexelCopyBufferLayout] unsupport texture format: ${n}`);
 	}
 	return r;
-}, un = class {
+}, vn = class {
 	id;
 	textureUsageFlags;
 	context;
@@ -7519,10 +8195,10 @@ var Ut = class {
 	getTextureFormat = () => this.textureFormat;
 	isDetphTexture = () => this.textureFormat === "depth16unorm" || this.textureFormat === "depth24plus" || this.textureFormat === "depth24plus-stencil8" || this.textureFormat == "depth32float" || this.textureFormat == "depth32float-stencil8";
 	isStencilTexture = () => this.textureFormat === "stencil8" || this.textureFormat === "depth24plus-stencil8" || this.textureFormat == "depth32float-stencil8";
-	getTextureViewDimension = () => sn(this.propertyFormat);
-	getBytePerTexel = () => on(this.textureFormat);
-	getTextureDimension = () => cn(this.propertyFormat);
-	getTexelCopyBufferLayout = (e, t) => ln(e || this.width, t || this.height, this.textureFormat);
+	getTextureViewDimension = () => hn(this.propertyFormat);
+	getBytePerTexel = () => mn(this.textureFormat);
+	getTextureDimension = () => gn(this.propertyFormat);
+	getTexelCopyBufferLayout = (e, t) => _n(e || this.width, t || this.height, this.textureFormat);
 	nextCursor = () => {
 		this.mipCurosr = ++this.mipCurosr % this.mipmapCount;
 	};
@@ -7532,7 +8208,7 @@ var Ut = class {
 	isUsageIncludeRenderAttachment = () => (this.textureUsageFlags & GPUTextureUsage.RENDER_ATTACHMENT) !== 0;
 	isUsageIncludeStorageBinding = () => (this.textureUsageFlags & GPUTextureUsage.STORAGE_BINDING) !== 0;
 	isUsageIncludeTextureBinding = () => (this.textureUsageFlags & GPUTextureUsage.TEXTURE_BINDING) !== 0;
-}, dn = class extends un {
+}, yn = class extends vn {
 	constructor(e) {
 		super({
 			id: e.id,
@@ -7558,7 +8234,7 @@ var Ut = class {
 	useAsRenderAttachment() {
 		this.selectedUsage = "RENDER_ATTACHMENT";
 	}
-}, fn = class extends un {
+}, bn = class extends vn {
 	textureData_;
 	handler_;
 	autoIncrementMipLevelInStorageBindingUse = !1;
@@ -7641,9 +8317,7 @@ var Ut = class {
 					case "depth32float-stencil8":
 						t.aspect = "depth-only", t.mipLevelCount = 1, console.warn("[W][Texture2D][getGpuTextureView] texture depth24plus-stencil8/depth32float-stencil8 are not \n                                    recommanded because we cannot guess it's aspect, so we use depth-only force. Therefore, we recommend using \n                                    depth16unorm'/'depth24plus'/'depth32float' for depth-only and 'stencil8' for stencil-only.");
 						break;
-					default:
-						t.aspect = "all";
-						break;
+					default: t.aspect = "all";
 				}
 				t.dimension = this.getTextureViewDimension(), t.format = this.textureFormat, this.storageBindingView[e] = this.texture.createView(t);
 			}
@@ -7666,9 +8340,7 @@ var Ut = class {
 				case "depth32float-stencil8":
 					e.aspect = "depth-only", e.mipLevelCount = 1, console.warn("[W][Texture2D][getGpuTextureView] texture depth24plus-stencil8/depth32float-stencil8 are not \n                                recommanded because we cannot guess it's aspect, so we use depth-only force. Therefore, we recommend using \n                                depth16unorm'/'depth24plus'/'depth32float' for depth-only and 'stencil8' for stencil-only.");
 					break;
-				default:
-					e.aspect = "all";
-					break;
+				default: e.aspect = "all";
 			}
 			e.dimension = this.getTextureViewDimension(), e.format = this.textureFormat, this.textureBindingView = this.texture.createView(e);
 		}
@@ -7680,7 +8352,7 @@ var Ut = class {
 			e.baseArrayLayer = 0, e.arrayLayerCount = 1, e.baseMipLevel = 0, e.mipLevelCount = 1, e.dimension = this.getTextureViewDimension(), e.format = this.textureFormat, this.renderAttachmentView = this.texture.createView(e);
 		}
 	};
-}, pn = class extends un {
+}, xn = class extends vn {
 	textureData2DArray;
 	handler;
 	constructor(e) {
@@ -7770,9 +8442,7 @@ var Ut = class {
 					case "depth32float-stencil8":
 						t.aspect = "depth-only", t.mipLevelCount = 1, console.warn("[W][Texture2D][getGpuTextureView] texture depth24plus-stencil8/depth32float-stencil8 are not \n                                        recommanded because we cannot guess it's aspect, so we use depth-only force. Therefore, we recommend using \n                                        depth16unorm'/'depth24plus'/'depth32float' for depth-only and 'stencil8' for stencil-only.");
 						break;
-					default:
-						t.aspect = "all";
-						break;
+					default: t.aspect = "all";
 				}
 				t.dimension = this.getTextureViewDimension(), t.format = this.textureFormat, this.storageBindingView[e] = this.texture.createView(t);
 			}
@@ -7795,9 +8465,7 @@ var Ut = class {
 				case "depth32float-stencil8":
 					e.aspect = "depth-only", e.mipLevelCount = 1, console.warn("[W][Texture2D][getGpuTextureView] texture depth24plus-stencil8/depth32float-stencil8 are not \n                                    recommanded because we cannot guess it's aspect, so we use depth-only force. Therefore, we recommend using \n                                    depth16unorm'/'depth24plus'/'depth32float' for depth-only and 'stencil8' for stencil-only.");
 					break;
-				default:
-					e.aspect = "all";
-					break;
+				default: e.aspect = "all";
 			}
 			e.dimension = this.getTextureViewDimension(), e.format = this.textureFormat, this.textureBindingView = this.texture.createView(e);
 		}
@@ -7809,7 +8477,7 @@ var Ut = class {
 			t.baseArrayLayer = e, t.arrayLayerCount = 1, t.baseMipLevel = 0, t.mipLevelCount = 1, t.dimension = this.getTextureViewDimension(), t.format = this.textureFormat, this.renderAttachmentView = this.texture.createView(t);
 		}
 	};
-}, mn = class extends un {
+}, Sn = class extends vn {
 	textureData;
 	handler;
 	constructor(e) {
@@ -7894,9 +8562,7 @@ var Ut = class {
 					case "stencil8":
 					case "depth24plus-stencil8":
 					case "depth32float-stencil8": throw Error("[E][Texture3D][useAsTextureBinding] not support texture format.");
-					default:
-						t.aspect = "all";
-						break;
+					default: t.aspect = "all";
 				}
 				t.dimension = this.getTextureViewDimension(), t.format = this.textureFormat, this.storageBindingView[e] = this.texture.createView(t);
 			}
@@ -7913,9 +8579,7 @@ var Ut = class {
 				case "stencil8":
 				case "depth24plus-stencil8":
 				case "depth32float-stencil8": throw Error("[E][Texture3D][useAsTextureBinding] not support texture format.");
-				default:
-					e.aspect = "all";
-					break;
+				default: e.aspect = "all";
 			}
 			e.dimension = this.getTextureViewDimension(), e.format = this.textureFormat, this.textureBindingView = this.texture.createView(e);
 		}
@@ -7923,7 +8587,7 @@ var Ut = class {
 	useAsRenderAttachment = () => {
 		throw Error("[E][Texture3D][useAsRenderAttachment] texture3d cannot be used as render attachment.");
 	};
-}, hn = class extends pn {
+}, Cn = class extends xn {
 	constructor(e) {
 		super({
 			id: e.id,
@@ -7944,19 +8608,7 @@ var Ut = class {
 			mipmapCount: e.mipmapCount
 		}), this.propertyFormat = "textureCube";
 	}
-}, gn = class extends fn {
-	constructor(e) {
-		super({
-			id: e.id,
-			context: e.context,
-			width: e.width,
-			height: e.height,
-			textureFormat: e.textureFormat,
-			mipmapCount: e.mipmapCount,
-			appendixTextureUsages: e.appendixTextureUsages
-		}), this.textureData_ = e.textureData, this.depthOrArrayLayers = 1, this.textureUsageFlags = this.textureUsageFlags | GPUTextureUsage.STORAGE_BINDING | GPUTextureUsage.COPY_DST | GPUTextureUsage.COPY_SRC, this.propertyFormat = "textureStorage2D";
-	}
-}, _n = class e {
+}, wn = class e {
 	static TEXTURE_SET = /* @__PURE__ */ new Map();
 	context;
 	constructor(e) {
@@ -7967,7 +8619,7 @@ var Ut = class {
 		return e.TEXTURE_SET.get(t);
 	};
 	createTexutre2D = (n) => {
-		let r = t(), i = new fn({
+		let r = t(), i = new bn({
 			id: r,
 			context: this.context,
 			width: n.width,
@@ -7981,7 +8633,7 @@ var Ut = class {
 		return e.TEXTURE_SET.set(r, i), e.TEXTURE_SET.get(r);
 	};
 	createTexture3D = (n) => {
-		let r = t(), i = new mn({
+		let r = t(), i = new Sn({
 			id: r,
 			context: this.context,
 			width: n.width,
@@ -7995,28 +8647,15 @@ var Ut = class {
 		});
 		return e.TEXTURE_SET.set(r, i), e.TEXTURE_SET.get(r);
 	};
-	createTextureStorage2D = (n) => {
-		let r = t(), i = new gn({
-			id: r,
-			context: this.context,
-			width: n.width,
-			height: n.height,
-			textureData: n.textureData,
-			mipmapCount: n.mipmapCount,
-			appendixTextureUsages: n.appendixTextureUsages,
-			textureFormat: n.textureFormat
-		});
-		return e.TEXTURE_SET.set(r, i), e.TEXTURE_SET.get(r);
-	};
 	createSurfaceTexture2D = () => {
-		let n = t(), r = new dn({
+		let n = t(), r = new yn({
 			id: n,
 			context: this.context
 		});
 		return e.TEXTURE_SET.set(n, r), r;
 	};
 	createTexture2DArray = (n) => {
-		let r = t(), i = new pn({
+		let r = t(), i = new xn({
 			id: r,
 			context: this.context,
 			width: n.width,
@@ -8031,7 +8670,7 @@ var Ut = class {
 		return e.TEXTURE_SET.set(r, i), e.TEXTURE_SET.get(r);
 	};
 	createTextureCube = (n) => {
-		let r = t(), i = new hn({
+		let r = t(), i = new Cn({
 			id: r,
 			context: this.context,
 			width: n.width,
@@ -8043,7 +8682,7 @@ var Ut = class {
 		});
 		return e.TEXTURE_SET.set(r, i), e.TEXTURE_SET.get(r);
 	};
-}, vn = (e, t) => {
+}, Tn = (e, t) => {
 	switch (e) {
 		case "float32": return 4;
 		case "sint32": return 4;
@@ -8059,7 +8698,7 @@ var Ut = class {
 		case "sint32x4": return 16;
 		default: return console.log(`[E][getVertexFormatStride] ${t} unsupported vertex format type: ${e}`), 0;
 	}
-}, yn = (e) => {
+}, En = (e) => {
 	let t = e.vertexShader.getOrderedAttribute(), n = (t, n) => {
 		e.vertexBufferIDAttributesMap.has(t) || e.vertexBufferIDAttributesMap.set(t, []), e.vertexBufferIDAttributesMap.get(t)?.push(n);
 	};
@@ -8070,14 +8709,12 @@ var Ut = class {
 			if (!o) return;
 			let s = r.get(o);
 			if (!s) return;
-			let c = vn(t.format, `[E]][emitAttributes] ${e.debugLabel}`), l = s.type;
+			let c = Tn(t.format, `[E]][emitAttributes] ${e.debugLabel}`), l = s.type;
 			switch (l) {
 				case "vertexBuffer":
 					t.offset = a, a += c, n(i, t);
 					break;
-				default:
-					console.log(`[E][emitAttributes] ${e.debugLabel} unsupport emit property type: ${l}.`);
-					break;
+				default: console.log(`[E][emitAttributes] ${e.debugLabel} unsupport emit property type: ${l}.`);
 			}
 		}), e.vertexBufferIDAttributesMap.size) {
 			let t = e.vertexBufferIDAttributesMap.get(i);
@@ -8099,7 +8736,7 @@ var Ut = class {
 		entryPoint: e.vertexShader.getEntryPoint(),
 		buffers: e.vertexBufferLayouts
 	};
-}, bn = (e) => {
+}, Dn = (e) => {
 	if (e.attributes?.isEmpty()) return;
 	let t = (t, n) => {
 		if (!e.bufferAttributeRecordsMap.has(t)) {
@@ -8125,14 +8762,14 @@ var Ut = class {
 			default: throw Error(`[E][ParseAttribute][holder][name] ${e.debugLabel} unsupport property type: ${i}`);
 		}
 	});
-}, xn = class {
+}, On = class {
 	id;
 	context;
 	constructor(e) {
 		this.context = e.context, this.id = e.id;
 	}
 	getID = () => this.id;
-}, Sn = class extends xn {
+}, kn = class extends On {
 	texture;
 	clearColor = {
 		r: 0,
@@ -8163,9 +8800,7 @@ var Ut = class {
 			case "loadStore":
 				this.renderPassColorAttachment.loadOp = "load", this.renderPassColorAttachment.storeOp = "store";
 				break;
-			default:
-				this.renderPassColorAttachment.loadOp = "clear", this.renderPassColorAttachment.storeOp = "store";
-				break;
+			default: this.renderPassColorAttachment.loadOp = "clear", this.renderPassColorAttachment.storeOp = "store";
 		}
 	};
 	updateState = () => {
@@ -8185,26 +8820,24 @@ var Ut = class {
 			case "disable":
 				this.blendState = void 0;
 				break;
-			default:
-				console.warn(`[W][ColorAttachment][getBlendState] unsupported blend format: ${this.blendFormat}. disable blend as default.`), this.blendState = void 0;
-				break;
+			default: console.warn(`[W][ColorAttachment][getBlendState] unsupported blend format: ${this.blendFormat}. disable blend as default.`), this.blendState = void 0;
 		}
 	};
 	getGpuColorAttachment = () => (this.updateAttachment(), this.renderPassColorAttachment);
 	getGpuBlendState = () => (this.updateState(), this.blendState);
 	getTextureFormat = () => this.texture?.getTextureFormat() || this.context.getPreferredTextureFormat();
-}, Cn = (e) => {
+}, An = (e) => {
 	let t = [];
 	if (e.colorAttachments.length === 0) throw Error(`[E][parseColorAttachments] ${e.debugLabel} 'RenderHolderDesc' missing color attachments.`);
 	return e.colorAttachments.forEach((e) => {
 		let n = { format: e.getTextureFormat() };
 		n.blend = e.getGpuBlendState(), n.writeMask = GPUColorWrite.ALL, t.push(n);
 	}), t;
-}, wn = (e) => ({
+}, jn = (e) => ({
 	targets: e.colorTargetStates,
 	module: e.fragmentShader.getGpuShader(),
 	entryPoint: e.fragmentShader.getEntryPoint()
-}), Tn = (e) => {
+}), Mn = (e) => {
 	let t = {};
 	switch (t.alphaToCoverageEnabled = !1, e.multiSampleFormat) {
 		case "1x":
@@ -8219,17 +8852,15 @@ var Ut = class {
 		case "8x":
 			t.count = 8;
 			break;
-		default:
-			console.warn(`[W][parseMultisampleState] ${e.debugLabel}`), t.count = 1;
-			break;
+		default: console.warn(`[W][parseMultisampleState] ${e.debugLabel}`), t.count = 1;
 	}
 	return t;
-}, En = (e) => {
+}, Nn = (e) => {
 	let t = { bindGroupLayouts: e.bindGroupLayouts };
 	return e.context.getGpuDevice().createPipelineLayout(t);
-}, Dn = (e) => {
+}, Pn = (e) => {
 	let t = {};
-	t.topology = e.primitiveDesc?.primitiveTopology || "triangle-list", t.topology !== "triangle-strip" && t.topology !== "line-strip" ? t.stripIndexFormat = void 0 : t.stripIndexFormat = e.dispatch.getIndexFormat();
+	t.topology = e.primitiveDesc?.primitiveTopology || "triangle-list", t.stripIndexFormat = t.topology !== "triangle-strip" && t.topology !== "line-strip" ? void 0 : e.dispatch.getIndexFormat();
 	let n = e.primitiveDesc?.cullFormat || "none";
 	switch (n) {
 		case "none":
@@ -8247,12 +8878,10 @@ var Ut = class {
 		case "backCW":
 			t.frontFace = "cw", t.cullMode = "back";
 			break;
-		default:
-			console.log(`[E][parsePrimitiveState] ${e.debugLabel} unsupported cullFormat: ${n}`), t.cullMode = "none";
-			break;
+		default: console.log(`[E][parsePrimitiveState] ${e.debugLabel} unsupported cullFormat: ${n}`), t.cullMode = "none";
 	}
 	return t;
-}, On = (e) => {
+}, Fn = (e) => {
 	let t = e.context.getLimits().maxBindGroups;
 	for (let n = 0; n < t; n++) if (e.collectedBindgroupLayoutEntriesMap.has(n)) {
 		let t = e.collectedBindgroupLayoutEntriesMap.get(n), r = {
@@ -8261,7 +8890,7 @@ var Ut = class {
 		}, i = e.context.getGpuDevice().createBindGroupLayout(r);
 		e.bindGroupLayouts.push(i), e.gourpIDWithBindGroupLayoutMap.set(n, i), e.gourpIDWithBindGroupLayoutDescriptorMap.set(n, r);
 	}
-}, kn = (e) => {
+}, In = (e) => {
 	let t = /* @__PURE__ */ new Map(), n = e.context.getLimits().maxBindGroups, r = e.vertexShader.getBindGroupWithGroupLayoutEntriesMap(), i = e.fragmentShader.getBindGroupWithGroupLayoutEntriesMap();
 	if (r?.size + i?.size >= n * 2) throw Error(`[E][parseRenderBindGroupLayout] ${e.debugLabel} bindgroup over size.`);
 	let a = (e, t) => {
@@ -8276,7 +8905,7 @@ var Ut = class {
 			return;
 		}
 	}
-	On({
+	Fn({
 		debugLabel: e.debugLabel,
 		context: e.context,
 		collectedBindgroupLayoutEntriesMap: t,
@@ -8284,7 +8913,7 @@ var Ut = class {
 		gourpIDWithBindGroupLayoutMap: e.gourpIDWithBindGroupLayoutMap,
 		gourpIDWithBindGroupLayoutDescriptorMap: e.gourpIDWithBindGroupLayoutDescriptorMap
 	});
-}, An = (e) => {
+}, Ln = (e) => {
 	if (!e.dispatch) throw Error(`[E][parseRenderDispatch] ${e.debugLabel} missing render 'dispatch' in 'RenderHolderDesc'`);
 	let t = e.dispatch.getPropertyFormat();
 	switch (t) {
@@ -8305,7 +8934,7 @@ var Ut = class {
 			t.drawIndirect(n.getGpuBuffer(null, "frameBegin"), 0);
 		};
 		case "multiDrawIndirect": return (t) => {
-			let n = e.dispatch.getIndirectBuffer(), r = e.dispatch.getIndirectCountBuffer(), i = Math.min(e.dispatch.getMaxDrawCount(), 65535 * 64);
+			let n = e.dispatch.getIndirectBuffer(), r = e.dispatch.getIndirectCountBuffer(), i = Math.min(e.dispatch.getMaxDrawCount(), 4194240);
 			t.multiDrawIndirect(n.getGpuBuffer(null, "frameBegin"), 0, i, r.getGpuBuffer(null, "frameBegin"), 0);
 		};
 		case "drawIndexedIndirect": return (t) => {
@@ -8313,12 +8942,12 @@ var Ut = class {
 			t.setIndexBuffer(n.getGpuBuffer(null, "frameBegin"), n.getIndexedFormat()), t.drawIndexedIndirect(r.getGpuBuffer(null, "frameBegin"), 0);
 		};
 		case "multiDrawIndexedIndirect": return (t) => {
-			let n = e.dispatch.getIndexStorageBuffer(), r = e.dispatch.getIndexedIndirectBuffer(), i = e.dispatch.getIndirectCountBuffer(), a = Math.min(e.dispatch.getMaxDrawCount(), 65535 * 64);
+			let n = e.dispatch.getIndexStorageBuffer(), r = e.dispatch.getIndexedIndirectBuffer(), i = e.dispatch.getIndirectCountBuffer(), a = Math.min(e.dispatch.getMaxDrawCount(), 4194240);
 			t.setIndexBuffer(n.getGpuBuffer(null, "frameBegin"), n.getIndexedFormat()), t.multiDrawIndexedIndirect(r.getGpuBuffer(null, "frameBegin"), 0, a, i.getGpuBuffer(null, "frameBegin"), 0);
 		};
 		default: throw Error(`[E][parseRenderDispatch] ${e.debugLabel} unsupport render dispatch type:${t} in render 'RenderHolderDesc'`);
 	}
-}, $ = class {
+}, Rn = class {
 	propertyName;
 	propertyFormat;
 	constructor(e, t = "none") {
@@ -8326,14 +8955,14 @@ var Ut = class {
 	}
 	getPropertyFormat = () => this.propertyFormat;
 	getPropertyName = () => this.propertyName;
-}, jn = class extends $ {
+}, zn = class extends Rn {
 	buffer;
 	constructor(e, t) {
 		super(e, "uniformBuffer"), this.buffer = t;
 	}
 	getUniformBufferID = () => this.buffer.getID();
-}, Mn = (e, t, n, r) => {}, Nn = (e) => {
-	if (e.uniforms?.isEmpty()) return Mn;
+}, Bn = (e, t, n, r) => {}, Vn = (e) => {
+	if (e.uniforms?.isEmpty()) return Bn;
 	let t = (t, n) => {
 		if (!e.bufferUniformRecordsMap.has(t)) {
 			let n = /* @__PURE__ */ new Map();
@@ -8392,8 +9021,8 @@ var Ut = class {
 		}), r.forEach((n) => {
 			a.getTexture(n)?.getGpuTexture(t, e);
 		});
-	} : Mn;
-}, Pn = (e, t, n) => {
+	} : Bn;
+}, Hn = (e, t, n) => {
 	(() => {
 		let t = e.context.getLimits().maxBindGroups, r = e.vertexShader?.getBindGroupWithResourceBindingsMap() || /* @__PURE__ */ new Map(), i = e.fragmentShader?.getBindGroupWithResourceBindingsMap() || /* @__PURE__ */ new Map(), a = e.computeShader?.getBindGroupWithResourceBindingsMap() || /* @__PURE__ */ new Map();
 		if (r.size >= t || i.size >= t || a.size >= t) throw Error(`[E][emitUniforms][mergeBindGroupWithResourceBindingsMap] ${e.debugLabel} over limits: ${t}`);
@@ -8425,8 +9054,8 @@ var Ut = class {
 			if (!o) throw Error(`[E][emitUniforms] ${e.debugLabel} uniforms record: ${a} is not assigned.`);
 			let s = t.resourceType;
 			switch (s) {
-				case x.Storage:
-				case x.Uniform: {
+				case w.Storage:
+				case w.Uniform: {
 					let n = o?.resourceID, a = e.bufferState.getBuffer(n);
 					if (!a) throw Error(`[E][emitUniforms] ${e.debugLabel} emit resource buffer (id:${n}) is undefined.`);
 					let s = {
@@ -8440,12 +9069,12 @@ var Ut = class {
 					i.push(c), r += t.size;
 					break;
 				}
-				case x.Texture:
-				case x.StorageTexture: {
+				case w.Texture:
+				case w.StorageTexture: {
 					let n = o?.resourceID, r = e.textureState.getTexture(n);
 					if (!r) throw Error(`[E][emitUniforms] ${e.debugLabel} missing texture, id:${n}`);
-					if (s === x.Texture) r.useAsTextureBinding();
-					else if (s === x.StorageTexture) r.useAsStorageBinding();
+					if (s === w.Texture) r.useAsTextureBinding();
+					else if (s === w.StorageTexture) r.useAsStorageBinding();
 					else throw Error(`[E][emitUniforms] ${e.debugLabel} unsupport resource type: ${s}, id: ${n}`);
 					let a = r?.getGpuTextureView();
 					if (!a) throw Error(`[E][emitUniforms] ${e.debugLabel} missing texture view, id:${n}`);
@@ -8456,7 +9085,7 @@ var Ut = class {
 					i.push(c);
 					break;
 				}
-				case x.Sampler: {
+				case w.Sampler: {
 					let n = o?.resourceID, r = e.samplerState.getSampler(n)?.getGpuSampler(void 0, "frameBegin");
 					if (!r) throw Error(`[E][emitUniforms] ${e.debugLabel} emit resource sampler (id: ${n}) is undfined.`);
 					let a = {
@@ -8475,7 +9104,7 @@ var Ut = class {
 		}, o = e.context.getGpuDevice().createBindGroup(a);
 		t.set(r, o);
 	});
-}, Fn = class {
+}, Un = class {
 	id;
 	context;
 	sampler;
@@ -8499,17 +9128,17 @@ var Ut = class {
 		return this.samplerBindingType;
 	}
 	createGpuSampler = () => (this.sampler ||= (this.samplerDesc = {}, this.samplerDesc.addressModeU = this.addressModeU, this.samplerDesc.addressModeV = this.addressModeV, this.samplerDesc.addressModeW = this.addressModeW, this.samplerDesc.magFilter = this.magFilter, this.samplerDesc.minFilter = this.minFilter, this.samplerDesc.mipmapFilter = this.mipmapFilter, this.samplerDesc.lodMinClamp = this.lodMinClamp, this.samplerDesc.lodMaxClamp = this.lodMaxClamp, this.samplerDesc.maxAnisotropy = this.anisotropy, this.compareFunction && (this.samplerDesc.compare = this.compareFunction), this.context?.getGpuDevice().createSampler(this.samplerDesc)), this.sampler);
-}, In = class extends Fn {
+}, Wn = class extends Un {
 	constructor(e) {
 		super(e);
 	}
 	getGpuSampler = (e, t) => (this.sampler || this.createGpuSampler(), this.sampler);
-}, Ln = class extends Fn {
+}, Gn = class extends Un {
 	constructor(e) {
 		super(e);
 	}
 	getGpuSampler = (e, t) => (this.sampler || this.createGpuSampler(), this.sampler);
-}, Rn = class e {
+}, Kn = class e {
 	static SAMPLER_SET = /* @__PURE__ */ new Map();
 	context;
 	constructor(e) {
@@ -8520,7 +9149,7 @@ var Ut = class {
 		return e.SAMPLER_SET.get(t);
 	};
 	createTextureSampler = (n) => {
-		let r = t(), i = new Ln({
+		let r = t(), i = new Gn({
 			id: r,
 			context: this.context,
 			addressModeU: n.addressModeU,
@@ -8537,7 +9166,7 @@ var Ut = class {
 		return e.SAMPLER_SET.set(r, i), e.SAMPLER_SET.get(r);
 	};
 	createComparisonSampler = (n) => {
-		let r = t(), i = new In({
+		let r = t(), i = new Wn({
 			id: r,
 			context: this.context,
 			compareFunction: n.compareFunction,
@@ -8554,13 +9183,13 @@ var Ut = class {
 		});
 		return e.SAMPLER_SET.set(r, i), e.SAMPLER_SET.get(r);
 	};
-}, zn = (e) => {
+}, qn = (e) => {
 	let t = {
 		vertex: e.vertexState,
 		layout: e.pipelineLayout
 	};
 	return t.multisample = e.multisampleState, t.primitive = e.primitiveState, t.fragment = e.fragmentState, e.depthStencilAttachment && (t.depthStencil = e.depthStencilAttachment.getDepthStencilState()), e.pipelineState.createRenderPipeline(t);
-}, Bn = class {
+}, Jn = class {
 	id;
 	context;
 	propertyFormat;
@@ -8569,7 +9198,7 @@ var Ut = class {
 	}
 	getID = () => this.id;
 	getPropertyFormat = () => this.propertyFormat;
-}, Vn = class extends Bn {
+}, Yn = class extends Jn {
 	computePipelineDescriptor;
 	computePipeline;
 	constructor(e) {
@@ -8583,7 +9212,7 @@ var Ut = class {
 		this.computePipeline = this.context.getGpuDevice().createComputePipeline(this.computePipelineDescriptor);
 	};
 	getGpuComputePipeline = () => (this.computePipeline || this.createGpuComputePipeline(), this.computePipeline);
-}, Hn = class extends Bn {
+}, Xn = class extends Jn {
 	renderPipelineDescriptor;
 	renderPipeline;
 	constructor(e) {
@@ -8597,7 +9226,7 @@ var Ut = class {
 		this.renderPipeline = this.context.getGpuDevice().createRenderPipeline(this.renderPipelineDescriptor);
 	};
 	getGpuRenderPipeline = () => (this.renderPipeline || this.createGpuRenderPipeline(), this.renderPipeline);
-}, Un = class e {
+}, Zn = class e {
 	static PIPELINE_SET = /* @__PURE__ */ new Map();
 	context;
 	constructor(e) {
@@ -8608,7 +9237,7 @@ var Ut = class {
 		throw Error(`[E][PipelineState][getPipeline] find pipeline failed, id: ${t}`);
 	};
 	createRenderPipeline = (n) => {
-		let r = t(), i = new Hn({
+		let r = t(), i = new Xn({
 			id: r,
 			context: this.context,
 			renderPipelineDescriptor: n
@@ -8616,14 +9245,14 @@ var Ut = class {
 		return e.PIPELINE_SET.set(r, i), this.getPipeline(r);
 	};
 	createComputePipeline = (n) => {
-		let r = t(), i = new Vn({
+		let r = t(), i = new Yn({
 			id: r,
 			context: this.context,
 			computePipelineDescriptor: n
 		});
 		return e.PIPELINE_SET.set(r, i), this.getPipeline(r);
 	};
-}, Wn = class extends xn {
+}, Qn = class extends On {
 	depthStencilState;
 	depthStencilAttachment;
 	texture;
@@ -8657,9 +9286,7 @@ var Ut = class {
 			case "less-equal":
 				this.depthStencilState.depthWriteEnabled = !0, this.depthStencilState.depthCompare = this.depthCompareFunction;
 				break;
-			default:
-				console.log(`[E][DepthStencilAttachment][updateDepthStencilState] unsupported depth compare function, type:${this.depthCompareFunction}`);
-				break;
+			default: console.log(`[E][DepthStencilAttachment][updateDepthStencilState] unsupported depth compare function, type:${this.depthCompareFunction}`);
 		}
 		switch (this.stencilStateFormat) {
 			case "alwaysKeep": {
@@ -8667,9 +9294,7 @@ var Ut = class {
 				e.compare = "always", e.passOp = "keep", e.failOp = "keep", e.depthFailOp = "keep", this.depthStencilState.stencilFront = e, this.depthStencilState.stencilBack = e, this.depthStencilState.stencilReadMask = 0, this.depthStencilState.stencilWriteMask = 0;
 				break;
 			}
-			default:
-				console.log(`[E][DepthStencilAttachment][updateDepthStencilState] unsupported depth stencil state format function, type:${this.stencilStateFormat}`);
-				break;
+			default: console.log(`[E][DepthStencilAttachment][updateDepthStencilState] unsupported depth stencil state format function, type:${this.stencilStateFormat}`);
 		}
 		this.depthBias && (this.depthStencilState.depthBias = this.depthBias), this.depthBiasSlopeScale && (this.depthStencilState.depthBiasSlopeScale = this.depthBiasSlopeScale);
 	};
@@ -8696,7 +9321,7 @@ var Ut = class {
 	getGpuRenderPassDepthStencilAttachment = () => (this.updateAttachment(), this.depthStencilAttachment);
 	getDepthStencilState = () => (this.updateState(), this.depthStencilState);
 	getTexture = () => this.texture;
-}, Gn = class e {
+}, $n = class e {
 	static ATTACHMENT_SET = /* @__PURE__ */ new Map();
 	context;
 	constructor(e) {
@@ -8709,7 +9334,7 @@ var Ut = class {
 	createColorAttachment = (n) => {
 		let r = t();
 		if (!e.ATTACHMENT_SET.has(r)) {
-			let t = new Sn({
+			let t = new kn({
 				id: r,
 				context: this.context,
 				texture: n.texture,
@@ -8724,7 +9349,7 @@ var Ut = class {
 	createDepthStencilAttachment = (n) => {
 		let r = t();
 		if (!e.ATTACHMENT_SET.has(r)) {
-			let t = new Wn({
+			let t = new Qn({
 				id: r,
 				context: this.context,
 				texture: n.texture,
@@ -8743,7 +9368,7 @@ var Ut = class {
 		}
 		return e.ATTACHMENT_SET.get(r);
 	};
-}, Kn = (e) => {
+}, er = (e) => {
 	let t = /* @__PURE__ */ new Map(), n = e.context.getLimits().maxBindGroups, r = e.computeShader.getBindGroupWithGroupLayoutEntriesMap();
 	if (r?.size >= n) throw Error(`[E][parseComputeBindGroupLayout] ${e.debugLabel} bindgroup over size. maxBindGroup :${n}`);
 	for (let i = 0; i < e.context.getLimits().maxBindGroups; i++) {
@@ -8754,7 +9379,7 @@ var Ut = class {
 		}
 		if (a.length && (t.set(i, a), t.size != i + 1)) throw Error(`[E][parseRenderBindGroupLayout] ${e.debugLabel} binding group should use in order from start [0 to ${n}], please check shader binding group index.`);
 	}
-	On({
+	Fn({
 		debugLabel: e.debugLabel,
 		context: e.context,
 		collectedBindgroupLayoutEntriesMap: t,
@@ -8762,7 +9387,7 @@ var Ut = class {
 		gourpIDWithBindGroupLayoutMap: e.gourpIDWithBindGroupLayoutMap,
 		gourpIDWithBindGroupLayoutDescriptorMap: e.gourpIDWithBindGroupLayoutDescriptorMap
 	});
-}, qn = (e) => {
+}, tr = (e) => {
 	if (!e.dispatch) throw Error("[E][parseComputeDispatch] missing compute 'dispatch' in 'ComputeHolderDesc'");
 	let t = e.dispatch.getPropertyFormat();
 	switch (t) {
@@ -8771,16 +9396,16 @@ var Ut = class {
 		};
 		default: throw Error(`[E][parseComputeDispatch] ${e.debugLabel} unsupport render dispatch type:${t} in 'ComputeHolderDesc'`);
 	}
-}, Jn = (e) => ({
+}, nr = (e) => ({
 	module: e.computeShader.getGpuShader(),
 	entryPoint: e.computeShader.getEntryPoint()
-}), Yn = (e) => {
+}), rr = (e) => {
 	let t = {
 		compute: e.computeProgrammableStage,
 		layout: e.pipelineLayout
 	};
 	return e.pipelineState.createComputePipeline(t);
-}, Xn = class {
+}, ir = class {
 	context;
 	bufferState;
 	shaderState;
@@ -8789,64 +9414,64 @@ var Ut = class {
 	pipelineState;
 	attachmentState;
 	constructor(e) {
-		this.context = e, this.bufferState = new ue(this.context), this.shaderState = new an(this.context), this.textureState = new _n(this.context), this.samplerState = new Rn(this.context), this.pipelineState = new Un(this.context), this.attachmentState = new Gn(this.context);
+		this.context = e, this.bufferState = new ie(this.context), this.shaderState = new pn(this.context), this.textureState = new wn(this.context), this.samplerState = new Kn(this.context), this.pipelineState = new Zn(this.context), this.attachmentState = new $n(this.context);
 	}
 	compileRenderHolder = (e) => {
 		let n = `[RenderHolder][${e.label}]`, r = e.vertexShader, i = e.fragmentShader;
 		if (!r || !i) throw Error(`[E][Compiler][compileRenderHolder] ${n} missing shader, vertexShader: ${r}; fragmentShader:${i}`);
 		r.reflect(e.uniforms, n), i.reflect(e.uniforms, n);
 		let a = /* @__PURE__ */ new Map(), o = /* @__PURE__ */ new Map();
-		bn({
+		Dn({
 			debugLabel: n,
 			attributes: e.attributes,
 			attributeRecordMap: a,
 			bufferAttributeRecordsMap: o
 		});
-		let s = /* @__PURE__ */ new Map(), c = /* @__PURE__ */ new Map(), l = Nn({
+		let s = /* @__PURE__ */ new Map(), c = /* @__PURE__ */ new Map(), l = Vn({
 			debugLabel: n,
 			uniforms: e.uniforms,
 			uniformRecordMap: s,
 			bufferUniformRecordsMap: c
-		}), u = [], ee = /* @__PURE__ */ new Map(), d = /* @__PURE__ */ new Map();
-		kn({
+		}), u = [], d = /* @__PURE__ */ new Map(), f = /* @__PURE__ */ new Map();
+		In({
 			debugLabel: n,
 			context: this.context,
 			vertexShader: r,
 			fragmentShader: i,
 			bindGroupLayouts: u,
-			gourpIDWithBindGroupLayoutMap: ee,
-			gourpIDWithBindGroupLayoutDescriptorMap: d
+			gourpIDWithBindGroupLayoutMap: d,
+			gourpIDWithBindGroupLayoutDescriptorMap: f
 		});
-		let te = An({
+		let p = Ln({
 			debugLabel: n,
 			dispatch: e.dispatch
-		}), re = Tn({
+		}), h = Mn({
 			debugLabel: n,
 			multiSampleFormat: e.multiSampleFormat || "1x"
-		}), ie = Cn({
+		}), g = An({
 			debugLabel: n,
 			colorAttachments: e.colorAttachments
-		}), ae = Dn({
+		}), _ = Pn({
 			debugLabel: n,
 			primitiveDesc: e.primitiveDesc,
 			dispatch: e.dispatch
-		}), oe = wn({
+		}), ee = jn({
 			debugLabel: n,
 			fragmentShader: i,
-			colorTargetStates: ie
-		}), f = En({
+			colorTargetStates: g
+		}), v = Nn({
 			debugLabel: n,
 			context: this.context,
 			bindGroupLayouts: u
-		}), p = [], m = /* @__PURE__ */ new Map(), h = /* @__PURE__ */ new Map(), se = yn({
+		}), y = [], b = /* @__PURE__ */ new Map(), x = /* @__PURE__ */ new Map(), te = En({
 			debugLabel: n,
 			vertexShader: r,
 			bufferAttributeRecordsMap: o,
-			vertexBufferLayouts: p,
-			vertexBufferIDAttributesMap: m,
-			slotBufferIDMap: h
-		}), ce = /* @__PURE__ */ new Map(), le = /* @__PURE__ */ new Map();
-		Pn({
+			vertexBufferLayouts: y,
+			vertexBufferIDAttributesMap: b,
+			slotBufferIDMap: x
+		}), ne = /* @__PURE__ */ new Map(), re = /* @__PURE__ */ new Map();
+		Hn({
 			debugLabel: n,
 			context: this.context,
 			vertexShader: r,
@@ -8856,30 +9481,30 @@ var Ut = class {
 			samplerState: this.samplerState,
 			uniformRecordMap: s,
 			bufferIDUniformRecordsMap: c,
-			gourpIDWithBindGroupLayoutMap: ee,
-			gourpIDWithBindGroupLayoutDescriptorMap: d
-		}, ce, le);
-		let ue = zn({
+			gourpIDWithBindGroupLayoutMap: d,
+			gourpIDWithBindGroupLayoutDescriptorMap: f
+		}, ne, re);
+		let ie = qn({
 			debugLabel: n,
 			pipelineState: this.pipelineState,
 			depthStencilAttachment: e.depthStencilAttachment,
-			vertexState: se,
-			fragmentState: oe,
-			pipelineLayout: f,
-			primitiveState: ae,
-			multisampleState: re
+			vertexState: te,
+			fragmentState: ee,
+			pipelineLayout: v,
+			primitiveState: _,
+			multisampleState: h
 		});
-		return new ne({
+		return new m({
 			debugLabel: n,
 			id: t(),
 			context: this.context,
-			renderPipeline: ue,
+			renderPipeline: ie,
 			bufferState: this.bufferState,
 			texturteState: this.textureState,
-			renderHandler: te,
+			renderHandler: p,
 			uniformHandler: l,
-			slotAttributeBufferIDMap: h,
-			slotBindGroupMap: ce,
+			slotAttributeBufferIDMap: x,
+			slotBindGroupMap: ne,
 			colorAttachments: e.colorAttachments,
 			depthStencilAttachment: e.depthStencilAttachment
 		});
@@ -8888,13 +9513,13 @@ var Ut = class {
 		let n = `[ComputeHolder][${e.label}]`, r = e.computeShader;
 		if (!r) throw Error(`[E][Compiler][compileComputeHolder] ${n} missing shader, computeShader: ${r}`);
 		r.reflect(e.uniforms, n);
-		let i = /* @__PURE__ */ new Map(), a = /* @__PURE__ */ new Map(), o = Nn({
+		let i = /* @__PURE__ */ new Map(), a = /* @__PURE__ */ new Map(), o = Vn({
 			debugLabel: n,
 			uniforms: e.uniforms,
 			uniformRecordMap: i,
 			bufferUniformRecordsMap: a
 		}), s = [], c = /* @__PURE__ */ new Map(), l = /* @__PURE__ */ new Map();
-		Kn({
+		er({
 			debugLabel: n,
 			context: this.context,
 			computeShader: r,
@@ -8902,18 +9527,18 @@ var Ut = class {
 			gourpIDWithBindGroupLayoutMap: c,
 			gourpIDWithBindGroupLayoutDescriptorMap: l
 		});
-		let u = qn({
+		let u = tr({
 			debugLabel: n,
 			dispatch: e.dispatch
-		}), ee = Jn({
+		}), d = nr({
 			debugLabel: n,
 			computeShader: r
-		}), d = En({
+		}), f = Nn({
 			debugLabel: n,
 			context: this.context,
 			bindGroupLayouts: s
-		}), ne = /* @__PURE__ */ new Map(), re = /* @__PURE__ */ new Map();
-		Pn({
+		}), m = /* @__PURE__ */ new Map(), h = /* @__PURE__ */ new Map();
+		Hn({
 			debugLabel: n,
 			context: this.context,
 			computeShader: r,
@@ -8924,24 +9549,24 @@ var Ut = class {
 			bufferIDUniformRecordsMap: a,
 			gourpIDWithBindGroupLayoutMap: c,
 			gourpIDWithBindGroupLayoutDescriptorMap: l
-		}, ne, re);
-		let ie = Yn({
+		}, m, h);
+		let g = rr({
 			debugLabel: n,
-			computeProgrammableStage: ee,
-			pipelineLayout: d,
+			computeProgrammableStage: d,
+			pipelineLayout: f,
 			pipelineState: this.pipelineState
 		});
-		return new te({
+		return new p({
 			debugLabel: n,
 			id: t(),
 			context: this.context,
-			computePipeline: ie,
+			computePipeline: g,
 			bufferState: this.bufferState,
 			textureState: this.textureState,
 			computeHandler: u,
 			uniformHandler: o,
 			hookHandler: e.handler,
-			slotBindGroupMap: ne
+			slotBindGroupMap: m
 		});
 	};
 	createVertexBuffer = (e) => this.bufferState.createVertexBuffer({
@@ -9054,14 +9679,6 @@ var Ut = class {
 		mipmapCount: e.mipmapCount,
 		appendixTextureUsages: e.appendixTextureUsages
 	});
-	createTextureStorage2D = (e) => this.textureState.createTextureStorage2D({
-		width: e.width,
-		height: e.height,
-		textureData: e.textureData,
-		textureFormat: e.textureFormat,
-		mipmapCount: e.mipmapCount,
-		appendixTextureUsages: e.appendixTextureUsages
-	});
 	createTexture2DArray = (e) => this.textureState.createTexture2DArray({
 		width: e.width,
 		height: e.height,
@@ -9115,38 +9732,38 @@ var Ut = class {
 		compareFunction: e.compareFunction || "always",
 		samplerBindingType: e.samplerBindingType
 	});
-}, Zn = class extends $ {
+}, ar = class extends Rn {
 	vertexBuffer;
 	constructor(e, t) {
 		super(e, "vertexBuffer"), this.vertexBuffer = t;
 	}
 	getVertexBufferID = () => this.vertexBuffer.getID();
-}, Qn = class extends $ {
+}, or = class extends Rn {
 	buffer;
 	constructor(e, t) {
 		super(e, "storageBuffer"), this.buffer = t;
 	}
 	getStorageBufferID = () => this.buffer.getID();
-}, $n = class extends $ {
+}, sr = class extends Rn {
 	texture;
 	constructor(e, t) {
 		super(e, t.getPropertyFormat()), this.texture = t;
 	}
 	getTextureID = () => this.texture.getID();
 	getTexture = () => this.texture;
-}, er = class extends $ {
+}, cr = class extends Rn {
 	textureSampler;
 	constructor(e, t) {
 		super(e, "textureSampler"), this.textureSampler = t;
 	}
 	getTextureSamplerID = () => this.textureSampler.getID();
 	getTextureSampler = () => this.textureSampler;
-}, tr = class {
+}, lr = class {
 	propertyMap = /* @__PURE__ */ new Map();
 	constructor() {}
 	isEmpty = () => this.propertyMap.size === 0;
 	getPropertyMap = () => this.propertyMap;
-}, nr = class extends tr {
+}, ur = class extends lr {
 	constructor() {
 		super();
 	}
@@ -9155,45 +9772,47 @@ var Ut = class {
 			console.log(`[I][Properties][Attributes] duplicated key :${e}`);
 			return;
 		}
-		let n = new Zn(e, t);
+		let n = new ar(e, t);
 		this.propertyMap.set(e, n);
 	};
-}, rr = class extends tr {
+}, dr = class extends lr {
 	constructor() {
 		super();
 	}
 	assign(e, t) {
-		if (t instanceof ce) {
-			let n = new jn(e, t);
+		if (t instanceof ne) {
+			let n = new zn(e, t);
 			this.propertyMap.set(e, n);
 			return;
-		} else if (t instanceof f) {
-			let n = new Qn(e, t);
+		}
+		if (t instanceof v) {
+			let n = new or(e, t);
 			this.propertyMap.set(e, n);
 			return;
-		} else if (t instanceof Ln) {
-			let n = new er(e, t);
+		}
+		if (t instanceof Gn) {
+			let n = new cr(e, t);
 			this.propertyMap.set(e, n);
 			return;
-		} else if (t instanceof fn) {
-			let n = new $n(e, t);
+		}
+		if (t instanceof bn) {
+			let n = new sr(e, t);
 			this.propertyMap.set(e, n);
 			return;
-		} else if (t instanceof pn) {
-			let n = new $n(e, t);
+		}
+		if (t instanceof xn) {
+			let n = new sr(e, t);
 			this.propertyMap.set(e, n);
 			return;
-		} else if (t instanceof gn) {
-			let n = new $n(e, t);
+		}
+		if (t instanceof Sn) {
+			let n = new sr(e, t);
 			this.propertyMap.set(e, n);
 			return;
-		} else if (t instanceof mn) {
-			let n = new $n(e, t);
-			this.propertyMap.set(e, n);
-			return;
-		} else throw Error(`[E][Properties][Uniforms][assign] unsupported buffer type, buffer: ${t}`);
+		}
+		throw Error(`[E][Properties][Uniforms][assign] unsupported buffer type, buffer: ${t}`);
 	}
-}, ir = class extends $ {
+}, fr = class extends Rn {
 	groupX;
 	groupY;
 	groupZ;
@@ -9206,7 +9825,7 @@ var Ut = class {
 	getGroupX = () => this.hanlderX ? this.hanlderX() : this.groupX;
 	getGroupY = () => this.hanlderY ? this.hanlderY() : this.groupY;
 	getGroupZ = () => this.hanlderZ ? this.hanlderZ() : this.groupZ;
-}, ar = class extends $ {
+}, pr = class extends Rn {
 	maxDrawCount = 0;
 	maxDrawCountHandler;
 	instanceCount = 1;
@@ -9218,15 +9837,15 @@ var Ut = class {
 	constructor(e, t, n, r) {
 		if (super("[RenderProperty][constructor]"), typeof e == "number" && t === void 0 && n === void 0 && r === void 0) this.propertyFormat = "drawCount", this.maxDrawCount = e, this.instanceCount = 1;
 		else if (typeof e == "number" && typeof t == "number" && n === void 0 && r === void 0) this.propertyFormat = "drawCount", this.maxDrawCount = e, this.instanceCount = t;
-		else if (e instanceof ae && t == null && n === void 0 && r == null) this.propertyFormat = "drawIndexed", this.indexBuffer = e, this.instanceCount = 1;
-		else if (e instanceof ae && typeof t == "number" && n === void 0 && r === void 0) this.propertyFormat = "drawIndexed", this.indexBuffer = e, this.instanceCount = t;
-		else if (e instanceof m && typeof t == "number" && n === void 0 && r === void 0) this.propertyFormat = "drawIndexedStorage", this.indexedStorageBuffer = e, this.instanceCount = t;
-		else if (e instanceof m && t instanceof p && n == null && r == null) this.propertyFormat = "drawIndexedIndirect", this.indexedStorageBuffer = e, this.indexedIndirectBuffer = t;
-		else if (e instanceof m && t instanceof p && n instanceof f && typeof r == "number") this.propertyFormat = "multiDrawIndexedIndirect", this.indexedStorageBuffer = e, this.indexedIndirectBuffer = t, this.indirectDrawCountBuffer = n, this.maxDrawCount = r;
-		else if (e instanceof m && t instanceof p && n instanceof f && typeof r == "function" && r.length === 0) this.propertyFormat = "multiDrawIndexedIndirect", this.indexedStorageBuffer = e, this.indexedIndirectBuffer = t, this.indirectDrawCountBuffer = n, this.maxDrawCountHandler = r;
-		else if (e instanceof h && t === void 0 && n == null && r == null) this.propertyFormat = "drawIndirect", this.indirectBuffer = e;
-		else if (e instanceof h && t instanceof f && typeof n == "number" && r == null) this.propertyFormat = "multiDrawIndirect", this.indirectBuffer = e, this.indirectDrawCountBuffer = t, this.maxDrawCount = n;
-		else if (e instanceof h && t instanceof f && typeof n == "function" && n.length === 0 && r === void 0) this.propertyFormat = "multiDrawIndirect", this.indirectBuffer = e, this.indirectDrawCountBuffer = t, this.maxDrawCountHandler = n;
+		else if (e instanceof _ && t == null && n === void 0 && r == null) this.propertyFormat = "drawIndexed", this.indexBuffer = e, this.instanceCount = 1;
+		else if (e instanceof _ && typeof t == "number" && n === void 0 && r === void 0) this.propertyFormat = "drawIndexed", this.indexBuffer = e, this.instanceCount = t;
+		else if (e instanceof b && typeof t == "number" && n === void 0 && r === void 0) this.propertyFormat = "drawIndexedStorage", this.indexedStorageBuffer = e, this.instanceCount = t;
+		else if (e instanceof b && t instanceof y && n == null && r == null) this.propertyFormat = "drawIndexedIndirect", this.indexedStorageBuffer = e, this.indexedIndirectBuffer = t;
+		else if (e instanceof b && t instanceof y && n instanceof v && typeof r == "number") this.propertyFormat = "multiDrawIndexedIndirect", this.indexedStorageBuffer = e, this.indexedIndirectBuffer = t, this.indirectDrawCountBuffer = n, this.maxDrawCount = r;
+		else if (e instanceof b && t instanceof y && n instanceof v && typeof r == "function" && r.length === 0) this.propertyFormat = "multiDrawIndexedIndirect", this.indexedStorageBuffer = e, this.indexedIndirectBuffer = t, this.indirectDrawCountBuffer = n, this.maxDrawCountHandler = r;
+		else if (e instanceof x && t === void 0 && n == null && r == null) this.propertyFormat = "drawIndirect", this.indirectBuffer = e;
+		else if (e instanceof x && t instanceof v && typeof n == "number" && r == null) this.propertyFormat = "multiDrawIndirect", this.indirectBuffer = e, this.indirectDrawCountBuffer = t, this.maxDrawCount = n;
+		else if (e instanceof x && t instanceof v && typeof n == "function" && n.length === 0 && r === void 0) this.propertyFormat = "multiDrawIndirect", this.indirectBuffer = e, this.indirectDrawCountBuffer = t, this.maxDrawCountHandler = n;
 		else throw Error("[E] unsupported 'RenderProperty' constructor.");
 	}
 	getMaxDrawCount = () => this.maxDrawCountHandler ? this.maxDrawCountHandler() : this.maxDrawCount;
@@ -9260,4 +9879,4 @@ var Ut = class {
 	};
 };
 //#endregion
-export { nr as Attributes, re as BaseBuffer, d as BaseHolder, Sn as ColorAttachment, Xn as Compiler, te as ComputeHolder, Vn as ComputePipeline, ir as ComputeProperty, $t as ComputeShader, l as Context, Wn as DepthStencilAttachment, en as FragmentShader, ae as IndexedBuffer, p as IndexedIndirectBuffer, m as IndexedStorageBuffer, h as IndirectBuffer, se as MapBuffer, u as NoBufferArrayUpdateRequired, ee as NoBufferUpdateRequired, tr as Properties, ne as RenderHolder, Hn as RenderPipeline, ar as RenderProperty, f as StorageBuffer, dn as SurfaceTexture2D, fn as Texture2D, pn as Texture2DArray, mn as Texture3D, hn as TextureCube, Ln as TextureSampler, gn as TextureStorage2D, ce as UniformBuffer, rr as Uniforms, le as VertexBuffer, rn as VertexShader, o as align4Byte, i as getMaxMipmapCount, a as hash32a, n as max, r as min, t as uniqueID };
+export { ur as Attributes, h as BaseBuffer, f as BaseHolder, kn as ColorAttachment, ir as Compiler, p as ComputeHolder, Yn as ComputePipeline, fr as ComputeProperty, cn as ComputeShader, l as Context, Qn as DepthStencilAttachment, ln as FragmentShader, _ as IndexedBuffer, y as IndexedIndirectBuffer, b as IndexedStorageBuffer, x as IndirectBuffer, te as MapBuffer, u as NoBufferArrayUpdateRequired, d as NoBufferUpdateRequired, lr as Properties, m as RenderHolder, Xn as RenderPipeline, pr as RenderProperty, v as StorageBuffer, yn as SurfaceTexture2D, bn as Texture2D, xn as Texture2DArray, Sn as Texture3D, Cn as TextureCube, Gn as TextureSampler, ne as UniformBuffer, dr as Uniforms, re as VertexBuffer, fn as VertexShader, o as align4Byte, i as getMaxMipmapCount, a as hash32a, n as max, r as min, t as uniqueID };
